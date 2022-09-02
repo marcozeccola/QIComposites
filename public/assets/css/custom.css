@@ -1,0 +1,28 @@
+ h1.logo{
+     width:50%!important; 
+ }
+
+ img.logo{
+     width:65%!important;
+ }
+
+.nuovoProgetto{
+     width: 50%!important;
+} 
+
+.card-carousel{
+    padding-top:0px!important;
+}
+
+.card-anomalia{
+    margin-bottom:10px!important;
+}
+
+@media (max-width: 750px) {
+      h1.logo{
+     width:75%!important; 
+ }
+  img.logo{
+     width:100%!important;
+ }
+}
