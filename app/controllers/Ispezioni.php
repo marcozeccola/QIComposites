@@ -14,6 +14,7 @@ class Ispezioni extends Controller {
         $this->tipiAnomalieModel = $this->model('TipoAnomalia'); 
         $this->usersModel = $this->model('User');
         $this->areeModel = $this->model('Area');
+        $this->sondeModel = $this->model('Sonda');
     }
 
      /* Mostra tutte le ispezioni di un progetto  */
@@ -41,6 +42,7 @@ class Ispezioni extends Controller {
                $data= [
                     'operatori'=>$this->usersModel->getAll(),
                     'aree'=> $this->areeModel->getAreeByProgetto($_GET["idProgetto"]),
+                    'sonde'=>$this->sondeModel->getAllSonde(),
                     'idProgetto'=>$_GET["idProgetto"] 
                ];
           }
@@ -48,10 +50,13 @@ class Ispezioni extends Controller {
                $data =[
                     'data'=> trim($_POST["data"]), 
                     'luogo'=> trim($_POST["luogo"]), 
-                    'operatore'=> trim($_POST["operatore"]), 
+                    'operatori'=> trim($_POST["operatori"]), 
+                    'cliente'=> trim($_POST["cliente"]), 
                     'progetto'=> trim($_GET["idProgetto"]), 
                     'risultato'=>empty($_POST["risultato"]) ? 0 : 1,  
-                    'area'=> trim($_POST["area"]),   
+                    'aree'=> trim($_POST["aree"]),   
+                    'sonda'=> trim($_POST["sonda"]),  
+                    'reticolo'=> trim($_POST["reticolo"]),    
                ];
 
                $inserito =  $this->ispezioniCostruzioneModel->inserisci($data);
@@ -72,6 +77,7 @@ class Ispezioni extends Controller {
                $data= [
                     'operatori'=>$this->usersModel->getAll(),
                     'aree'=> $this->areeModel->getAreeByProgetto($_GET["idProgetto"]),
+                    'sonde'=>$this->sondeModel->getAllSonde(),
                     'idProgetto'=>$_GET["idProgetto"] 
                ];
           }
@@ -79,11 +85,14 @@ class Ispezioni extends Controller {
                $data =[
                     'data'=> trim($_POST["data"]), 
                     'luogo'=> trim($_POST["luogo"]), 
-                    'operatore'=> trim($_POST["operatore"]), 
+                    'operatori'=> trim($_POST["operatori"]), 
+                    'cliente'=> trim($_POST["cliente"]), 
                     'progetto'=> trim($_GET["idProgetto"]), 
                     'risultato'=>empty($_POST["risultato"]) ? 0 : 1,  
-                    'area'=> trim($_POST["area"]),   
-                    'dettagli'=> trim($_POST["dettagli"]),  
+                    'aree'=> trim($_POST["aree"]),   
+                    'dettagli'=> trim($_POST["dettagli"]), 
+                    'sonda'=> trim($_POST["sonda"]),  
+                    'reticolo'=> trim($_POST["reticolo"]),     
                ];
 
                $inserito =  $this->ispezioniNavigazioneModel->inserisci($data);

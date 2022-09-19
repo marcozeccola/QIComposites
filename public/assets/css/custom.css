@@ -18,6 +18,15 @@
     margin-bottom:10px!important;
 }
 
+.form-switch{
+    padding-left: 0rem!important;
+}
+
+#container-aggiungi{
+    display:none;
+}
+
+
 @media (max-width: 750px) {
       h1.logo{
      width:75%!important; 

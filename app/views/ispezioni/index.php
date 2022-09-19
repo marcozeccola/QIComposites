@@ -34,7 +34,7 @@
               <div class="card-block"> 
                 <ul class="list-group">
                   <li class="list-group-item">Luogo: <?php echo $ispezione->luogo; ?> </li>
-                  <li class="list-group-item">Operatore:  <?php echo $ispezione->nomeOperatore; ?>  <?php echo $ispezione->cognomeOperatore; ?></li>
+                  <li class="list-group-item">Operatori:  <?php echo $ispezione->operatori; ?>  </li>
                   <li class="list-group-item">Anomalie:  <?php echo $ispezione->risultato ? "presenti" :  "assenti"; ?></li> 
                 </ul>
                 <a href="<?php echo URLROOT ?>/anomalie/anomalieIspezioneCostruzione?idIspezione=<?php echo $ispezione->idIspezioneCostruzione; ?>" class="btn">DETTAGLI</a>
@@ -73,11 +73,11 @@
               </div>
               <div class="card-block">
                 <h4 class="card-title">
-                  <?php echo $ispezione->area; ?>
+                  <?php echo $ispezione->aree; ?>
                 </h4>
                 <ul class="list-group">
                   <li class="list-group-item">Luogo: <?php echo $ispezione->luogo; ?> </li>
-                  <li class="list-group-item">Operatore:  <?php echo $ispezione->nomeOperatore; ?>  <?php echo $ispezione->cognomeOperatore; ?></li>
+                  <li class="list-group-item">Operatori:  <?php echo $ispezione->operatori; ?></li>
                   <li class="list-group-item">Anomalie:  <?php echo $ispezione->risultato ? "presenti" :  "assenti"; ?></li> 
                   <li class="list-group-item">Dettagli:  <?php echo $ispezione->dettagli; ?></li> 
                 </ul>

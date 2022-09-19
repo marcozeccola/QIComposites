@@ -6,16 +6,18 @@ class IspezioneNavigazione {
     }
 
     public function inserisci($data) {
-        $this->db->query('INSERT INTO ispezioni_navigazione (data, luogo, dettagli, risultato ,cliente,fk_idProgetto, fk_idOperatore,  fk_idAreaRiferimento)
-                             VALUES(:data, :luogo, :dettagli  , :risultato, :cliente , :progetto, :operatore, :area)');
+        $this->db->query('INSERT INTO ispezioni_navigazione (data, luogo, dettagli, risultato ,cliente,fk_idProgetto, operatori,  aree, fk_idSonda, reticolo )
+                             VALUES(:data, :luogo, :dettagli  , :risultato, :cliente , :progetto, :operatori, :aree, :sonda, :reticolo)');
  
         $this->db->bind(':data', $data['data']);
         $this->db->bind(':luogo', $data['luogo']);
         $this->db->bind(':risultato', $data['risultato']);
         $this->db->bind(':progetto', $data['progetto']); 
         $this->db->bind(':cliente', $data['cliente']); 
-        $this->db->bind(':operatore', $data['operatore']); 
-        $this->db->bind(':area', $data['area']); 
+        $this->db->bind(':operatori', $data['operatori']); 
+        $this->db->bind(':aree', $data['aree']); 
+        $this->db->bind(':sonda', $data['sonda']); 
+        $this->db->bind(':reticolo', $data['reticolo']); 
         $this->db->bind(':dettagli', $data['dettagli']); 
  
         if ($this->db->execute()) {
@@ -27,15 +29,12 @@ class IspezioneNavigazione {
  
 
     public function getIspezioneById($id){
-        $this->db->query('SELECT ispezioni_navigazione.*,
-                              operatori.nome AS nomeOperatore,
-                              operatori.cognome AS cognomeOperatore, 
-                              aree_riferimento.area AS area,
-                              progetti.nome AS nomeProgetto
-                         FROM ispezioni_navigazione
-                         INNER JOIN operatori ON fk_idOperatore = idOperatore
-                         INNER JOIN aree_riferimento ON fk_idAreaRiferimento = idAreaRiferimento 
+        $this->db->query('SELECT ispezioni_navigazione.*,  
+                              progetti.nome AS nomeProgetto,
+                              sonde.sonda AS sonda
+                         FROM ispezioni_navigazione  
                          INNER JOIN progetti ON ispezioni_navigazione.fk_idProgetto = idProgetto
+                         INNER JOIN sonde ON ispezioni_navigazione.fk_idSonda = idSonda
                           WHERE idIspezioneNavigazione = :id;');
    
         $this->db->bind(':id', $id);
@@ -50,16 +49,14 @@ class IspezioneNavigazione {
     }
 
     public function getIspezioniByProgetto($id){
-        $this->db->query("SELECT ispezioni_navigazione.*,
-                              operatori.nome AS nomeOperatore,
-                              operatori.cognome AS cognomeOperatore, 
-                              aree_riferimento.area AS area,
-                              progetti.nome AS nomeProgetto
-                         FROM ispezioni_navigazione
-                         INNER JOIN operatori ON fk_idOperatore = idOperatore
-                         INNER JOIN aree_riferimento ON fk_idAreaRiferimento = idAreaRiferimento 
+        $this->db->query("SELECT ispezioni_navigazione.*,  
+                              progetti.nome AS nomeProgetto,
+                              sonde.sonda AS sonda
+                         FROM ispezioni_navigazione  
                          INNER JOIN progetti ON ispezioni_navigazione.fk_idProgetto = idProgetto
-                         WHERE ispezioni_navigazione.fk_idProgetto = :id;");
+                         INNER JOIN sonde ON ispezioni_navigazione.fk_idSonda = idSonda
+                         WHERE ispezioni_navigazione.fk_idProgetto = :id
+                         ORDER BY data;");
    
         $this->db->bind(':id', $id);
 

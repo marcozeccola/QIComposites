@@ -36,6 +36,133 @@ class Anomalie extends Controller {
         }
     }
  
+    public function singolaAnomaliaCostruzione(){
+        
+        if( isset($_GET["idAnomalia"])){
+            $data=[
+                'anomalia'=>$this->anomalieCostruzioneModel->getAnomaliaById($_GET["idAnomalia"])
+            ];
+
+            $this->view('anomalie/singolaAnomaliaCostruzione', $data);
+        }else{ 
+            header('location: ' . URLROOT . "/progetti/index");
+        }
+    }
+
+    public function modificaAnomaliaCostruzione(){
+        if(isset($_GET["idAnomalia"])){
+            $data = [
+                "anomalia"=>$this->anomalieCostruzioneModel->getAnomaliaById($_GET["idAnomalia"]),
+                'tipiAnomalie'=>$this->tipiAnomalieModel->getAllTipiAnomalie()
+            ];
+            
+            $this->view('anomalie/modificaAnomaliaCostruzione', $data);
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+            if(isset($_POST["tipo"]) &&  $_POST["tipo"] == "no" &&  !isset($_POST["aggiungiTipo"])){   
+                $inserito = $this->anomalieCostruzioneModel->modificaAnomalia($_POST);  
+            }else if(isset($_POST["tipo"]) && $_POST["tipo"] != "no" && !isset($_POST["aggiungiTipo"])){
+                $inserito = $this->anomalieCostruzioneModel->modificaAnomaliaWithTipo($_POST); 
+                
+            }else if(isset($_POST["aggiungiTipo"]) && $_POST["aggiungiTipo"]=="yes" && isset($_POST["tipoAnomalieInput"])){
+                
+                $idTipoInserito = $this->tipiAnomalieModel->inserisci($_POST["tipoAnomalieInput"]);
+                $data = [
+                    'localizzazione'=>trim($_POST["localizzazione"]),
+                    'estensione'=>trim($_POST["estensione"]),
+                    'profondita'=>trim($_POST["profondita"]),
+                    'idAnomalia'=>trim($_POST["idAnomalia"]),
+                    'tipo'=>$idTipoInserito,
+                ];
+                $inserito = $this->anomalieCostruzioneModel->modificaAnomaliaWithTipo($data);    
+            }
+
+            if ( getimagesize($_FILES["immagini"]["tmp_name"])>0){
+                $files = array_filter($_FILES['immagini']['name']);                         
+                $total_count = count($_FILES['immagini']['name']);
+
+                $cartella = str_replace(' ', '',  PUBLICROOT. "/anomalie/costruzione/ ".$_POST["idAnomalia"]."/ ");
+                
+                if(!is_dir($cartella)){
+                    mkdir( $cartella, 0777, true);
+                }
+
+                for( $i=0 ; $i < $total_count ; $i++ ) {  
+                        $tmpFilePath = $_FILES['immagini']['tmp_name'][$i];
+                        $newFilePath = $cartella. $_FILES['immagini']['name'][$i]; 
+                        move_uploaded_file($tmpFilePath, $newFilePath);
+                } 
+            }
+            header('location: ' . URLROOT . "/anomalie/singolaAnomaliaCostruzione?idAnomalia=". $_POST["idAnomalia"]);
+        }
+
+    }
+    
+    
+    public function modificaAnomaliaNavigazione(){
+        if(isset($_GET["idAnomalia"])){
+            $data = [
+                "anomalia"=>$this->anomalieNavigazioneModel->getAnomaliaById($_GET["idAnomalia"]),
+                'tipiAnomalie'=>$this->tipiAnomalieModel->getAllTipiAnomalie()
+            ];
+            
+            $this->view('anomalie/modificaAnomaliaNavigazione', $data);
+        }
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+            if(isset($_POST["tipo"]) &&  $_POST["tipo"] == "no" &&  !isset($_POST["aggiungiTipo"])){   
+                $this->anomalieNavigazioneModel->modificaAnomalia($_POST);  
+            }else if(isset($_POST["tipo"]) && $_POST["tipo"] != "no" && !isset($_POST["aggiungiTipo"])){
+                $this->anomalieNavigazioneModel->modificaAnomaliaWithTipo($_POST); 
+                
+            }else if(isset($_POST["aggiungiTipo"]) && $_POST["aggiungiTipo"]=="yes" && isset($_POST["tipoAnomalieInput"])){
+                
+                $idTipoInserito = $this->tipiAnomalieModel->inserisci($_POST["tipoAnomalieInput"]);
+                $data = [
+                    'localizzazione'=>trim($_POST["localizzazione"]),
+                    'estensione'=>trim($_POST["estensione"]),
+                    'causa'=>trim($_POST["causa"]),
+                    'profondita'=>trim($_POST["profondita"]),
+                    'idAnomalia'=>trim($_POST["idAnomalia"]),
+                    'tipo'=>$idTipoInserito,
+                ];
+                 $this->anomalieNavigazioneModel->modificaAnomaliaWithTipo($data);
+            }
+
+            if(getimagesize($_FILES["immagini"]["tmp_name"][0])>0){
+                $files = array_filter($_FILES['immagini']['name']);                         
+                $total_count = count($_FILES['immagini']['name']);
+
+                $cartella = str_replace(' ', '',  PUBLICROOT. "/anomalie/navigazione/ ".$_POST["idAnomalia"]."/ ");
+                
+                if(!is_dir($cartella)){
+                    mkdir( $cartella, 0777, true);
+                }
+
+                for( $i=0 ; $i < $total_count ; $i++ ) {  
+                        $tmpFilePath = $_FILES['immagini']['tmp_name'][$i];
+                        $newFilePath = $cartella. $_FILES['immagini']['name'][$i]; 
+                        move_uploaded_file($tmpFilePath, $newFilePath);
+                } 
+            }
+            
+            header('location: ' . URLROOT . "/anomalie/singolaAnomaliaNavigazione?idAnomalia=". $_POST["idAnomalia"]);
+        }
+    }
+
+    public function singolaAnomaliaNavigazione(){
+        
+        if( isset($_GET["idAnomalia"])){
+            $data=[
+                'anomalia'=>$this->anomalieNavigazioneModel->getAnomaliaById($_GET["idAnomalia"])
+            ];
+
+            $this->view('anomalie/singolaAnomaliaNavigazione', $data);
+        }else{ 
+            header('location: ' . URLROOT . "/progetti/index");
+        }
+    }
+ 
     /* Pagina con le anomalie di costruzione di una determinata ispezione passsando per GET l'id  */
     public function anomalieIspezioneCostruzione(){
 
@@ -105,15 +232,15 @@ class Anomalie extends Controller {
      }
 
     //aggiunge tipo di anomalia 
-     public function aggiungiTipoAnomalia(){
-        $data=[];
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $this->tipiAnomalieModel->inserisci($_POST["anomalia"]);
-            header('location: ' . URLROOT . "/progetti/progetto?id=".$_GET["idProgetto"]);
-        }else{  
-            $this->view('anomalie/aggiungiTipoAnomalia', $data);
-        }
-     }
+    public function aggiungiTipoAnomalia(){
+    $data=[];
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $this->tipiAnomalieModel->inserisci($_POST["anomalia"]);
+        header('location: ' . URLROOT . "/progetti/progetto?id=".$_GET["idProgetto"]);
+    }else{  
+        $this->view('anomalie/aggiungiTipoAnomalia', $data);
+    }
+    }
 
     public function aggiungiAnomaliaCostruzione(){
           $data = [];
@@ -130,11 +257,17 @@ class Anomalie extends Controller {
                     'profondita'=> trim($_POST["profondita"]), 
                     'ispezione'=> trim($_GET["idIspezione"]),  
                     'tipo'=> trim($_POST["tipo"]),    
+                    'switchAggiungi'=>trim($_POST["aggiungiTipo"]),
+                    'tipoNuovo'=>trim($_POST["tipoAnomalieInput"]), 
                ];
 
+                if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["tipoNuovo"])){
+                    $idTipoInserito = $this->tipiAnomalieModel->inserisci($data["tipoNuovo"]);
+                    $data["tipo"]= $idTipoInserito; 
+                }
+                
                $inserito =  $this->anomalieCostruzioneModel->inserisci($data);
                if($inserito>0){
-                     
 
                         $files = array_filter($_FILES['immagini']['name']);                         
                         $total_count = count($_FILES['immagini']['name']);
@@ -147,9 +280,7 @@ class Anomalie extends Controller {
                                 $tmpFilePath = $_FILES['immagini']['tmp_name'][$i];
                                 $newFilePath = $cartella. $_FILES['immagini']['name'][$i]; 
                                 move_uploaded_file($tmpFilePath, $newFilePath);
-                        }
-
-                        
+                        } 
 
                 }
                 if(isset($_POST["continua"])){ 
@@ -178,7 +309,15 @@ class Anomalie extends Controller {
                     'ispezione'=> trim($_GET["idIspezione"]),  
                     'tipo'=> trim($_POST["tipo"]),    
                     'causa'=> trim($_POST["causa"]), 
+                    'switchAggiungi'=>trim($_POST["aggiungiTipo"]),
+                    'tipoNuovo'=>trim($_POST["tipoAnomalieInput"]), 
                ];
+
+                if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["tipoNuovo"])){
+                    $idTipoInserito = $this->tipiAnomalieModel->inserisci($data["tipoNuovo"]);
+                    $data["tipo"]= $idTipoInserito; 
+                }
+                
 
                $inserito =  $this->anomalieNavigazioneModel->inserisci($data);
                if($inserito>0){

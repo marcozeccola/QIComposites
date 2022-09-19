@@ -40,6 +40,59 @@ class AnomaliaCostruzione {
         } 
     }
 
+    public function getAnomaliaById($id){
+        $this->db->query('SELECT anomalie_costruzione.*,  tipi_anomalie.anomalia AS tipo
+                            FROM anomalie_costruzione
+                            INNER JOIN tipi_anomalie ON idTipoAnomalia = fk_idTipoAnomalia
+                            WHERE idAnomaliaCostruzione=:id ;');
+   
+        $this->db->bind(':id', $id);
+
+        $result = $this->db->single();
+ 
+        if( $result) {
+            return $result;
+        } else {
+            return false;
+        } 
+    }
+
+    public function modificaAnomalia($anomalia){
+        $this->db->query("UPDATE anomalie_costruzione 
+                        SET localizzazione = :loc, estensione = :est, profondita = :prof
+                        WHERE idAnomaliaCostruzione = :id");
+
+        $this->db->bind(":loc", $anomalia["localizzazione"]);
+        $this->db->bind(":est", $anomalia["estensione"]);
+        $this->db->bind(":prof", $anomalia["profondita"]);
+        $this->db->bind(":id", $anomalia["idAnomalia"]);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function modificaAnomaliaWithTipo($anomalia){
+        $this->db->query("UPDATE anomalie_costruzione 
+                        SET localizzazione = :loc, estensione = :est, profondita = :prof, fk_idTipoAnomalia = :tipo
+                        WHERE idAnomaliaCostruzione = :id");
+
+        $this->db->bind(":loc", $anomalia["localizzazione"]);
+        $this->db->bind(":est", $anomalia["estensione"]);
+        $this->db->bind(":prof", $anomalia["profondita"]);
+        $this->db->bind(":id", $anomalia["idAnomalia"]);
+        $this->db->bind(":tipo", $anomalia["tipo"]);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        } 
+    }
+
     public function risolvi($idAnomalia){
         $this->db->query('UPDATE anomalie_costruzione SET presente = 0 WHERE idAnomaliaCostruzione = :id;');
    

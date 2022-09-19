@@ -26,12 +26,20 @@
               <td><?php echo $data["ispezione"]->nomeProgetto; ?></td> 
             </tr>
             <tr>
-              <th scope="row">Operatore</th>
-              <td><?php echo $data["ispezione"]->nomeOperatore; ?> <?php echo $data["ispezione"]->cognomeOperatore; ?></td> 
+              <th scope="row">Operatori</th>
+              <td><?php echo $data["ispezione"]->operatori; ?></td> 
             </tr>
             <tr>
-              <th scope="row">Area di riferimento</th>
-              <td><?php echo $data["ispezione"]->area; ?></td> 
+              <th scope="row">Aree di riferimento</th>
+              <td><?php echo $data["ispezione"]->aree; ?></td> 
+            </tr> 
+            <tr>
+              <th scope="row">Retiolo</th>
+              <td><?php echo $data["ispezione"]->reticolo; ?></td> 
+            </tr> 
+            <tr>
+              <th scope="row">Sonda</th>
+              <td><?php echo $data["ispezione"]->sonda; ?></td> 
             </tr> 
           </tbody>
         </table>
@@ -50,7 +58,8 @@
 
         <div class="row flex-items-xs-middle flex-items-xs-center">
          <?php
-          foreach($data["anomalieCostruzione"] as $anomalia){   $dir = PUBLICROOT . "/anomalie/costruzione/".$anomalia->idAnomaliaCostruzione;
+          foreach($data["anomalieCostruzione"] as $anomalia){ 
+              $dir = PUBLICROOT . "/anomalie/costruzione/".$anomalia->idAnomaliaCostruzione;
             
             $files= NULL;
             if(is_dir($dir)){
@@ -109,6 +118,7 @@
                   <li class="list-group-item">Profondità:  <?php echo $anomalia->profondita; ?></li> 
                   <li class="list-group-item">Ancora presente:  <?php echo $anomalia->presente ? "sì": "no"; ?></li> 
                 </ul>
+                <a href="<?php echo URLROOT ?>/anomalie/singolaAnomaliaCostruzione?idAnomalia=<?php echo $anomalia->idAnomaliaCostruzione; ?>" class="btn">DETTAGLI</a>
                 <?php if($anomalia->presente!=0){
                   ?>
                   <a href="<?php echo URLROOT ?>/anomalie/risoltoCostruzione?idAnomalia=<?php echo $anomalia->idAnomaliaCostruzione; ?>&idProgetto=<?php echo $data["ispezione"]->fk_idProgetto ;?>&idIspezione=1" class="btn">RISOLTO</a>

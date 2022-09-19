@@ -27,17 +27,21 @@
               <td><?php echo $data["ispezione"]->nomeProgetto; ?></td> 
             </tr>
             <tr>
-              <th scope="row">Operatore</th>
-              <td><?php echo $data["ispezione"]->nomeOperatore; ?> <?php echo $data["ispezione"]->cognomeOperatore; ?></td> 
+              <th scope="row">Operatori</th>
+              <td><?php echo $data["ispezione"]->operatori; ?></td> 
             </tr>
             <tr>
-              <th scope="row">Area di riferimento</th>
-              <td><?php echo $data["ispezione"]->area; ?></td> 
+              <th scope="row">Aree di riferimento</th>
+              <td><?php echo $data["ispezione"]->aree; ?></td> 
             </tr>
             <tr>
               <th scope="row">Dettagli</th>
               <td><?php echo $data["ispezione"]->dettagli; ?></td> 
-            </tr>
+            </tr> 
+            <tr>
+              <th scope="row">Sonda</th>
+              <td><?php echo $data["ispezione"]->sonda; ?></td> 
+            </tr> 
           </tbody>
         </table>
 
@@ -107,15 +111,17 @@
                         <br>
                          <div class="card-block">
                               <h4 class="card-title">
-                                   <?php echo $anomalia->anomalia; ?>
+                                   <?php echo  $anomalia->localizzazione; ?>
                               </h4>
                               <ul class="list-group">
-                                   <li class="list-group-item">Localizzazione: <?php echo $anomalia->localizzazione; ?>
+                                   <li class="list-group-item">Anomalia: <?php echo  $anomalia->anomalia; ?>
                                    </li>
                                    <li class="list-group-item">Estensione: <?php echo $anomalia->estensione; ?></li>
                                    <li class="list-group-item">Profondità: <?php echo $anomalia->profondita; ?></li>
                                    <li class="list-group-item">Ipotesi causa: <?php echo $anomalia->causa; ?></li>
                               </ul>
+                              <a href="<?php echo URLROOT ?>/anomalie/singolaAnomaliaNavigazione?idAnomalia=<?php echo $anomalia->idAnomaliaNavigazione; ?>" class="btn">DETTAGLI</a>
+
                               <a href="<?php echo URLROOT ?>/anomalie/risoltoNavigazione?idAnomalia=<?php echo $anomalia->idAnomaliaNavigazione; ?>&idProgetto=<?php echo $data["ispezione"]->fk_idProgetto ;?>"
                                    class="btn">RISOLTO</a>
                          </div>

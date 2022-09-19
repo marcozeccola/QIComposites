@@ -24,7 +24,7 @@
 
          <!-- nome del progettista input -->
          <div class="form-outline mb-4">
-            <input type="text" id="progettista" name="progettista" class="form-control" required />
+            <input type="text" id="progettista" name="progettista" class="form-control"   />
             <label class="form-label" for="progettista">Nome del progettista</label>
             <small class="text-danger"><?php echo $data["errorProgettista"]; ?></small>
          </div> 
