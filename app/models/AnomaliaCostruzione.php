@@ -41,9 +41,11 @@ class AnomaliaCostruzione {
     }
 
     public function getAnomaliaById($id){
-        $this->db->query('SELECT anomalie_costruzione.*,  tipi_anomalie.anomalia AS tipo
+        $this->db->query('SELECT anomalie_costruzione.*,  tipi_anomalie.anomalia AS tipo,  progetti.idProgetto AS idProgetto
                             FROM anomalie_costruzione
                             INNER JOIN tipi_anomalie ON idTipoAnomalia = fk_idTipoAnomalia
+                            INNER JOIN ispezioni_costruzione ON idIspezioneCostruzione = fk_idIspezioneCostruzione
+                            INNER JOIN progetti ON progetti.idProgetto = ispezioni_costruzione.fk_idProgetto
                             WHERE idAnomaliaCostruzione=:id ;');
    
         $this->db->bind(':id', $id);

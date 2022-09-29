@@ -66,6 +66,7 @@
 
                          <table class="table"> 
                               <tbody> 
+
                                    <tr>
                                         <th scope="row">Aree di riferimento</th>
                                         <td>
@@ -80,6 +81,7 @@
                                              }
                                         ?>
                                    </tr>
+
                                    <tr>
                                         <th scope="row">Tipi di anomalie</th>
                                         <td>
@@ -93,6 +95,20 @@
                                        
                                         <?php     }
                                               } 
+                                        ?>
+                                   </tr>
+                              
+                                   <tr>
+                                        <th scope="row">Sonde</th>
+                                        <td>
+                                             <a href="<?php echo URLROOT ?>/sonde/aggiungiSonda?idProgetto=<?php echo $_GET["id"]; ?>"><h6>Aggiungi sonda</h6></a>
+                                        </td>
+                                        <?php  
+                                             foreach($data["sonde"] as $sonda){
+                                        ?> 
+                                             <td><?php echo $sonda->sonda; ?></td>
+                                        <?php     
+                                             }
                                         ?>
                                    </tr>
                               </tbody>

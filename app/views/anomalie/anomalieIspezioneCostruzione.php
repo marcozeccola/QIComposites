@@ -10,6 +10,7 @@
         <header class="section-header">
           <h3>Dettagli tecnici ispezione in costruzione</h3> 
         </header>
+        <a href="<?php echo URLROOT; ?>/ispezioni/modificaIspezioneCostruzione?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>">modifica</a>
 
         <table class="table"> 
           <tbody>
@@ -17,6 +18,10 @@
               <th scope="row">Data</th>
               <td><?php echo $data["ispezione"]->data; ?></td> 
             </tr>
+            <tr>
+              <th scope="row">Cliente</th>
+              <td><?php echo $data["ispezione"]->cliente; ?></td> 
+            </tr> 
             <tr>
               <th scope="row">Luogo</th>
               <td><?php echo $data["ispezione"]->luogo; ?></td> 
@@ -121,7 +126,7 @@
                 <a href="<?php echo URLROOT ?>/anomalie/singolaAnomaliaCostruzione?idAnomalia=<?php echo $anomalia->idAnomaliaCostruzione; ?>" class="btn">DETTAGLI</a>
                 <?php if($anomalia->presente!=0){
                   ?>
-                  <a href="<?php echo URLROOT ?>/anomalie/risoltoCostruzione?idAnomalia=<?php echo $anomalia->idAnomaliaCostruzione; ?>&idProgetto=<?php echo $data["ispezione"]->fk_idProgetto ;?>&idIspezione=1" class="btn">RISOLTO</a>
+                  <a href="<?php echo URLROOT ?>/anomalie/risoltoCostruzione?idAnomalia=<?php echo $anomalia->idAnomaliaCostruzione; ?>&idProgetto=<?php echo $data["ispezione"]->fk_idProgetto ;?>&idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>" class="btn">RISOLTO</a>
                 <?php
                   }
                 ?>

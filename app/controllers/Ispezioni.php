@@ -107,4 +107,53 @@ class Ispezioni extends Controller {
            
      }
  
+     public function modificaIspezioneCostruzione(){
+        if(isset($_GET["idIspezione"])){
+            $data = [
+                    "ispezione"=>$this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]),
+                    'operatori'=>$this->usersModel->getAll(),
+                    'aree'=> $this->areeModel->getAreeByIspezioneCostruzione($_GET["idIspezione"]),
+                    'sonde'=>$this->sondeModel->getAllSonde(),
+            ];
+            
+            $this->view('ispezioni/modificaIspezioneCostruzione', $data);
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+
+            if(isset($_POST["sonda"]) &&  $_POST["sonda"] == "no"  ){   
+               $this->ispezioniCostruzioneModel->modificaIspezione($_POST);  
+            }else if(isset($_POST["sonda"]) && $_POST["sonda"] != "no"  ){
+               $this->ispezioniCostruzioneModel->modificaIspezioneWithSonda($_POST); 
+            }  
+
+            header('location: ' . URLROOT . "/anomalie/anomalieIspezioneCostruzione?idIspezione=". $_POST["idIspezione"]);
+        }
+
+    }
+ 
+     public function modificaIspezioneNavigazione(){
+        if(isset($_GET["idIspezione"])){
+            $data = [
+                    "ispezione"=>$this->ispezioniNavigazioneModel->getIspezioneById($_GET["idIspezione"]),
+                    'operatori'=>$this->usersModel->getAll(),
+                    'aree'=> $this->areeModel->getAreeByIspezioneNavigazione($_GET["idIspezione"]),
+                    'sonde'=>$this->sondeModel->getAllSonde(),
+            ];
+            
+            $this->view('ispezioni/modificaIspezioneNavigazione', $data);
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+
+            if(isset($_POST["sonda"]) &&  $_POST["sonda"] == "no"  ){   
+               $this->ispezioniNavigazioneModel->modificaIspezione($_POST);  
+            }else if(isset($_POST["sonda"]) && $_POST["sonda"] != "no"  ){
+               $this->ispezioniNavigazioneModel->modificaIspezioneWithSonda($_POST); 
+            }  
+
+            header('location: ' . URLROOT . "/anomalie/anomalieIspezioneNavigazione?idIspezione=". $_POST["idIspezione"]);
+        }
+
+    }
 }

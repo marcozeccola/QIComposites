@@ -7,6 +7,7 @@ class Progetti extends Controller {
         } 
 
         $this->projectModel = $this->model('Progetto');
+        $this->sondaModel = $this->model('Sonda'); 
         $this->tipiAnomalieModel = $this->model('TipoAnomalia'); 
         $this->areaModel = $this->model('Area');
     }
@@ -110,7 +111,7 @@ class Progetti extends Controller {
         if( isset($_GET["id"])){
 
             $progetto = $this->projectModel->getProgettoById($_GET["id"]);
-
+            $sonde = $this->sondaModel->getAllSonde();
             $tipiAnomalie = $this->tipiAnomalieModel->getAllTipiAnomalie();
             $aree = $this->areaModel->getAreeByProgetto($_GET["id"]);
 
@@ -118,6 +119,7 @@ class Progetti extends Controller {
                 'progetto'=>$progetto,
                 'tipiAnomalie'=>$tipiAnomalie,
                 'aree' => $aree,
+                'sonde' => $sonde,
             ]; 
             $this->view('progetti/singoloProgetto', $data);
         }else{ 

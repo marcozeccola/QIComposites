@@ -11,6 +11,7 @@
  <header class="section-header">
           <h3>Dettagli tecnici ispezione in navigazione</h3> 
         </header>
+        <a href="<?php echo URLROOT; ?>/ispezioni/modificaIspezioneNavigazione?idIspezione=<?php echo $data["ispezione"]->idIspezioneNavigazione; ?>">modifica</a>
 
         <table class="table"> 
           <tbody>
@@ -18,6 +19,10 @@
               <th scope="row">Data</th>
               <td><?php echo $data["ispezione"]->data; ?></td> 
             </tr>
+            <tr>
+              <th scope="row">Cliente</th>
+              <td><?php echo $data["ispezione"]->cliente; ?></td> 
+            </tr> 
             <tr>
               <th scope="row">Luogo</th>
               <td><?php echo $data["ispezione"]->luogo; ?></td> 
@@ -121,9 +126,12 @@
                                    <li class="list-group-item">Ipotesi causa: <?php echo $anomalia->causa; ?></li>
                               </ul>
                               <a href="<?php echo URLROOT ?>/anomalie/singolaAnomaliaNavigazione?idAnomalia=<?php echo $anomalia->idAnomaliaNavigazione; ?>" class="btn">DETTAGLI</a>
-
-                              <a href="<?php echo URLROOT ?>/anomalie/risoltoNavigazione?idAnomalia=<?php echo $anomalia->idAnomaliaNavigazione; ?>&idProgetto=<?php echo $data["ispezione"]->fk_idProgetto ;?>"
+                            <?php 
+                              if($anomalia->presente!=0){
+                            ?>
+                              <a href="<?php echo URLROOT ?>/anomalie/risoltoNavigazione?idAnomalia=<?php echo $anomalia->idAnomaliaNavigazione; ?>&idProgetto=<?php echo $data["ispezione"]->fk_idProgetto ;?>&idIspezione=<?php echo $data["ispezione"]->idIspezioneNavigazione; ?>"
                                    class="btn">RISOLTO</a>
+                            <?php }?>
                          </div>
                     </div>
                </div>

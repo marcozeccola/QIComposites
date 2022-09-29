@@ -48,6 +48,48 @@ class IspezioneCostruzione {
         } 
     }
 
+    public function modificaIspezione($ispezione){
+        $this->db->query("UPDATE ispezioni_costruzione 
+                        SET data = :data, luogo = :luogo, cliente = :cliente, operatori = :operatori, reticolo = :reticolo, aree = :aree
+                        WHERE idIspezioneCostruzione = :id");
+
+        $this->db->bind(":data", $ispezione["data"]);
+        $this->db->bind(":luogo", $ispezione["luogo"]);
+        $this->db->bind(":cliente", $ispezione["cliente"]);
+        $this->db->bind(":operatori", $ispezione["operatori"]);
+        $this->db->bind(":reticolo", $ispezione["reticolo"]);
+        $this->db->bind(":aree", $ispezione["aree"]);
+        $this->db->bind(":id", $ispezione["idIspezione"]);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function modificaIspezioneWithSonda($ispezione){
+        $this->db->query("UPDATE ispezioni_costruzione 
+                        SET data = :data, luogo = :luogo, cliente = :cliente, operatori = :operatori, reticolo = :reticolo, aree = :aree, fk_idSonda = :sonda
+                        WHERE idIspezioneCostruzione = :id");
+
+        $this->db->bind(":data", $ispezione["data"]);
+        $this->db->bind(":luogo", $ispezione["luogo"]);
+        $this->db->bind(":cliente", $ispezione["cliente"]);
+        $this->db->bind(":operatori", $ispezione["operatori"]);
+        $this->db->bind(":reticolo", $ispezione["reticolo"]);
+        $this->db->bind(":sonda", $ispezione["sonda"]);
+        $this->db->bind(":aree", $ispezione["aree"]);
+        $this->db->bind(":id", $ispezione["isIspezione"]);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getIspezioneById($id){
         $this->db->query('SELECT ispezioni_costruzione.*,  
                               progetti.nome AS nomeProgetto,

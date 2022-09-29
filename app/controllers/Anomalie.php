@@ -77,8 +77,8 @@ class Anomalie extends Controller {
                 ];
                 $inserito = $this->anomalieCostruzioneModel->modificaAnomaliaWithTipo($data);    
             }
-
-            if ( getimagesize($_FILES["immagini"]["tmp_name"])>0){
+ 
+            if ( $_FILES["immagini"]["tmp_name"]!="" ){
                 $files = array_filter($_FILES['immagini']['name']);                         
                 $total_count = count($_FILES['immagini']['name']);
 
@@ -97,8 +97,7 @@ class Anomalie extends Controller {
             header('location: ' . URLROOT . "/anomalie/singolaAnomaliaCostruzione?idAnomalia=". $_POST["idAnomalia"]);
         }
 
-    }
-    
+    } 
     
     public function modificaAnomaliaNavigazione(){
         if(isset($_GET["idAnomalia"])){
@@ -129,7 +128,7 @@ class Anomalie extends Controller {
                  $this->anomalieNavigazioneModel->modificaAnomaliaWithTipo($data);
             }
 
-            if(getimagesize($_FILES["immagini"]["tmp_name"][0])>0){
+            if ( $_FILES["immagini"]["tmp_name"]!="" ){
                 $files = array_filter($_FILES['immagini']['name']);                         
                 $total_count = count($_FILES['immagini']['name']);
 
@@ -204,11 +203,13 @@ class Anomalie extends Controller {
 
     //Imposta a false la presenza dell'anomalia
      public function risoltoCostruzione(){
-          if( isset($_GET["idAnomalia"])  && isset($_GET["idProgetto"]) ){
-               $this->anomalieCostruzioneModel->risolvi($_GET["idAnomalia"]);
-               if(isset($_GET["idIspezione"]) && $_GET["idIspezione"]>0){ 
+          if( isset($_GET["idAnomalia"]) ){
+                $this->anomalieCostruzioneModel->risolvi($_GET["idAnomalia"]);
+                if(isset($_GET["idIspezione"]) && $_GET["idIspezione"]>0){ 
                     header('location: ' . URLROOT . "/anomalie/anomalieIspezioneCostruzione?idIspezione=". $_GET["idIspezione"]);
-               }else{ 
+                }elseif(!isset($_GET["idProgetto"])){
+                    header('location: ' . URLROOT . "/anomalie/singolaAnomaliaCostruzione?idAnomalia=". $_GET["idAnomalia"]);
+                }elseif(isset($_GET["idProgetto"])){  
                     header('location: ' . URLROOT . "/anomalie/index?idProgetto=". $_GET["idProgetto"]);
                }
           }else{ 
@@ -218,12 +219,13 @@ class Anomalie extends Controller {
  
     //Imposta a false la presenza dell'anomalia  
      public function risoltoNavigazione(){
-          if( isset($_GET["idAnomalia"])  && isset($_GET["idProgetto"]) ){
-               $this->anomalieNavigazioneModel->risolvi($_GET["idAnomalia"]);
-               
+          if( isset($_GET["idAnomalia"]) ){
+               $this->anomalieNavigazioneModel->risolvi($_GET["idAnomalia"]); 
                if(isset($_GET["idIspezione"]) && $_GET["idIspezione"]>0){ 
                     header('location: ' . URLROOT . "/anomalie/anomalieIspezioneNavigazione?idIspezione=". $_GET["idIspezione"]);
-               }else{ 
+               }elseif(!isset($_GET["idProgetto"])){
+                    header('location: ' . URLROOT . "/anomalie/singolaAnomaliaNavigazione?idAnomalia=". $_GET["idAnomalia"]);
+               }elseif(isset($_GET["idProgetto"])){ 
                     header('location: ' . URLROOT . "/anomalie/index?idProgetto=". $_GET["idProgetto"]);
                }
           }else{ 

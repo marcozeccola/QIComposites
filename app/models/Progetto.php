@@ -31,7 +31,7 @@ class Progetto {
             return false;
         }
     }
-
+ 
     public function getProgettoById($id){
         $this->db->query('SELECT * FROM progetti WHERE idProgetto = :id;');
    

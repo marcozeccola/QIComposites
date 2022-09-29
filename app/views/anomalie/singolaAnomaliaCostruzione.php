@@ -8,7 +8,7 @@
 <section id="pricing" class="pricing section-bg ">
      <div class="container" >
           <header class="section-header">
-               <h3>Dettagli tecnici anomalia in navigazione</h3> 
+               <h3>Dettagli tecnici anomalia in costruzione</h3> 
           </header>
 
           <a href="<?php echo URLROOT; ?>/anomalie/modificaAnomaliaCostruzione?idAnomalia=<?php echo $data["anomalia"]->idAnomaliaCostruzione; ?>">modifica</a>
@@ -33,7 +33,14 @@
                     </tr>
                </tbody>
           </table>
-
+          <?php
+               if($data["anomalia"]->presente){
+          ?>
+          <a href="<?php echo URLROOT ?>/anomalie/risoltoCostruzione?idAnomalia=<?php echo $data["anomalia"]->idAnomaliaCostruzione; ?>"
+                                   class="btn">RISOLTO</a>                   
+          <?php
+               }
+          ?>
           <div class="col-xs-12 col-lg-4 card-anomalia">
                <div class="card card-carousel">
 

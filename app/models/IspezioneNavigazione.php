@@ -48,6 +48,50 @@ class IspezioneNavigazione {
         }
     }
 
+        public function modificaIspezione($ispezione){
+        $this->db->query("UPDATE ispezioni_navigazione
+                        SET data = :data, luogo = :luogo, cliente = :cliente, operatori = :operatori, reticolo = :reticolo, aree = :aree, dettagli = :dettagli
+                        WHERE idIspezioneNavigazione = :id");
+
+        $this->db->bind(":data", $ispezione["data"]);
+        $this->db->bind(":luogo", $ispezione["luogo"]);
+        $this->db->bind(":cliente", $ispezione["cliente"]);
+        $this->db->bind(":operatori", $ispezione["operatori"]);
+        $this->db->bind(":reticolo", $ispezione["reticolo"]);
+        $this->db->bind(":aree", $ispezione["aree"]);
+        $this->db->bind(":id", $ispezione["idIspezione"]);
+        $this->db->bind(":dettagli", $ispezione["dettagli"]);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function modificaIspezioneWithSonda($ispezione){
+        $this->db->query("UPDATE ispezioni_navigazione 
+                        SET data = :data, luogo = :luogo, cliente = :cliente, operatori = :operatori, reticolo = :reticolo, aree = :aree, fk_idSonda = :sonda, dettagli = :dettagli
+                        WHERE idIspezioneNavigazione = :id");
+
+        $this->db->bind(":data", $ispezione["data"]);
+        $this->db->bind(":luogo", $ispezione["luogo"]);
+        $this->db->bind(":cliente", $ispezione["cliente"]);
+        $this->db->bind(":operatori", $ispezione["operatori"]);
+        $this->db->bind(":reticolo", $ispezione["reticolo"]);
+        $this->db->bind(":sonda", $ispezione["sonda"]);
+        $this->db->bind(":aree", $ispezione["aree"]);
+        $this->db->bind(":dettagli", $ispezione["dettagli"]);
+        $this->db->bind(":id", $ispezione["isIspezione"]);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getIspezioniByProgetto($id){
         $this->db->query("SELECT ispezioni_navigazione.*,  
                               progetti.nome AS nomeProgetto,
