@@ -15,6 +15,11 @@
                     <input type="date" id="data" name="data" class="form-control"   />
                     <label class="form-label" for="data">Data dell'ispezione</label>
                </div>
+               
+               <div class="form-outline mb-4">
+                    <input type="date" id="fine" name="fine" class="form-control"   />
+                    <label class="form-label" for="fine">Data di fine ispezione</label>
+               </div>
 
                <div class="form-outline mb-4">
                     <input type="text" id="luogo" name="luogo" class="form-control"   />

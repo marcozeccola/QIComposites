@@ -82,43 +82,7 @@
          ?>
                <div class="col-xs-12 col-lg-4">
                     <div class="card card-carousel">
-                      
-
-                        <?php 
-                            if(!empty($files) && !is_null($files)){
-                        ?> 
-                        <div id="carouselNavigazione<?php echo $anomalia->idAnomaliaNavigazione; ?>" class="carousel slide" data-bs-ride="carousel">
-                              <div class="carousel-inner">
-                        <?php 
-                                foreach($files as $file){
-                        ?>  
-                                   <div class="carousel-item active">
-                                        <img src="<?php echo URLROOT ;?>/public/anomalie/navigazione/<?php echo $anomalia->idAnomaliaNavigazione; ;?>/<?php echo $file;?>" class="d-block w-100">
-                                   </div> 
-                        <?php 
-                                }
-                        ?>
-                              </div>
-                              <button class="carousel-control-prev" type="button"
-                                   data-bs-target="#carouselNavigazione<?php echo $anomalia->idAnomaliaNavigazione; ?>" data-bs-slide="prev">
-                                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                   <span class="visually-hidden">Previous</span>
-                              </button>
-                              <button class="carousel-control-next" type="button"
-                                   data-bs-target="#carouselNavigazione<?php echo $anomalia->idAnomaliaNavigazione; ?>" data-bs-slide="next">
-                                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                   <span class="visually-hidden">Next</span>
-                              </button>
-                         </div>
-                        <?php 
-                            } 
-                            if(!empty($files) && !is_null($files)){
-                        ?> 
-                            <script> 
-                              const carouselNav<?php echo $anomalia->idAnomaliaNavigazione; ?> = new bootstrap.Carousel('#carouselNavigazione<?php echo $anomalia->idAnomaliaNavigazione; ?>');
-                            </script>
-                        <?php }
-                        ?>
+                        
                          <div class="card-header">
                               <h3><span class="period"><?php echo $anomalia->data; ?></span></h3>
                          </div>
@@ -135,6 +99,8 @@
                               </ul>
                               <a href="<?php echo URLROOT ?>/anomalie/risoltoNavigazione?idAnomalia=<?php echo $anomalia->idAnomaliaNavigazione; ?>&idProgetto=<?php echo $data["idProgetto"] ;?>"
                                    class="btn">RISOLTO</a>
+                              <a href="<?php echo URLROOT ?>/anomalie/singolaAnomaliaNavigazione?idAnomalia=<?php echo $anomalia->idAnomaliaNavigazione; ?>"
+                                   class="btn">DETTAGLI</a>
                          </div>
                     </div>
                </div>

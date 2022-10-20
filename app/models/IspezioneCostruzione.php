@@ -6,10 +6,11 @@ class IspezioneCostruzione {
     }
 
     public function inserisci($data) {
-        $this->db->query('INSERT INTO ispezioni_costruzione (data, luogo, risultato , cliente,fk_idProgetto, operatori,  aree, fk_idSonda, reticolo )
-                             VALUES(:data, :luogo, :risultato , :cliente,  :progetto, :operatori, :aree, :sonda, :reticolo )');
+        $this->db->query('INSERT INTO ispezioni_costruzione (data, fine,  luogo, risultato , cliente,fk_idProgetto, operatori,  aree, fk_idSonda, reticolo )
+                             VALUES(:data, :fine, :luogo, :risultato , :cliente,  :progetto, :operatori, :aree, :sonda, :reticolo )');
  
         $this->db->bind(':data', $data['data']);
+        $this->db->bind(':fine', $data['fine']);
         $this->db->bind(':luogo', $data['luogo']);
         $this->db->bind(':risultato', $data['risultato']);
         $this->db->bind(':progetto', $data['progetto']); 
@@ -50,10 +51,11 @@ class IspezioneCostruzione {
 
     public function modificaIspezione($ispezione){
         $this->db->query("UPDATE ispezioni_costruzione 
-                        SET data = :data, luogo = :luogo, cliente = :cliente, operatori = :operatori, reticolo = :reticolo, aree = :aree
+                        SET data = :data, fine = :fine, luogo = :luogo, cliente = :cliente, operatori = :operatori, reticolo = :reticolo, aree = :aree
                         WHERE idIspezioneCostruzione = :id");
 
         $this->db->bind(":data", $ispezione["data"]);
+        $this->db->bind(":fine", $ispezione["fine"]);
         $this->db->bind(":luogo", $ispezione["luogo"]);
         $this->db->bind(":cliente", $ispezione["cliente"]);
         $this->db->bind(":operatori", $ispezione["operatori"]);

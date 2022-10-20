@@ -49,6 +49,7 @@ class Ispezioni extends Controller {
            if($_SERVER['REQUEST_METHOD'] == 'POST'){
                $data =[
                     'data'=> trim($_POST["data"]), 
+                    'fine'=> trim($_POST["fine"]), 
                     'luogo'=> trim($_POST["luogo"]), 
                     'operatori'=> trim($_POST["operatori"]), 
                     'cliente'=> trim($_POST["cliente"]), 
@@ -84,6 +85,7 @@ class Ispezioni extends Controller {
            if($_SERVER['REQUEST_METHOD'] == 'POST'){
                $data =[
                     'data'=> trim($_POST["data"]), 
+                    'fine'=> trim($_POST["fine"]), 
                     'luogo'=> trim($_POST["luogo"]), 
                     'operatori'=> trim($_POST["operatori"]), 
                     'cliente'=> trim($_POST["cliente"]), 

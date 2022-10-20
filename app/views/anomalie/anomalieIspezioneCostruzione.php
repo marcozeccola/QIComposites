@@ -9,14 +9,18 @@
       <div class="container" >
         <header class="section-header">
           <h3>Dettagli tecnici ispezione in costruzione</h3> 
-        </header>
+        </header> 
         <a href="<?php echo URLROOT; ?>/ispezioni/modificaIspezioneCostruzione?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>">modifica</a>
 
         <table class="table"> 
           <tbody>
             <tr>
-              <th scope="row">Data</th>
+              <th scope="row">Data di inizio</th>
               <td><?php echo $data["ispezione"]->data; ?></td> 
+            </tr> 
+            <tr>
+              <th scope="row">Data di fine</th>
+              <td><?php echo $data["ispezione"]->fine; ?></td> 
             </tr>
             <tr>
               <th scope="row">Cliente</th>

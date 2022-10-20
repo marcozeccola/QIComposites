@@ -20,6 +20,10 @@
               <td><?php echo $data["ispezione"]->data; ?></td> 
             </tr>
             <tr>
+              <th scope="row">Data di fine</th>
+              <td><?php echo $data["ispezione"]->fine; ?></td> 
+            </tr>
+            <tr>
               <th scope="row">Cliente</th>
               <td><?php echo $data["ispezione"]->cliente; ?></td> 
             </tr> 

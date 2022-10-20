@@ -169,7 +169,7 @@ class Anomalie extends Controller {
 
                 $anomalieCostruzione = $this->anomalieCostruzioneModel->getAnomaliaByIspezione($_GET["idIspezione"]); 
                 $ispezione = $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]); 
-
+               
                 $data = [
                     'anomalieCostruzione'=> $anomalieCostruzione, 
                     'ispezione'=>$ispezione,
