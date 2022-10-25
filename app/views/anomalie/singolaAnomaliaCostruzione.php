@@ -29,7 +29,7 @@
                     </tr>
                     <tr>
                          <th scope="row">Tipologia anomalia</th>
-                         <td><?php echo $data["anomalia"]->tipo; ?></td>
+                         <td><?php echo $data["anomalia"]->anomalia; ?></td>
                     </tr>
                </tbody>
           </table>

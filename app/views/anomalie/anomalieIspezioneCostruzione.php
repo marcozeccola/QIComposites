@@ -44,11 +44,11 @@
             </tr> 
             <tr>
               <th scope="row">Retiolo</th>
-              <td><?php echo $data["ispezione"]->reticolo; ?></td> 
+              <td><?php echo $data["ispezione"]->reticoli; ?></td> 
             </tr> 
             <tr>
               <th scope="row">Sonda</th>
-              <td><?php echo $data["ispezione"]->sonda; ?></td> 
+              <td><?php echo $data["ispezione"]->sonde; ?></td> 
             </tr> 
           </tbody>
         </table>

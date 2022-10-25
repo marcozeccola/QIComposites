@@ -6,7 +6,7 @@ class AnomaliaCostruzione {
     }
 
     public function inserisci($data) {
-        $this->db->query('INSERT INTO anomalie_costruzione (localizzazione, estensione ,profondita, presente,  fk_idIspezioneCostruzione, fk_idTipoAnomalia)
+        $this->db->query('INSERT INTO anomalie_costruzione (localizzazione, estensione ,profondita, presente,  fk_idIspezioneCostruzione, anomalia)
                              VALUES(:localizzazione, :estensione , :profondita, 1, :ispezione, :tipo )');
  
         $this->db->bind(':localizzazione', $data['localizzazione']);
@@ -26,7 +26,6 @@ class AnomaliaCostruzione {
     public function getAnomaliaByIspezione($id){
         $this->db->query('SELECT anomalie_costruzione.*, anomalia,  ispezioni_costruzione.data AS data FROM anomalie_costruzione  
                             INNER JOIN ispezioni_costruzione ON idIspezioneCostruzione = fk_idIspezioneCostruzione
-                            INNER JOIN tipi_anomalie ON idTipoAnomalia = fk_idTipoAnomalia
                             WHERE fk_idIspezioneCostruzione=:id ;');
    
         $this->db->bind(':id', $id);
@@ -41,9 +40,8 @@ class AnomaliaCostruzione {
     }
 
     public function getAnomaliaById($id){
-        $this->db->query('SELECT anomalie_costruzione.*,  tipi_anomalie.anomalia AS tipo,  progetti.idProgetto AS idProgetto
+        $this->db->query('SELECT anomalie_costruzione.*,  progetti.idProgetto AS idProgetto
                             FROM anomalie_costruzione
-                            INNER JOIN tipi_anomalie ON idTipoAnomalia = fk_idTipoAnomalia
                             INNER JOIN ispezioni_costruzione ON idIspezioneCostruzione = fk_idIspezioneCostruzione
                             INNER JOIN progetti ON progetti.idProgetto = ispezioni_costruzione.fk_idProgetto
                             WHERE idAnomaliaCostruzione=:id ;');
@@ -79,7 +77,7 @@ class AnomaliaCostruzione {
 
     public function modificaAnomaliaWithTipo($anomalia){
         $this->db->query("UPDATE anomalie_costruzione 
-                        SET localizzazione = :loc, estensione = :est, profondita = :prof, fk_idTipoAnomalia = :tipo
+                        SET localizzazione = :loc, estensione = :est, profondita = :prof, anomalia = :tipo
                         WHERE idAnomaliaCostruzione = :id");
 
         $this->db->bind(":loc", $anomalia["localizzazione"]);
@@ -110,8 +108,7 @@ class AnomaliaCostruzione {
     
     public function getAnomaliaByProgetto($id){
         $this->db->query('SELECT anomalie_costruzione.*, anomalia,  ispezioni_costruzione.data AS data FROM anomalie_costruzione  
-                            INNER JOIN ispezioni_costruzione ON idIspezioneCostruzione = fk_idIspezioneCostruzione
-                            INNER JOIN tipi_anomalie ON idTipoAnomalia = fk_idTipoAnomalia
+                            INNER JOIN ispezioni_costruzione ON idIspezioneCostruzione = fk_idIspezioneCostruzione 
                             WHERE ispezioni_costruzione.fk_idProgetto = :id AND anomalie_costruzione.presente = 1;');
    
         $this->db->bind(':id', $id);

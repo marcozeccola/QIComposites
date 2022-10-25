@@ -27,8 +27,8 @@
                     <label class="form-label" for="profondita">Profondità</label>
                </div> 
 
-               
-               <label class="form-label" for="aggiungiTipo">Aggiungi ora tipo anomalia</label>
+                
+              <label class="form-label" for="aggiungiTipo">Aggiungi ora tipo anomalia</label>
                <div class="form-check form-switch"> 
                     <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiTipo" id="aggiungiTipo" style="margin-left:50%!important;">
                </div>
@@ -39,15 +39,15 @@
                </div> 
 
                <div class="form-outline mb-4" id="container-select">
-                  <select class="form-select"   name="tipo">
-                    <option value="no" selected>Lascia invariato</option>
-                    <?php 
-                         foreach($data["tipiAnomalie"] as $tipo){
-                    ?> 
-                         <option  value="<?php echo $tipo->idTipoAnomalia?>"><?php echo $tipo->anomalia?></option>
-                    <?php 
-                         }
-                    ?>
+                  <select class="form-select"  name="tipo">
+                         <option value="no" selected>Non volgio modificare</option>
+                         <?php 
+                              foreach($data["tipiAnomalie"] as $tipo){
+                         ?> 
+                              <option  value="<?php echo $tipo->anomalia?>"><?php echo $tipo->anomalia?></option>
+                         <?php 
+                              }
+                         ?>
                   </select>
                   <label class="form-label" for="tipo">Tipo anomalia</label>
                </div>  

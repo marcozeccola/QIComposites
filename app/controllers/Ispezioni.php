@@ -15,6 +15,7 @@ class Ispezioni extends Controller {
         $this->usersModel = $this->model('User');
         $this->areeModel = $this->model('Area');
         $this->sondeModel = $this->model('Sonda');
+        $this->reticoliModel = $this->model('Reticolo');
     }
 
      /* Mostra tutte le ispezioni di un progetto  */
@@ -43,10 +44,12 @@ class Ispezioni extends Controller {
                     'operatori'=>$this->usersModel->getAll(),
                     'aree'=> $this->areeModel->getAreeByProgetto($_GET["idProgetto"]),
                     'sonde'=>$this->sondeModel->getAllSonde(),
+                    'reticoli'=>$this->reticoliModel->getAllReticoli(),
                     'idProgetto'=>$_GET["idProgetto"] 
                ];
           }
            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
                $data =[
                     'data'=> trim($_POST["data"]), 
                     'fine'=> trim($_POST["fine"]), 
@@ -55,10 +58,16 @@ class Ispezioni extends Controller {
                     'cliente'=> trim($_POST["cliente"]), 
                     'progetto'=> trim($_GET["idProgetto"]), 
                     'risultato'=>empty($_POST["risultato"]) ? 0 : 1,  
-                    'aree'=> trim($_POST["aree"]),   
-                    'sonda'=> trim($_POST["sonda"]),  
-                    'reticolo'=> trim($_POST["reticolo"]),    
+                    'switchAggiungi'=> trim($_POST["aggiungiArea"]),   
+                    'sonde'=> trim($_POST["sonde"]),  
+                    'aree'=> trim($_POST["area"]),
+                    'reticoli'=> trim($_POST["reticoli"]),  
+                    'areaInput'=> trim($_POST["areaInput"]),
                ];
+
+               if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["areaInput"])){
+                    $data["aree"]= $data["areaInput"]; 
+               }
 
                $inserito =  $this->ispezioniCostruzioneModel->inserisci($data);
                if($inserito){
@@ -91,11 +100,17 @@ class Ispezioni extends Controller {
                     'cliente'=> trim($_POST["cliente"]), 
                     'progetto'=> trim($_GET["idProgetto"]), 
                     'risultato'=>empty($_POST["risultato"]) ? 0 : 1,  
-                    'aree'=> trim($_POST["aree"]),   
+                    'aree'=> trim($_POST["area"]), 
+                    'areaInput'=>triM($_POST["areaInput"]), 
                     'dettagli'=> trim($_POST["dettagli"]), 
                     'sonda'=> trim($_POST["sonda"]),  
-                    'reticolo'=> trim($_POST["reticolo"]),     
+                    'reticolo'=> trim($_POST["reticolo"]), 
+                    'switchAggiungi'=> trim($_POST["aggiungiArea"]),    
                ];
+               
+               if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["areaInput"])){
+                    $data["aree"]= $data["areaInput"]; 
+               }
 
                $inserito =  $this->ispezioniNavigazioneModel->inserisci($data);
                if($inserito){
@@ -116,6 +131,7 @@ class Ispezioni extends Controller {
                     'operatori'=>$this->usersModel->getAll(),
                     'aree'=> $this->areeModel->getAreeByIspezioneCostruzione($_GET["idIspezione"]),
                     'sonde'=>$this->sondeModel->getAllSonde(),
+                    'reticoli'=>$this->reticoliModel->getAllReticoli(),
             ];
             
             $this->view('ispezioni/modificaIspezioneCostruzione', $data);
@@ -123,9 +139,12 @@ class Ispezioni extends Controller {
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
 
-            if(isset($_POST["sonda"]) &&  $_POST["sonda"] == "no"  ){   
+               var_dump($_POST);
+            if(isset($_POST["sonde"]) &&  $_POST["sonda"] == "no"  ){   
+                
                $this->ispezioniCostruzioneModel->modificaIspezione($_POST);  
-            }else if(isset($_POST["sonda"]) && $_POST["sonda"] != "no"  ){
+            }else if(isset($_POST["sonde"]) && $_POST["sonda"] != "no"  ){
+                
                $this->ispezioniCostruzioneModel->modificaIspezioneWithSonda($_POST); 
             }  
 

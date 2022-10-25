@@ -29,8 +29,8 @@
                          <td><?php echo $data["anomalia"]->profondita; ?></td>
                     </tr>
                     <tr>
-                         <th scope="row">Operatori</th>
-                         <td><?php echo $data["anomalia"]->tipo; ?></td>
+                         <th scope="row">Tipi anomalie</th>
+                         <td><?php echo $data["anomalia"]->anomalia; ?></td>
                     </tr>
                     <tr>
                          <th scope="row">Dettagli - causa</th>

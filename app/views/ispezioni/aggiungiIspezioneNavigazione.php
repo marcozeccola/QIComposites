@@ -55,23 +55,28 @@
                   <label class="form-label" for="operatore">Operatore</label>
                 </div> 
 
-               <textarea name="aree" id="aree" cols="30" rows="10"></textarea>
+               <label class="form-label" for="aggiungiTipo">Aggiungi area</label>
+               <div class="form-check form-switch"> 
+                    <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiArea" id="aggiungiArea" style="margin-left:50%!important;">
+               </div>
 
-               <div class="form-outline mb-4">
-                    
-                  <select class="form-select" id="selectAree"  name="area">
-                    
-                    <option  disabled selected >Seleziona  </option>
+               <div class="form-outline mb-4" id="container-aggiungi">
+                    <input type="text" id="areaInput" name="areaInput" class="form-control"  />
+                    <label class="form-label" for="areaInput">Area</label>
+               </div> 
+
+               <div class="form-outline mb-4" id="container-select">
+                  <select class="form-select"  name="area">
                     <?php 
                          foreach($data["aree"] as $area){
                     ?> 
-                         <option  value="<?php echo $area->area;?>"><?php echo $area->area;?>  </option>
-                    <?php 
+                         <option value="<?php echo $area->area?>"><?php echo $area->area?></option>
+                    <?php
                          }
                     ?>
                   </select>
-                  <label class="form-label" for="area">Area di riferimento</label>
-               </div> 
+                  <label class="form-label" for="tipo">Area</label>
+               </div>   
 
                
                <div class="form-outline mb-4">
@@ -114,11 +119,18 @@
           let spazio = inputOperatori.value == "" ? " ": ", ";
           inputOperatori.value+= spazio + nomeOperatore;
      });
-     document.getElementById("selectAree").addEventListener("change", (e)=>{
-          let nomeArea = e.target.value;
-          let inputAree = document.getElementById("aree");
-          let spazio = inputAree.value == "" ? " ": ", ";
-          inputAree.value+= spazio + nomeArea;
+     
+     document.getElementById("aggiungiArea").addEventListener("change", (e) => {
+          console.log(e.target.aggiungi);
+          let aggiungi = document.getElementById("container-aggiungi");
+          let selectAggiungi = document.getElementById("container-select");
+          if (e.target.checked) {
+               aggiungi.style.display = "block";
+               selectAggiungi.style.display = "none";
+          } else {
+               aggiungi.style.display = "none";
+               selectAggiungi.style.display = "block";
+          }    
      });
 </script>
 <?php

@@ -43,7 +43,7 @@
                     <?php 
                          foreach($data["tipiAnomalie"] as $tipo){
                     ?> 
-                         <option  value="<?php echo $tipo->idTipoAnomalia?>"><?php echo $tipo->anomalia?></option>
+                         <option  value="<?php echo $tipo->anomalia?>"><?php echo $tipo->anomalia?></option>
                     <?php 
                          }
                     ?>

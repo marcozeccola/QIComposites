@@ -59,23 +59,23 @@ class Anomalie extends Controller {
             $this->view('anomalie/modificaAnomaliaCostruzione', $data);
         }
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
-            if(isset($_POST["tipo"]) &&  $_POST["tipo"] == "no" &&  !isset($_POST["aggiungiTipo"])){   
-                $inserito = $this->anomalieCostruzioneModel->modificaAnomalia($_POST);  
-            }else if(isset($_POST["tipo"]) && $_POST["tipo"] != "no" && !isset($_POST["aggiungiTipo"])){
-                $inserito = $this->anomalieCostruzioneModel->modificaAnomaliaWithTipo($_POST); 
-                
-            }else if(isset($_POST["aggiungiTipo"]) && $_POST["aggiungiTipo"]=="yes" && isset($_POST["tipoAnomalieInput"])){
-                
-                $idTipoInserito = $this->tipiAnomalieModel->inserisci($_POST["tipoAnomalieInput"]);
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){    
+            if(isset($_POST["tipo"]) &&  $_POST["tipo"] == "no" &&  !isset($_POST["aggiungiTipo"])){  
+                 
+                $this->anomalieCostruzioneModel->modificaAnomalia($_POST);  
+            }else if(isset($_POST["tipo"]) && $_POST["tipo"] != "no" &&  !isset($_POST["aggiungiTipo"])){
+                 
+                $this->anomalieCostruzioneModel->modificaAnomaliaWithTipo($_POST); 
+            }else if(  isset($_POST["aggiungiTipo"]) && $_POST["aggiungiTipo"]=="yes" && isset($_POST["tipoAnomalieInput"])){
+ 
                 $data = [
                     'localizzazione'=>trim($_POST["localizzazione"]),
                     'estensione'=>trim($_POST["estensione"]),
                     'profondita'=>trim($_POST["profondita"]),
                     'idAnomalia'=>trim($_POST["idAnomalia"]),
-                    'tipo'=>$idTipoInserito,
+                    'tipo'=>trim($_POST["tipoAnomalieInput"]),
                 ];
-                $inserito = $this->anomalieCostruzioneModel->modificaAnomaliaWithTipo($data);    
+                $this->anomalieCostruzioneModel->modificaAnomaliaWithTipo($data);    
             }
  
             if ( $_FILES["immagini"]["tmp_name"]!="" ){
@@ -115,15 +115,14 @@ class Anomalie extends Controller {
                 $this->anomalieNavigazioneModel->modificaAnomaliaWithTipo($_POST); 
                 
             }else if(isset($_POST["aggiungiTipo"]) && $_POST["aggiungiTipo"]=="yes" && isset($_POST["tipoAnomalieInput"])){
-                
-                $idTipoInserito = $this->tipiAnomalieModel->inserisci($_POST["tipoAnomalieInput"]);
+                 
                 $data = [
                     'localizzazione'=>trim($_POST["localizzazione"]),
                     'estensione'=>trim($_POST["estensione"]),
                     'causa'=>trim($_POST["causa"]),
                     'profondita'=>trim($_POST["profondita"]),
                     'idAnomalia'=>trim($_POST["idAnomalia"]),
-                    'tipo'=>$idTipoInserito,
+                    'tipo'=>trim($_POST["tipoAnomalieInput"]),
                 ];
                  $this->anomalieNavigazioneModel->modificaAnomaliaWithTipo($data);
             }
@@ -264,8 +263,7 @@ class Anomalie extends Controller {
                ];
 
                 if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["tipoNuovo"])){
-                    $idTipoInserito = $this->tipiAnomalieModel->inserisci($data["tipoNuovo"]);
-                    $data["tipo"]= $idTipoInserito; 
+                    $data["tipo"]= $data["tipoNuovo"]; 
                 }
                 
                $inserito =  $this->anomalieCostruzioneModel->inserisci($data);
@@ -304,7 +302,7 @@ class Anomalie extends Controller {
                ];
           }
            if($_SERVER['REQUEST_METHOD'] == 'POST'){
-               $data =[
+                $data =[
                     'localizzazione'=> trim($_POST["localizzazione"]), 
                     'estensione'=> trim($_POST["estensione"]), 
                     'profondita'=> trim($_POST["profondita"]), 
@@ -313,14 +311,12 @@ class Anomalie extends Controller {
                     'causa'=> trim($_POST["causa"]), 
                     'switchAggiungi'=>trim($_POST["aggiungiTipo"]),
                     'tipoNuovo'=>trim($_POST["tipoAnomalieInput"]), 
-               ];
+                ];
 
                 if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["tipoNuovo"])){
-                    $idTipoInserito = $this->tipiAnomalieModel->inserisci($data["tipoNuovo"]);
-                    $data["tipo"]= $idTipoInserito; 
+                    $data["tipo"]= $data["tipoNuovo"]; 
                 }
                 
-
                $inserito =  $this->anomalieNavigazioneModel->inserisci($data);
                if($inserito>0){
                      

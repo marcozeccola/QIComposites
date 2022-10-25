@@ -67,26 +67,39 @@
                </div>   
 
                <div class="form-outline mb-4">
-                    <input type="text" id="reticolo" name="reticolo" class="form-control"   value="<?php echo $data["ispezione"]->reticolo ?>" />
-                    <label class="form-label" for="reticolo">Reticolo di ispezione</label>
+                    <textarea name="reticoli" id="reticoli" cols="30" rows="10" > <?php echo $data["ispezione"]->reticoli; ?> </textarea>
+
+                    <select class="form-select" id="selectReticoli" name="reticolo">
+
+                         <option disabled selected>Seleziona </option>
+                         <?php 
+                         foreach($data["reticoli"] as $reticolo){
+                    ?>
+                         <option value="<?php echo $reticolo->nome;?>"><?php echo $reticolo->nome;?> </option>
+                         <?php 
+                         }
+                    ?>
+                    </select>
+                    <label class="form-label" for="area">Reticolo</label>
                </div>
 
                <div class="form-outline mb-4">
-                    
-                  <select class="form-select" id="selectSonde"  name="sonda">
-                    
-                    
-                    <option value="no" selected >Lascia invariato  </option>
-                    <?php 
+                    <textarea name="sonde" id="sonde" cols="30" rows="10" ><?php echo $data["ispezione"]->sonde; ?></textarea>
+
+                    <select class="form-select" id="selectSonde" name="sonda">
+
+                         <option disabled selected>Seleziona </option>
+                         <?php 
                          foreach($data["sonde"] as $sonda){
-                    ?> 
-                         <option  value="<?php echo $sonda->idSonda;?>"><?php echo $sonda->sonda;?>  </option>
-                    <?php 
+                    ?>
+                         <option value="<?php echo $sonda->sonda;?>"><?php echo $sonda->sonda;?> </option>
+                         <?php 
                          }
                     ?>
-                  </select>
-                  <label class="form-label" for="area">Sonda</label>
-               </div> 
+                    </select>
+                    <label class="form-label" for="area">Sonda</label>
+               </div>
+
                <br>
                <button type="submit" class="btn btn-primary btn-block mb-4">
                     Modifica
@@ -102,6 +115,22 @@
           let spazio = inputOperatori.value == "" ? " ": ", ";
           inputOperatori.value+= spazio + nomeOperatore;
      });
+ 
+
+     document.getElementById("selectSonde").addEventListener("change", (e) => {
+          let nomeSonda = e.target.value;
+          let textarea = document.getElementById("sonde");
+          let spazio = textarea.value == "" ? " " : ", ";
+          textarea.value += spazio + nomeSonda;
+     });
+
+     document.getElementById("selectReticoli").addEventListener("change", (e) => {
+          let nomeReticolo = e.target.value;
+          let textarea = document.getElementById("reticoli");
+          let spazio = textarea.value == "" ? " " : ", ";
+          textarea.value += spazio + nomeReticolo;
+     });
+
      document.getElementById("selectAree").addEventListener("change", (e)=>{
           let nomeArea = e.target.value;
           let inputAree = document.getElementById("aree");

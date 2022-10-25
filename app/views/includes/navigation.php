@@ -1,7 +1,7 @@
  <body> 
  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-     <h1  class="logo me-auto "><a   href="index.html"><img class="logo" src="<?php echo URLROOT ?>/public/assets/img/logo.png" alt=""></a></h1> 
+     <h1  class="logo me-auto "><a   href="<?php echo URLROOT; ?>"><img class="logo" src="<?php echo URLROOT ?>/public/assets/img/logo.png" alt=""></a></h1> 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

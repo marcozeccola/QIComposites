@@ -115,6 +115,30 @@ class IspezioneNavigazione {
         } 
     }
 
+    public function getIspezioniByOperatore($operatore, $oggi){
+        $this->db->query("SELECT ispezioni_navigazione.*,  
+                              progetti.nome AS nomeProgetto,
+                              sonde.sonda AS sonda
+                         FROM ispezioni_navigazione  
+                         INNER JOIN progetti ON ispezioni_navigazione.fk_idProgetto = idProgetto
+                         INNER JOIN sonde ON ispezioni_navigazione.fk_idSonda = idSonda
+                         WHERE INSTR(operatori, :operatore)>0
+                         AND inizio< :oggi
+                         AND fine> :oggi;");
+    
+        $this->db->bind(':operatore', $operatore);
+        $this->db->bind(':oggi', $oggi);
+
+        $result = $this->db->resultSet();
+ 
+        if( $result) {
+            return $result;
+        } else {
+            return false;
+        } 
+    }
+
+
     
     public function risolvi($idAnomalia){
         $this->db->query('UPDATE anomalie_navigazione SET presente = 0 WHERE idAnomaliaNavigazione = :id;');
