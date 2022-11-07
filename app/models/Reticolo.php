@@ -5,11 +5,11 @@
                $this->db = new Database;
           }
 
-          public function inserisci($data) {
+          public function inserisci($reticolo) {
                $this->db->query('INSERT INTO reticoli (nome)
                                    VALUES(:reticolo )');
           
-               $this->db->bind(':reticolo', $data['reticolo']); 
+               $this->db->bind(':reticolo', $reticolo); 
           
                if ($this->db->execute()) {
                     return $this->db->lastinsertid();

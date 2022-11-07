@@ -34,8 +34,7 @@
               <div class="card-block"> 
                 <ul class="list-group">
                   <li class="list-group-item">Luogo: <?php echo $ispezione->luogo; ?> </li>
-                  <li class="list-group-item">Operatori:  <?php echo $ispezione->operatori; ?>  </li>
-                  <li class="list-group-item">Anomalie:  <?php echo $ispezione->risultato ? "presenti" :  "assenti"; ?></li> 
+                  <li class="list-group-item">Operatori:  <?php echo $ispezione->operatori; ?>  </li> 
                 </ul>
                 <a href="<?php echo URLROOT ?>/anomalie/anomalieIspezioneCostruzione?idIspezione=<?php echo $ispezione->idIspezioneCostruzione; ?>" class="btn">DETTAGLI</a>
               </div>

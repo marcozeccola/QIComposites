@@ -3,6 +3,8 @@
 ?>
 <?php
    require APPROOT . '/views/includes/navigation.php'; 
+   
+            
 ?>
 <div class="d-flex justify-content-center">
      <div class="row text-center nuovoProgetto ">
@@ -27,6 +29,12 @@
                     <label class="form-label" for="luogo">Luogo dell'ispezione</label>
                </div>
                
+
+               <div class="form-outline mb-4">
+                    <input type="text" id="stato" name="stato" class="form-control" value="<?php echo $data["ispezione"]->stato ?>" />
+                    <label class="form-label" for="stato">Stato di avanzamento</label>
+               </div>
+               
                <div class="form-outline mb-4">
                     <input type="text" id="cliente" name="cliente" class="form-control" value="<?php echo $data["ispezione"]->cliente ?>"  />
                     <label class="form-label" for="cliente">Cliente</label>
@@ -49,22 +57,6 @@
                   <label class="form-label" for="operatore">Operatore</label>
                 </div> 
 
-               <textarea name="aree" id="aree" cols="30" rows="10"  ><?php echo $data["ispezione"]->aree ?></textarea>
-
-               <div class="form-outline mb-4">
-                    
-                  <select class="form-select" id="selectAree"  name="area">
-                    
-                    <?php 
-                         foreach($data["aree"] as $area){
-                    ?> 
-                         <option  value="<?php echo $area->area;?>"><?php echo $area->area;?>  </option>
-                    <?php 
-                         }
-                    ?>
-                  </select>
-                  <label class="form-label" for="area">Area di riferimento</label>
-               </div>   
 
                <div class="form-outline mb-4">
                     <textarea name="reticoli" id="reticoli" cols="30" rows="10" > <?php echo $data["ispezione"]->reticoli; ?> </textarea>
@@ -100,6 +92,67 @@
                     <label class="form-label" for="area">Sonda</label>
                </div>
 
+
+               <div class="form-outline mb-4"  >
+                    <select class="form-select" name="macroArea" id="selectMacroArea">
+                        
+                         <?php 
+                         foreach($data["macroAree"] as $area){
+                              if($area->idAreaRiferimento =  $data["ispezione"]->fk_idAreaRiferimento){
+                         ?>    
+                               <option selected value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
+                         <?php 
+                              }else{
+                         ?>
+                              <option value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
+                         
+                         <?php
+                              }
+                         ?>
+                         
+                         <?php
+                         }
+                    ?>
+                    </select>
+                    <label class="form-label" for="tipo">Macro area</label>
+               </div>
+
+               
+               <label class="form-label" for="aggiungiTipo">Aggiungi area</label>
+               <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiArea"
+                         id="aggiungiArea" style="margin-left:50%!important;">
+               </div>
+
+               <div class="form-outline mb-4" id="container-aggiungi">
+                    <input type="text" id="sottoAreaInput" name="sottoAreaInput" class="form-control" />
+                    <label class="form-label" for="sottoAreaInput">Nuova sotto area</label>
+               </div> 
+ 
+               <div class="form-outline mb-4" id="container-select">
+                    <select class="form-select" name="sottoArea" id="selectSottoArea"> 
+                          
+                         <?php 
+                         foreach($data["sottoAree"] as $area){
+                               
+                              if($area->idSottoArea ==  $data["ispezione"]->fk_idSottoArea){
+                         ?>    
+                               <option selected value="<?php echo $area->idSottoArea?>"><?php echo $area->nome?></option>
+                         <?php 
+                              }
+                         ?>
+                         
+                         <?php
+                         }
+                         ?>
+                    </select>
+                    <label class="form-label" for="tipo">Sotto area</label>
+               </div>
+               <div class="form-outline mb-4">
+                    <input type="text" id="nomeArea" name="nomeArea" class="form-control" />
+                    <label class="form-label" for="nomeArea">Nome proprio area</label>
+               </div>
+
                <br>
                <button type="submit" class="btn btn-primary btn-block mb-4">
                     Modifica
@@ -109,6 +162,34 @@
 </div>
 
 <script>
+
+        document.getElementById("selectMacroArea").addEventListener("change", (e) => {
+          let select = document.getElementById("selectSottoArea");
+          let lista =   
+                    <?php 
+                    echo "{";
+                             
+                         foreach($data["sottoAree"] as $area){
+                              echo "'$area->nome':['$area->fk_idAreaRiferimento','$area->idSottoArea'],";
+                         }
+                         
+                    echo "}";
+                    ?> 
+          ;  
+          let idAreaRiferimento =  e.target.value;
+
+          //pulisce la select
+          select.innerHTML= "";
+
+          //inserisce le option con value l'id della sottoarea di riferimento
+          Object.entries(lista).forEach(([key, value]) => { 
+               if(value[0]==idAreaRiferimento){
+                    select.add(new Option(key, value[1]))
+               }
+          });      
+          
+     }); 
+
      document.getElementById("selectOpertatori").addEventListener("change", (e)=>{
           let nomeOperatore = e.target.value;
           let inputOperatori = document.getElementById("operatori");
@@ -131,14 +212,23 @@
           textarea.value += spazio + nomeReticolo;
      });
 
-     document.getElementById("selectAree").addEventListener("change", (e)=>{
-          let nomeArea = e.target.value;
-          let inputAree = document.getElementById("aree");
-          let spazio = inputAree.value == "" ? " ": ", ";
-          inputAree.value+= spazio + nomeArea;
+     document.getElementById("aggiungiArea").addEventListener("change", (e) => {
+
+          let aggiungi = document.getElementById("container-aggiungi");
+          let selectAggiungi = document.getElementById("container-select");
+          if (e.target.checked) {
+               aggiungi.style.display = "block";
+               selectAggiungi.style.display = "none";
+          } else {
+               aggiungi.style.display = "none";
+               selectAggiungi.style.display = "block";
+          }
      });
+
+  
 </script>
 
-<?php
+                    
+<?php 
    require APPROOT . '/views/includes/footer.php';
 ?>

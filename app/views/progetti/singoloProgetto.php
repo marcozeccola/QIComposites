@@ -111,6 +111,19 @@
                                              }
                                         ?>
                                    </tr>
+                                   <tr>
+                                        <th scope="row">Reticoli</th>
+                                        <td>
+                                             <a href="<?php echo URLROOT ?>/reticoli/aggiungiReticolo?idProgetto=<?php echo $_GET["id"]; ?>"><h6>Aggiungi reticolo</h6></a>
+                                        </td>
+                                        <?php  
+                                             foreach($data["reticoli"] as $reticolo){
+                                        ?> 
+                                             <td><?php echo $reticolo->nome; ?></td>
+                                        <?php     
+                                             }
+                                        ?>
+                                   </tr>
                               </tbody>
                          </table>
  

@@ -37,10 +37,6 @@
             <tr>
               <th scope="row">Operatori</th>
               <td><?php echo $data["ispezione"]->operatori; ?></td> 
-            </tr>
-            <tr>
-              <th scope="row">Aree di riferimento</th>
-              <td><?php echo $data["ispezione"]->aree; ?></td> 
             </tr> 
             <tr>
               <th scope="row">Retiolo</th>
@@ -49,6 +45,10 @@
             <tr>
               <th scope="row">Sonda</th>
               <td><?php echo $data["ispezione"]->sonde; ?></td> 
+            </tr> 
+            <tr>
+              <th scope="row">Stato di avanzamento</th>
+              <td><?php echo $data["ispezione"]->stato; ?></td> 
             </tr> 
           </tbody>
         </table>

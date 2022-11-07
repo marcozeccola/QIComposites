@@ -59,7 +59,7 @@
                
                <div class="form-outline mb-4">
                     <textarea id="causa" name="causa" class="form-control"   > <?php echo $data["anomalia"]->causa; ?></textarea>
-                    <label class="form-label" for="causa">Commenti</label>
+                    <label class="form-label" for="causa">Dettagli</label>
                </div> 
 
                <button type="submit" class="btn btn-primary btn-block mb-4">

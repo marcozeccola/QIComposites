@@ -14,6 +14,7 @@ class Ispezioni extends Controller {
         $this->tipiAnomalieModel = $this->model('TipoAnomalia'); 
         $this->usersModel = $this->model('User');
         $this->areeModel = $this->model('Area');
+        $this->sottoAreeModel = $this->model('SottoArea');
         $this->sondeModel = $this->model('Sonda');
         $this->reticoliModel = $this->model('Reticolo');
     }
@@ -42,7 +43,8 @@ class Ispezioni extends Controller {
           if(isset($_GET["idProgetto"])){
                $data= [
                     'operatori'=>$this->usersModel->getAll(),
-                    'aree'=> $this->areeModel->getAreeByProgetto($_GET["idProgetto"]),
+                    'macroAree'=> $this->areeModel->getAreeByProgetto($_GET["idProgetto"]),
+                    'sottoAree'=> $this->sottoAreeModel->getSottoAreeByProgetto($_GET["idProgetto"]),
                     'sonde'=>$this->sondeModel->getAllSonde(),
                     'reticoli'=>$this->reticoliModel->getAllReticoli(),
                     'idProgetto'=>$_GET["idProgetto"] 
@@ -54,19 +56,25 @@ class Ispezioni extends Controller {
                     'data'=> trim($_POST["data"]), 
                     'fine'=> trim($_POST["fine"]), 
                     'luogo'=> trim($_POST["luogo"]), 
-                    'operatori'=> trim($_POST["operatori"]), 
                     'cliente'=> trim($_POST["cliente"]), 
-                    'progetto'=> trim($_GET["idProgetto"]), 
-                    'risultato'=>empty($_POST["risultato"]) ? 0 : 1,  
-                    'switchAggiungi'=> trim($_POST["aggiungiArea"]),   
+                    'stato'=> trim($_POST["stato"]),  
+                    'operatori'=> trim($_POST["operatori"]), 
                     'sonde'=> trim($_POST["sonde"]),  
-                    'aree'=> trim($_POST["area"]),
                     'reticoli'=> trim($_POST["reticoli"]),  
-                    'areaInput'=> trim($_POST["areaInput"]),
+                    'fk_idAreaRiferimento'=> trim($_POST["macroArea"]),
+                    'fk_idSottoArea'=> trim($_POST["sottoArea"]),
+                    'nomeArea'=> trim($_POST["nomeArea"]),
+                    'progetto'=> trim($_GET["idProgetto"]), 
+ 
+
+                    'switchAggiungi'=> trim($_POST["aggiungiArea"]),   
+                    'sottoAreaInput'=> trim($_POST["sottoAreaInput"]),
                ];
 
-               if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["areaInput"])){
-                    $data["aree"]= $data["areaInput"]; 
+               if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["sottoAreaInput"])){
+                     
+                    $idAreaInserita = $this->sottoAreeModel->inserisci($data);
+                    $data["fk_idSottoArea"]= $idAreaInserita; 
                }
 
                $inserito =  $this->ispezioniCostruzioneModel->inserisci($data);
@@ -81,6 +89,58 @@ class Ispezioni extends Controller {
            
      }
 
+
+     public function modificaIspezioneCostruzione(){
+        if(isset($_GET["idIspezione"])){
+            $data = [
+                    "ispezione"=>$this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]),
+                    'operatori'=>$this->usersModel->getAll(), 
+                    'macroAree'=> $this->areeModel->getAreeByIspezioneCostruzione($_GET["idIspezione"]),
+                    'sottoAree'=> $this->sottoAreeModel->getSottoAreeByIspezioneCostruzione($_GET["idIspezione"]),
+                    'sonde'=>$this->sondeModel->getAllSonde(),
+                    'reticoli'=>$this->reticoliModel->getAllReticoli(),
+            ];
+            
+             $this->view('ispezioni/modificaIspezioneCostruzione', $data);
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+ 
+               $data =[
+                    'data'=> trim($_POST["data"]), 
+                    'fine'=> trim($_POST["fine"]), 
+                    'luogo'=> trim($_POST["luogo"]), 
+                    'cliente'=> trim($_POST["cliente"]), 
+                    'stato'=> trim($_POST["stato"]),  
+                    'operatori'=> trim($_POST["operatori"]), 
+                    'sonde'=> trim($_POST["sonde"]),  
+                    'reticoli'=> trim($_POST["reticoli"]),  
+                    'fk_idAreaRiferimento'=> trim($_POST["macroArea"]),
+                    'fk_idSottoArea'=> trim($_POST["sottoArea"]),
+                    'nomeArea'=> trim($_POST["nomeArea"]),
+                    'idIspezione'=>trim($_POST["idIspezione"]),
+ 
+
+                    'switchAggiungi'=> trim($_POST["aggiungiArea"]),   
+                    'sottoAreaInput'=> trim($_POST["sottoAreaInput"]),
+               ];
+               var_dump($data);
+               if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["sottoAreaInput"])){
+                     
+                    $idAreaInserita = $this->sottoAreeModel->inserisci($data);
+                    $data["fk_idSottoArea"]= $idAreaInserita; 
+               }
+             
+                
+                 $this->ispezioniCostruzioneModel->modificaIspezione($data);
+                    
+
+               header('location: ' . URLROOT . "/anomalie/anomalieIspezioneCostruzione?idIspezione=". $_POST["idIspezione"]);
+        }
+
+    }
+
+/*
      public function aggiungiIspezioneNavigazione(){
           $data = [];
           if(isset($_GET["idProgetto"])){
@@ -124,34 +184,6 @@ class Ispezioni extends Controller {
            
      }
  
-     public function modificaIspezioneCostruzione(){
-        if(isset($_GET["idIspezione"])){
-            $data = [
-                    "ispezione"=>$this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]),
-                    'operatori'=>$this->usersModel->getAll(),
-                    'aree'=> $this->areeModel->getAreeByIspezioneCostruzione($_GET["idIspezione"]),
-                    'sonde'=>$this->sondeModel->getAllSonde(),
-                    'reticoli'=>$this->reticoliModel->getAllReticoli(),
-            ];
-            
-            $this->view('ispezioni/modificaIspezioneCostruzione', $data);
-        }
-
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
-
-               var_dump($_POST);
-            if(isset($_POST["sonde"]) &&  $_POST["sonda"] == "no"  ){   
-                
-               $this->ispezioniCostruzioneModel->modificaIspezione($_POST);  
-            }else if(isset($_POST["sonde"]) && $_POST["sonda"] != "no"  ){
-                
-               $this->ispezioniCostruzioneModel->modificaIspezioneWithSonda($_POST); 
-            }  
-
-            header('location: ' . URLROOT . "/anomalie/anomalieIspezioneCostruzione?idIspezione=". $_POST["idIspezione"]);
-        }
-
-    }
  
      public function modificaIspezioneNavigazione(){
         if(isset($_GET["idIspezione"])){
@@ -177,4 +209,5 @@ class Ispezioni extends Controller {
         }
 
     }
+*/
 }

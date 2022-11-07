@@ -13,7 +13,7 @@
 
                <div class="form-outline mb-4">
                     <input type="date" id="data" name="data" class="form-control" />
-                    <label class="form-label" for="data">Data dell'ispezione</label>
+                    <label class="form-label" for="data">Data inizio dell'ispezione</label>
                </div>
 
                <div class="form-outline mb-4">
@@ -26,21 +26,20 @@
                     <label class="form-label" for="luogo">Luogo dell'ispezione</label>
                </div>
 
+
                <div class="form-outline mb-4">
                     <input type="text" id="cliente" name="cliente" class="form-control" />
                     <label class="form-label" for="cliente">Cliente</label>
                </div>
 
                <div class="form-outline mb-4">
-                    <label class="form-label" for="risultato">
-                         Presenza anomalie
-                    </label>
-                    <input class="form-check-input" type="checkbox" value="1" name="risultato" id="risultato">
+                    <input type="text" id="stato" name="stato" class="form-control" />
+                    <label class="form-label" for="stato">Stato di avanzamento</label>
                </div>
 
-               <textarea name="operatori" id="operatori" cols="30" rows="10"></textarea>
-
-               <div class="form-outline mb-4">
+               <!-- input Operatori --> 
+               <div class="form-outline mb-4"> 
+                    <textarea name="operatori" id="operatori" cols="30" rows="10"></textarea>
                     <select class="form-select" id="selectOpertatori" name="operatore">
                          <option disabled selected>Seleziona </option>
                          <?php 
@@ -54,31 +53,9 @@
                     ?>
                     </select>
                     <label class="form-label" for="operatore">Operatore</label>
-               </div>
+               </div> 
 
-               <label class="form-label" for="aggiungiTipo">Aggiungi area</label>
-               <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiArea"
-                         id="aggiungiArea" style="margin-left:50%!important;">
-               </div>
-
-               <div class="form-outline mb-4" id="container-aggiungi">
-                    <input type="text" id="areaInput" name="areaInput" class="form-control" />
-                    <label class="form-label" for="areaInput">Area</label>
-               </div>
-
-               <div class="form-outline mb-4" id="container-select">
-                    <select class="form-select" name="area">
-                         <?php 
-                         foreach($data["aree"] as $area){
-                    ?>
-                         <option value="<?php echo $area->area?>"><?php echo $area->area?></option>
-                         <?php
-                         }
-                    ?>
-                    </select>
-                    <label class="form-label" for="tipo">Area</label>
-               </div>
+               <!-- input reticoli --> 
                <div class="form-outline mb-4">
                     <textarea name="reticoli" id="reticoli" cols="30" rows="10"></textarea>
 
@@ -96,6 +73,7 @@
                     <label class="form-label" for="area">Reticolo</label>
                </div>
 
+               <!-- input sonde --> 
                <div class="form-outline mb-4">
                     <textarea name="sonde" id="sonde" cols="30" rows="10"></textarea>
 
@@ -111,6 +89,43 @@
                     ?>
                     </select>
                     <label class="form-label" for="area">Sonda</label>
+               </div>
+
+
+               <div class="form-outline mb-4"  >
+                    <select class="form-select" name="macroArea" id="selectMacroArea">
+                         <option disabled selected>Scegli macro area</option>
+                         <?php 
+                         foreach($data["macroAree"] as $area){
+                    ?>
+                         <option value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
+                         <?php
+                         }
+                    ?>
+                    </select>
+                    <label class="form-label" for="tipo">Macro area</label>
+               </div>
+
+               
+               <label class="form-label" for="aggiungiTipo">Aggiungi area</label>
+               <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiArea"
+                         id="aggiungiArea" style="margin-left:50%!important;">
+               </div>
+
+               <div class="form-outline mb-4" id="container-aggiungi">
+                    <input type="text" id="sottoAreaInput" name="sottoAreaInput" class="form-control" />
+                    <label class="form-label" for="sottoAreaInput">Nuova sotto area</label>
+               </div> 
+
+               <div class="form-outline mb-4" id="container-select">
+                    <select class="form-select" name="sottoArea" id="selectSottoArea"> 
+                    </select>
+                    <label class="form-label" for="tipo">Sotto area</label>
+               </div>
+               <div class="form-outline mb-4">
+                    <input type="text" id="nomeArea" name="nomeArea" class="form-control" />
+                    <label class="form-label" for="nomeArea">Nome proprio area</label>
                </div>
 
                <button type="submit" class="btn btn-primary btn-block mb-4">
@@ -154,6 +169,32 @@ document.getElementById("aggiungiArea").addEventListener("change", (e) => {
           selectAggiungi.style.display = "block";
      }
 });
+
+document.getElementById("selectMacroArea").addEventListener("change", (e) => {
+     let select = document.getElementById("selectSottoArea");
+     let lista =   
+               <?php 
+               echo "{";
+                    foreach($data["sottoAree"] as $area){
+                         echo "'$area->nome':['$area->fk_idAreaRiferimento','$area->idSottoArea'],";
+                    }
+                    
+               echo "}";
+               ?> 
+     ;  
+     let idAreaRiferimento =  e.target.value;
+
+     //pulisce la select
+     select.innerHTML= "";
+
+     //inserisce le option con value l'id della sottoarea di riferimento
+     Object.entries(lista).forEach(([key, value]) => { 
+          if(value[0]==idAreaRiferimento){
+               select.add(new Option(key, value[1]))
+          }
+     });      
+     
+}); 
 </script>
 
 <?php
