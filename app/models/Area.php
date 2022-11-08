@@ -47,19 +47,6 @@ class Area {
                return false;
           }
     }
-    public function getAreeByIspezioneNavigazione($id){
-          $this->db->query('SELECT aree_riferimento.* FROM aree_riferimento 
-                            INNER JOIN ispezioni_navigazione ON ispezioni_navigazione.fk_idProgetto = aree_riferimento .fk_idProgetto
-                            WHERE idIspezioneNavigazione = :id;');
-   
-          $this->db->bind(':id', $id);  
-          $result = $this->db->resultSet();
- 
-          if( $result) {
-               return $result;
-          } else {
-               return false;
-          }
-    }
+    
  
 }

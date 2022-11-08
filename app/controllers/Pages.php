@@ -8,9 +8,7 @@ class Pages extends Controller {
 
         $this->projectModel = $this->model('Progetto');
         $this->anomalieCostruzioneModel = $this->model('AnomaliaCostruzione');
-        $this->anomalieNavigazioneModel = $this->model('AnomaliaNavigazione');
         $this->ispezioniCostruzioneModel = $this->model('IspezioneCostruzione');
-        $this->ispezioniNavigazioneModel = $this->model('IspezioneNavigazione');
         $this->tipiAnomalieModel = $this->model('TipoAnomalia'); 
         $this->usersModel = $this->model('User');
         $this->areeModel = $this->model('Area');
@@ -21,14 +19,11 @@ class Pages extends Controller {
     public function index() {
 
         $ispezioniCostruzione = $this->ispezioniCostruzioneModel->getIspezioniByOperatore($_SESSION["username"], date("Y-m-d")) ;
-        $ispezioniNavigazione = $this->ispezioniNavigazioneModel->getIspezioniByOperatore($_SESSION["username"], date("Y-m-d")) ;
         $ispezioni = false;
-        if($ispezioniCostruzione != false && $ispezioniNavigazione != false){
-            $ispezioni = array_merge($ispezioniCostruzione, $ispezioniNavigazione);
+        if($ispezioniCostruzione != false){
+            $ispezioni = array_merge($ispezioniCostruzione);
         }else if($ispezioniCostruzione != false){
              $ispezioni = $ispezioniCostruzione;
-        }else if($ispezioniNavigazione != false){
-             $ispezioni = $ispezioniNavigazione;
         }else{
             $ispezioni = false;
         }

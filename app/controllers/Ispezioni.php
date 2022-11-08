@@ -8,9 +8,7 @@ class Ispezioni extends Controller {
 
         $this->projectModel = $this->model('Progetto');
         $this->anomalieCostruzioneModel = $this->model('AnomaliaCostruzione');
-        $this->anomalieNavigazioneModel = $this->model('AnomaliaNavigazione');
         $this->ispezioniCostruzioneModel = $this->model('IspezioneCostruzione');
-        $this->ispezioniNavigazioneModel = $this->model('IspezioneNavigazione');
         $this->tipiAnomalieModel = $this->model('TipoAnomalia'); 
         $this->usersModel = $this->model('User');
         $this->areeModel = $this->model('Area');
@@ -25,11 +23,9 @@ class Ispezioni extends Controller {
            if(isset($_GET["idProgetto"])){
 
                $ispezioniCostruzione = $this->ispezioniCostruzioneModel->getIspezioniByProgetto($_GET["idProgetto"]);
-               $ispezioniNavigazione = $this->ispezioniNavigazioneModel->getIspezioniByProgetto($_GET["idProgetto"]);
                $nomeProgetto = $this->projectModel->getProgettoById($_GET["idProgetto"])->nome;
                $data = [
                     'ispezioniCostruzione'=>$ispezioniCostruzione,
-                    'ispezioniNavigazione'=>$ispezioniNavigazione,
                     'nomeProgetto'=>$nomeProgetto,
                ];
                $this->view('ispezioni/index', $data);
@@ -89,7 +85,6 @@ class Ispezioni extends Controller {
            
      }
 
-
      public function modificaIspezioneCostruzione(){
         if(isset($_GET["idIspezione"])){
             $data = [
@@ -139,75 +134,5 @@ class Ispezioni extends Controller {
         }
 
     }
-
-/*
-     public function aggiungiIspezioneNavigazione(){
-          $data = [];
-          if(isset($_GET["idProgetto"])){
-               $data= [
-                    'operatori'=>$this->usersModel->getAll(),
-                    'aree'=> $this->areeModel->getAreeByProgetto($_GET["idProgetto"]),
-                    'sonde'=>$this->sondeModel->getAllSonde(),
-                    'idProgetto'=>$_GET["idProgetto"] 
-               ];
-          }
-           if($_SERVER['REQUEST_METHOD'] == 'POST'){
-               $data =[
-                    'data'=> trim($_POST["data"]), 
-                    'fine'=> trim($_POST["fine"]), 
-                    'luogo'=> trim($_POST["luogo"]), 
-                    'operatori'=> trim($_POST["operatori"]), 
-                    'cliente'=> trim($_POST["cliente"]), 
-                    'progetto'=> trim($_GET["idProgetto"]), 
-                    'risultato'=>empty($_POST["risultato"]) ? 0 : 1,  
-                    'aree'=> trim($_POST["area"]), 
-                    'areaInput'=>triM($_POST["areaInput"]), 
-                    'dettagli'=> trim($_POST["dettagli"]), 
-                    'sonda'=> trim($_POST["sonda"]),  
-                    'reticolo'=> trim($_POST["reticolo"]), 
-                    'switchAggiungi'=> trim($_POST["aggiungiArea"]),    
-               ];
-               
-               if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["areaInput"])){
-                    $data["aree"]= $data["areaInput"]; 
-               }
-
-               $inserito =  $this->ispezioniNavigazioneModel->inserisci($data);
-               if($inserito){
-                    if($data["risultato"]==1){ 
-                         header("Location:".URLROOT. "/anomalie/aggiungiAnomaliaNavigazione?idIspezione=$inserito");
-                    }
-                    header("Location:".URLROOT. "/anomalie/anomalieIspezioneNavigazione?idIspezione=$inserito");
-               } 
-           }
-               $this->view('ispezioni/aggiungiIspezioneNavigazione', $data);
-           
-     }
  
- 
-     public function modificaIspezioneNavigazione(){
-        if(isset($_GET["idIspezione"])){
-            $data = [
-                    "ispezione"=>$this->ispezioniNavigazioneModel->getIspezioneById($_GET["idIspezione"]),
-                    'operatori'=>$this->usersModel->getAll(),
-                    'aree'=> $this->areeModel->getAreeByIspezioneNavigazione($_GET["idIspezione"]),
-                    'sonde'=>$this->sondeModel->getAllSonde(),
-            ];
-            
-            $this->view('ispezioni/modificaIspezioneNavigazione', $data);
-        }
-
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
-
-            if(isset($_POST["sonda"]) &&  $_POST["sonda"] == "no"  ){   
-               $this->ispezioniNavigazioneModel->modificaIspezione($_POST);  
-            }else if(isset($_POST["sonda"]) && $_POST["sonda"] != "no"  ){
-               $this->ispezioniNavigazioneModel->modificaIspezioneWithSonda($_POST); 
-            }  
-
-            header('location: ' . URLROOT . "/anomalie/anomalieIspezioneNavigazione?idIspezione=". $_POST["idIspezione"]);
-        }
-
-    }
-*/
 }

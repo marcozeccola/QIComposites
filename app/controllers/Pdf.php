@@ -2,10 +2,8 @@
 class Pdf extends Controller {
     public function __construct() {
         $this->projectModel = $this->model('Progetto');
-        $this->ispezioniCostruzioneModel = $this->model('IspezioneCostruzione');
-        $this->ispezioniNavigazioneModel = $this->model('IspezioneNavigazione');
-        $this->anomaliaCostruzioneModel = $this->model('AnomaliaCostruzione');
-        $this->anomaliaNavigazioneModel = $this->model('AnomaliaNavigazione');
+        $this->ispezioniCostruzioneModel = $this->model('IspezioneCostruzione'); 
+        $this->anomaliaCostruzioneModel = $this->model('AnomaliaCostruzione'); 
     }
 
     public function index() {
@@ -15,10 +13,8 @@ class Pdf extends Controller {
 
                $data = [
                     'progetto'=>$this->projectModel->getProgettoById($idProgetto),
-                    'ispezioniCostruzione'=>$this->ispezioniCostruzioneModel->getIspezioniByProgetto($idProgetto),
-                    'ispezioniNavigazione'=>$this->ispezioniNavigazioneModel->getIspezioniByProgetto($idProgetto),
-                    'anomalieCostruzione'=>$this->anomaliaCostruzioneModel->getAnomaliaByProgetto($idProgetto),
-                    'anomalieNavigazione'=>$this->anomaliaNavigazioneModel->getAnomaliaByProgetto($idProgetto),
+                    'ispezioniCostruzione'=>$this->ispezioniCostruzioneModel->getIspezioniByProgetto($idProgetto), 
+                    'anomalieCostruzione'=>$this->anomaliaCostruzioneModel->getAnomaliaByProgetto($idProgetto), 
                ];
                $this->view('pdf/index', $data);
           }else{ 

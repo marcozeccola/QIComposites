@@ -36,6 +36,9 @@ class Progetti extends Controller {
         
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
             $data =[
                 'nome'=>trim($_POST["nome"]),
                 'inizio'=>trim($_POST["inizio"]),
@@ -44,29 +47,10 @@ class Progetti extends Controller {
                 'errorInizio'=>'',
                 'errorProgettista'=>'',
             ];
-
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-            if(empty($data["nome"])){
-                $data["errorNome"]="Inserire il nome del progetto";
-            }
-
-            if(empty($data["inizio"])){
-                $data["errorInizio"]="Inserire data inizio del progetto"; 
-            }
-
-            if(empty($data["progettista"])){
-                $data["errorProgettista"]="Inserire il nome del progettista"; 
-            }
-
-            if(empty($data["errorNome"])&&
-                empty($data["errorInizio"])&&
-                empty($data["errorProgettista"])
-            ){
+ 
                 if ($id = $this->projectModel->inserisci($data)) {
                     
-
+ 
                     if(file_exists($_FILES['copertina']['tmp_name']) || is_uploaded_file($_FILES['copertina']['tmp_name'])) {
                         $dirCopertina =  str_replace(' ', '',  PUBLICROOT. "\progetti-docs\copertine\ ".$id."\ ");
                         mkdir(  $dirCopertina, 0777, true);
@@ -99,7 +83,7 @@ class Progetti extends Controller {
                 } else {
                     die('Qualcosa è andato storto.');
                 }
-            }
+            
         }else{ 
             $this->view('progetti/nuovoProgetto', $data);
         }

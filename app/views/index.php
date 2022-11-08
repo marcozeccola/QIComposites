@@ -13,7 +13,7 @@
 
 foreach($data["ispezioni"] as $ispezione){ 
 
-   $link = isset($ispezione->idIspezioneNavigazione) ? "anomalieIspezioneNavigazione?idIspezione=".$ispezione->idIspezioneNavigazione : "anomalieIspezioneCostruzione?idIspezione=".$ispezione->idIspezioneCostruzione ;
+   $link =  "anomalieIspezioneCostruzione?idIspezione=".$ispezione->idIspezioneCostruzione ;
    ?>
    
    <option value="<?php echo $link;?>"> <?php echo $ispezione->aree; ?> - <?php echo $ispezione->luogo; ?> </option>
@@ -46,8 +46,7 @@ foreach($data["progetti"] as $progetto){
 ?>
 </select> <br>
 <button type="button" class="btn btn-primary" id="submitProgetto" style=" margin-left:20%!important;" >APRI</button>
-<button type="button" class="btn btn-primary" id="creaIspezioneNavigazione" style=" margin-left:5%!important;" >CREA ISPEZIONE NAVIGAZIONE</button>
-<button type="button" class="btn btn-primary" id="creaIspezioneCostruzione" style=" margin-left:5%!important;" >CREA ISPEZIONE COSTRUZIONE</button>
+ <button type="button" class="btn btn-primary" id="creaIspezioneCostruzione" style=" margin-left:5%!important;" >CREA ISPEZIONE COSTRUZIONE</button>
 
 <br><br><br>
 <script>
@@ -62,12 +61,7 @@ foreach($data["progetti"] as $progetto){
       let link = "<?php echo URLROOT; ?>/progetti/progetto?id=" + idProgetto;
       window.location = link;
    });
-   
-   document.getElementById("creaIspezioneNavigazione").addEventListener("click", (e)=>{
-      let idProgetto = document.getElementById('progettoSelect').value;
-      let link = "<?php echo URLROOT; ?>/ispezioni/aggiungiIspezioneNavigazione?idProgetto=" + idProgetto;
-      window.location = link;
-   });
+    
 
    document.getElementById("creaIspezioneCostruzione").addEventListener("click", (e)=>{
       let idProgetto = document.getElementById('progettoSelect').value;
