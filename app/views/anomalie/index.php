@@ -64,56 +64,7 @@
           }
      ?>
 
-          <?php 
-          if($data["anomalieNavigazione"]){
-     ?>
-          <br><br>
-          <h4>Navigazione</h4>
-
-          <div class="row flex-items-xs-middle flex-items-xs-center">
-
-               <?php
-          foreach($data["anomalieNavigazione"] as $anomalia){$dir = PUBLICROOT . "/anomalie/navigazione/".$anomalia->idAnomaliaNavigazione;
-            $files= NULL;
-            if(is_dir($dir)){
-              $files = array_slice(scandir($dir),2);
-            } 
-
-         ?>
-               <div class="col-xs-12 col-lg-4">
-                    <div class="card card-carousel">
-                        
-                         <div class="card-header">
-                              <h3><span class="period"><?php echo $anomalia->data; ?></span></h3>
-                         </div>
-                         <div class="card-block">
-                              <h4 class="card-title">
-                                   <?php echo $anomalia->anomalia; ?>
-                              </h4>
-                              <ul class="list-group">
-                                   <li class="list-group-item">Localizzazione: <?php echo $anomalia->localizzazione; ?>
-                                   </li>
-                                   <li class="list-group-item">Estensione: <?php echo $anomalia->estensione; ?></li>
-                                   <li class="list-group-item">Profondità: <?php echo $anomalia->profondita; ?></li>
-                                   <li class="list-group-item">Ipotesi causa: <?php echo $anomalia->causa; ?></li>
-                              </ul>
-                              <a href="<?php echo URLROOT ?>/anomalie/risoltoNavigazione?idAnomalia=<?php echo $anomalia->idAnomaliaNavigazione; ?>&idProgetto=<?php echo $data["idProgetto"] ;?>"
-                                   class="btn">RISOLTO</a>
-                              <a href="<?php echo URLROOT ?>/anomalie/singolaAnomaliaNavigazione?idAnomalia=<?php echo $anomalia->idAnomaliaNavigazione; ?>"
-                                   class="btn">DETTAGLI</a>
-                         </div>
-                    </div>
-               </div>
-               <?php
-          }
-         ?>
-
-
-          </div>
-
-          <?php 
-          }
-     ?>
+           
 
      </div>
 

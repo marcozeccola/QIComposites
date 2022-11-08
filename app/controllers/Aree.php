@@ -8,7 +8,6 @@ class Aree extends Controller {
 
         $this->projectModel = $this->model('Progetto');
         $this->anomalieCostruzioneModel = $this->model('AnomaliaCostruzione');
-        $this->anomalieNavigazioneModel = $this->model('AnomaliaNavigazione');
         $this->tipiAnomalieModel = $this->model('TipoAnomalia');
         $this->areaModel = $this->model('Area');
     }
