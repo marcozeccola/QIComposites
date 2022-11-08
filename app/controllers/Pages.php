@@ -17,7 +17,7 @@ class Pages extends Controller {
     }
 
     public function index() {
-
+        $prova = true;
         $ispezioniCostruzione = $this->ispezioniCostruzioneModel->getIspezioniByOperatore($_SESSION["username"], date("Y-m-d")) ;
         $ispezioni = false;
         if($ispezioniCostruzione != false){
