@@ -19,6 +19,7 @@ class Ispezioni extends Controller {
 
      /* Mostra tutte le ispezioni di un progetto  */
      public function index(){
+         $ciao = "ciao";
            $data=[];
            if(isset($_GET["idProgetto"])){
 
