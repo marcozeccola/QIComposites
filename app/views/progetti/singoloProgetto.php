@@ -25,8 +25,8 @@
                          <div class="swiper-pagination"></div>
                     </div>
                </div>
-
-               <div class="col-lg-4">
+ 
+            <div class="col-lg-4">
                     <div class="portfolio-info">
                          <h3><?php echo $data["progetto"]->nome; ?></h3>
                          <ul>
@@ -38,10 +38,46 @@
                          <h2>Scarica</h2>
                          <p>
                               <a href="<?php echo URLROOT ?>/pdf/index?idProgetto=<?php echo $data["progetto"]->idProgetto; ?>" class="btn btn-primary">REPORT</a>
-                              <a href="<?php echo URLROOT ?>/public/progetti-docs/disegni/<?php echo $data["progetto"]->idProgetto; ?>/<?php echo $data["progetto"]->idProgetto; ?>.pdf"
+                              <?php   
+                                   $dirDisegni = str_replace( ' ', '',PUBLICROOT. "\progetti-docs\disegni\ ". $data["progetto"]->idProgetto." \ ");
+                                   $fileDisegno =  is_dir($dirDisegni) ? scandir($dirDisegni)[2] : " ";
+
+                                   $linkDisegno =  URLROOT. "/public/progetti-docs/disegni/". $data["progetto"]->idProgetto."/".$fileDisegno;
+                                   $daCercare = $dirDisegni.$fileDisegno;
+                                   if(file_exists($daCercare)){
+                              ?>
+                                   <a href="<?php echo $linkDisegno; ?>"
                                    download class="btn btn-primary">DISEGNI</a>
-                              <a href="<?php echo URLROOT ?>/public/progetti-docs/procedures/<?php echo $data["progetto"]->idProgetto; ?>/<?php echo $data["progetto"]->idProgetto; ?>.pdf"
-                                   download class="btn btn-primary">NDT PROCEDURES</a>
+                              <?php     
+                                   }else{
+                              ?>    
+                                   <a href="<?php echo URLROOT;?>/progetti/aggiungiDisegno?idProgetto=<?php echo $_GET["id"];?>"
+                                    class="btn btn-secondary">DISEGNI</a>
+                              <?php 
+                                   }
+                              ?>
+
+                              <?php   
+                                   $dirProcedure = str_replace( ' ', '',PUBLICROOT. "\progetti-docs\procedures\ ". $data["progetto"]->idProgetto." \ ");
+                                   $fileProcedura =  is_dir($dirProcedure) ? scandir($dirProcedure)[2] : " ";
+
+                                   $linkProcedure =  URLROOT. "/public/progetti-docs/procedures/". $data["progetto"]->idProgetto."/".$fileProcedura;
+                                   $daCercare = $dirProcedure.$fileProcedura;
+ 
+                                   if(file_exists($daCercare)){
+                              ?>
+                                   <a href="<?php echo $linkProcedure; ?>"
+                                    download class="btn btn-primary">NDT PROCEDURES</a>
+                              <?php     
+                                   }else{
+                              ?>    
+                                   <a href="<?php echo URLROOT;?>/progetti/aggiungiNdt?idProgetto=<?php echo $_GET["id"];?>"
+                                    class="btn btn-secondary">NDT PROCEDURES</a>
+                              <?php 
+                                   }
+                              ?>
+                              
+                              
                          </p>
                     </div>
                     <div class="portfolio-description">
