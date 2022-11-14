@@ -40,5 +40,12 @@ class Pages extends Controller {
             header("location:".URLROOT."/users/login");
         }
     }
+
+    public function gestore(){
+        $data = [
+            'title'=>'Gestione dati',
+        ];
+        $this->view('/gestore', $data);
+    }
  
 }

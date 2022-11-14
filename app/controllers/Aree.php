@@ -10,6 +10,7 @@ class Aree extends Controller {
         $this->anomalieCostruzioneModel = $this->model('AnomaliaCostruzione');
         $this->tipiAnomalieModel = $this->model('TipoAnomalia');
         $this->areaModel = $this->model('Area');
+        $this->sottoAreaModel = $this->model('SottoArea');
     }
 
      public function aggiungiArea(){
@@ -23,6 +24,35 @@ class Aree extends Controller {
                header('location: ' . URLROOT . "/progetti/progetto?id=".$_GET["idProgetto"]);
           }else{  
                $this->view('aree/aggiungiArea', $data);
+          }
+     }
+
+     
+     public function aggiungiSottoArea(){
+           $data=[];
+           if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["sottoAreaInput"]) && isset($_GET["idArea"])){
+               $data =[
+                    'sottoAreaInput'=>$_POST["sottoAreaInput"],
+                    'fk_idAreaRiferimento'=>$_GET["idArea"],
+                    'idProgetto'=> $this->areaModel->getIdProgettoByIdArea($_GET["idArea"])->fk_idProgetto,
+               ];
+               $this->sottoAreaModel->inserisci($data);
+              
+               header('location: ' . URLROOT . "/aree/singolaMacroArea?idArea=".$data["fk_idAreaRiferimento"]);
+          }else{  
+               $this->view('aree/aggiungiSottoArea', $data);
+          }
+     }
+
+     public function singolaMacroArea(){
+           $data=[];
+          if(isset($_GET["idArea"])){  
+               $data = [
+                    'sottoAree'=>$this->sottoAreaModel->getSottoAreeByArea($_GET["idArea"]),
+               ];
+               $this->view('aree/singolaMacroArea', $data);
+          }else{
+               header('location: ' . URLROOT . "/progetti/");
           }
      }
  

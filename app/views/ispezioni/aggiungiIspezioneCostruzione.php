@@ -127,6 +127,11 @@
                     <input type="text" id="nomeArea" name="nomeArea" class="form-control" />
                     <label class="form-label" for="nomeArea">Nome proprio area</label>
                </div>
+               
+               <div class="form-outline mb-4">
+                  <input type="file" id="immagini" name="immagini[]" class="form-control" accept="image/*"  multiple="multiple"  />
+                  <label class="form-label" for="immagini">Immagini</label>
+               </div>  
 
                <button type="submit" class="btn btn-primary btn-block mb-4">
                     Aggiungi
