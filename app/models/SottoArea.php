@@ -19,6 +19,19 @@ class SottoArea {
         }
     }
 
+    public function getSottoAreeByArea($id){
+          $this->db->query('SELECT * FROM sotto_aree 
+                              WHERE fk_idAreaRiferimento = :id;');
+   
+          $this->db->bind(':id', $id);  
+          $result = $this->db->resultSet();
+ 
+          if( $result) {
+               return $result;
+          } else {
+               return false;
+          }
+    }
     public function getSottoAreeByProgetto($id){
           $this->db->query('SELECT * FROM sotto_aree 
                               INNER JOIN aree_riferimento ON aree_riferimento.idAreaRiferimento = fk_idAreaRiferimento

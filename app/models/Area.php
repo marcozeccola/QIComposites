@@ -32,6 +32,19 @@ class Area {
           }
     }
 
+    public function getIdProgettoByIdArea($id){
+
+          $this->db->query('SELECT fk_idProgetto FROM aree_riferimento WHERE  idAreaRiferimento = :id;');
+   
+          $this->db->bind(':id', $id);  
+          $result = $this->db->single();
+ 
+          if( $result) {
+               return $result;
+          } else {
+               return false;
+          }
+    }
     
     public function getAreeByIspezioneCostruzione($id){
           $this->db->query('SELECT aree_riferimento.* FROM aree_riferimento 

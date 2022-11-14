@@ -53,7 +53,28 @@
           </tbody>
         </table>
 
+        <?php
+            $dir = PUBLICROOT . "/ispezioni/costruzione/".$data["ispezione"]->idIspezioneCostruzione;
+            $ispezione = $data["ispezione"];
+            $files= NULL;
 
+            if(is_dir($dir)){
+                $files = array_slice(scandir($dir),2);
+            } 
+
+            if(!empty($files) && !is_null($files)){
+        ?>
+        <?php 
+              foreach($files as $file){
+        ?>
+              <div class="">
+                    <img src="<?php echo URLROOT ;?>/public/ispezioni/costruzione/<?php echo $ispezione->idIspezioneCostruzione; ;?>/<?php echo $file;?>"
+                        class="d-block w-100">
+              </div>
+        <?php 
+              }
+            } 
+          ?>
         <header class="section-header">
           <h3>Anomalie</h3> 
           <p>

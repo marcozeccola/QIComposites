@@ -91,6 +91,73 @@ class Progetti extends Controller {
 
     }
 
+    public function aggiungiNdt(){
+        
+        $data = [
+            'title' => 'Form NDT Procedure',
+            'progetti'=>$this->projectModel->getAllProgetti(),  
+        ]; 
+          
+        
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            
+            // Sanitize POST data
+            $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $id = $_GET["idProgetto"]; 
+
+            if(file_exists($_FILES['ndt']['tmp_name']) || is_uploaded_file($_FILES['ndt']['tmp_name'])) {
+                $dirProcedura =  str_replace( ' ', '',PUBLICROOT. "\progetti-docs\procedures\ ". $id . "\ ");
+                mkdir(  $dirProcedura, 0777, true);
+                $caricamentoProcedure = move_uploaded_file($_FILES["ndt"]["tmp_name"], $dirProcedura.$_FILES["ndt"]["name"] );   
+            }else{
+                    $caricamentoProcedure = true;
+            }
+            
+            if( $caricamentoProcedure ){ 
+                //Redirect alla pagina del progetto
+                header('location: ' . URLROOT . "/progetti/progetto?id=".$id);
+            }
+            
+        }else{ 
+            $this->view('progetti/aggiungiNdt', $data);
+        }
+    }
+
+
+    public function aggiungiDisegno(){
+        
+        $data = [
+            'title' => 'Form Disegni',
+            'progetti'=>$this->projectModel->getAllProgetti(),  
+        ]; 
+          
+        
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            
+            // Sanitize POST data
+            $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $id = $_GET["idProgetto"];
+
+            if(file_exists($_FILES['disegni']['tmp_name']) || is_uploaded_file($_FILES['disegni']['tmp_name'])) {
+                $dirDisegno = str_replace(' ', '',PUBLICROOT. "\progetti-docs\disegni\ ".$id."\ " );
+                mkdir(  $dirDisegno, 0777, true);
+                $caricamentoDisegno = move_uploaded_file($_FILES["disegni"]["tmp_name"],  $dirDisegno.$_FILES["disegni"]["name"] );
+            }else{
+                $caricamentoDisegno = true;
+            } 
+ 
+            
+            if(  $caricamentoDisegno ){ 
+                //Redirect alla pagina del progetto
+                header('location: ' . URLROOT . "/progetti/progetto?id=".$id);
+            }
+            
+        }else{ 
+            $this->view('progetti/aggiungiDisegno', $data);
+        }
+    }
     //pagina singolo progetto
     public function progetto(){
         if( isset($_GET["id"])){

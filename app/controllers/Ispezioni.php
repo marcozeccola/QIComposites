@@ -75,10 +75,25 @@ class Ispezioni extends Controller {
                }
 
                $inserito =  $this->ispezioniCostruzioneModel->inserisci($data);
-               if($inserito){
-                    if($data["risultato"]==1){ 
-                         header("Location:".URLROOT. "/anomalie/aggiungiAnomaliaCostruzione?idIspezione=$inserito");
-                    }
+
+               if($inserito>0){
+
+                    $files = array_filter($_FILES['immagini']['name']);                         
+                    $total_count = count($_FILES['immagini']['name']);
+
+                    $cartella = str_replace(' ', '',  PUBLICROOT. "/ispezioni/costruzione/ ".$inserito."/ ");
+                    
+                    mkdir( $cartella, 0777, true);
+
+                    for( $i=0 ; $i < $total_count ; $i++ ) {  
+                              $tmpFilePath = $_FILES['immagini']['tmp_name'][$i];
+                              $newFilePath = $cartella. $_FILES['immagini']['name'][$i]; 
+                              move_uploaded_file($tmpFilePath, $newFilePath);
+                    } 
+
+                }
+
+               if($inserito){ 
                     header("Location:".URLROOT. "/anomalie/anomalieIspezioneCostruzione?idIspezione=$inserito");
                } 
            }
@@ -128,7 +143,25 @@ class Ispezioni extends Controller {
                }
              
                 
-                 $this->ispezioniCostruzioneModel->modificaIspezione($data);
+               $inserita = $this->ispezioniCostruzioneModel->modificaIspezione($data); 
+               if($inserita){
+                    if ( $_FILES["immagini"]["tmp_name"]!="" ){
+                         $files = array_filter($_FILES['immagini']['name']);                         
+                         $total_count = count($_FILES['immagini']['name']);
+
+                         $cartella = str_replace(' ', '',  PUBLICROOT. "/ispezioni/costruzione/ ".$_POST["idIspezione"]."/ ");
+                    
+                         if(!is_dir($cartella)){
+                              mkdir( $cartella, 0777, true);
+                         }
+
+                         for( $i=0 ; $i < $total_count ; $i++ ) {  
+                              $tmpFilePath = $_FILES['immagini']['tmp_name'][$i];
+                              $newFilePath = $cartella. $_FILES['immagini']['name'][$i]; 
+                              move_uploaded_file($tmpFilePath, $newFilePath);
+                         } 
+                    }
+               }
                     
 
                header('location: ' . URLROOT . "/anomalie/anomalieIspezioneCostruzione?idIspezione=". $_POST["idIspezione"]);

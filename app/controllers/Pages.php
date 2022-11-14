@@ -17,7 +17,7 @@ class Pages extends Controller {
     }
 
     public function index() {
-
+        $prova = true;
         $ispezioniCostruzione = $this->ispezioniCostruzioneModel->getIspezioniByOperatore($_SESSION["username"], date("Y-m-d")) ;
         $ispezioni = false;
         if($ispezioniCostruzione != false){
@@ -39,6 +39,13 @@ class Pages extends Controller {
         }else{
             header("location:".URLROOT."/users/login");
         }
+    }
+
+    public function gestore(){
+        $data = [
+            'title'=>'Gestione dati',
+        ];
+        $this->view('/gestore', $data);
     }
  
 }
