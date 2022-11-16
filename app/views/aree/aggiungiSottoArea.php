@@ -6,19 +6,19 @@
 ?> 
 <div class="d-flex justify-content-center">
    <div class="row text-center nuovoProgetto ">
-      <h3>Inserisci nuova sotto-area</h3>
+      <h3>Inserisci <b>nuova sotto-area</b></h3>
       <form action="<?php echo URLROOT ?>/aree/aggiungiSottoArea?idArea=<?php echo $_GET["idArea"]; ?>" method="POST" enctype="multipart/form-data"> 
 
          <!-- sotto area input -->
          <div class="form-outline mb-4">
+            <label class="form-label" for="area"><b>Sotto-area</b></label>
             <input type="text" id="sottoAreaInput" name="sottoAreaInput" class="form-control" required/>
-            <label class="form-label" for="area">Sotto area</label>
          </div>
 
          <!-- Submit button -->
          <button type="submit" class="btn btn-primary btn-block mb-4">
          Aggiungi
-         </button> 
+         </button>
       </form>
    </div>
 </div>

@@ -5,12 +5,10 @@
    require APPROOT . '/views/includes/navigation.php';  
 ?>  
 <section id="pricing" class="pricing section-bg ">
-
-      <div class="container" >
+      <div class="container text-left" style="width: 95%; margin: auto">
         <header class="section-header">
           <h3>Dettagli tecnici ispezione in costruzione</h3> 
         </header> 
-        <a href="<?php echo URLROOT; ?>/ispezioni/modificaIspezioneCostruzione?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>">modifica</a>
 
         <table class="table"> 
           <tbody>
@@ -52,6 +50,9 @@
             </tr> 
           </tbody>
         </table>
+        <div class="text-center" style="width: 50%; margin: auto" >
+        <a class="btn btn-primary" href="<?php echo URLROOT; ?>/ispezioni/modificaIspezioneCostruzione?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>">Modifica</a>
+        </div>
 
         <?php
             $dir = PUBLICROOT . "/ispezioni/costruzione/".$data["ispezione"]->idIspezioneCostruzione;
@@ -74,11 +75,11 @@
         <?php 
               }
             } 
-          ?>
+          ?><br><br>
         <header class="section-header">
           <h3>Anomalie</h3> 
           <p>
-          <a href="<?php echo URLROOT; ?>/anomalie/aggiungiAnomaliaCostruzione?idIspezione=<?php echo $_GET["idIspezione"]; ?>">Aggiungi anomalia</a>
+            <a href="<?php echo URLROOT; ?>/anomalie/aggiungiAnomaliaCostruzione?idIspezione=<?php echo $_GET["idIspezione"]; ?>">Aggiungi anomalia</a>
           </p>
         </header>
 

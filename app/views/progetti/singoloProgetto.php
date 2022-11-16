@@ -34,8 +34,8 @@
                               <li><strong>Nome del progettista</strong>: <?php echo $data["progetto"]->progettista; ?></li>
                          </ul>
                     </div>
-                    <div class="portfolio-description">
-                         <h2>Scarica</h2>
+                    <div class="portfolio-description text-center">
+                         <h3>Scarica</h3>
                          <p>
                               <a href="<?php echo URLROOT ?>/pdf/index?idProgetto=<?php echo $data["progetto"]->idProgetto; ?>" class="btn btn-primary">REPORT</a>
                               <?php   
@@ -80,8 +80,8 @@
                               
                          </p>
                     </div>
-                    <div class="portfolio-description">
-                         <h2>Operazioni</h2>
+                    <div class="portfolio-description text-center">
+                         <h3>Operazioni</h3>
                          <p>
                               <a href="<?php echo URLROOT ?>/anomalie/index?idProgetto=<?php echo $data["progetto"]->idProgetto; ?>"
                                    class="btn btn-primary">ANOMALIE PRESENTI</a>
@@ -94,7 +94,7 @@
           </div>
 
 
-          <div class="row gy-4">
+          <div class="row gy-4 text-center">
 
                <div class="col-lg-12">
                     <div class="portfolio-description">

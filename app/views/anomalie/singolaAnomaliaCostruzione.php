@@ -11,7 +11,6 @@
                <h3>Dettagli tecnici anomalia in costruzione</h3> 
           </header>
 
-          <a href="<?php echo URLROOT; ?>/anomalie/modificaAnomaliaCostruzione?idAnomalia=<?php echo $data["anomalia"]->idAnomaliaCostruzione; ?>">modifica</a>
 
           <table class="table">
                <tbody>
@@ -83,12 +82,16 @@
                          </button>
                     </div>
                     <?php  
-                         } 
+                         }
                     ?>
                </div>
           </div>
      </div>
 </section>
+<div class="text-center">
+     <a class="btn btn-primary" style="width: 40%; margin: auto"href="<?php echo URLROOT; ?>/anomalie/modificaAnomaliaCostruzione?idAnomalia=<?php echo $data["anomalia"]->idAnomaliaCostruzione; ?>">modifica</a>
+</div>
+
 
 
 

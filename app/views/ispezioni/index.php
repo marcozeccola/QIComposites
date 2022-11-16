@@ -5,27 +5,26 @@
    require APPROOT . '/views/includes/navigation.php';  
 ?> 
  
-<section id="pricing" class="pricing section-bg ">
+<section id="pricing" class="pricing section-bg text-center">
 
       <div class="container" >
-
         <header class="section-header">
           <h3>Ispezioni</h3>
-          <p>Ispezioni del progetto <?php echo $data["nomeProgetto"]; ?></p>
-        </header>
+          <h4>Costruzione</h4>
+          <a style="width: 70%; margin: auto" href="<?php echo URLROOT; ?>/public/ispezioni/aggiungiIspezioneCostruzione?idProgetto=<?php echo $_GET["idProgetto"]; ?>">Aggiungi ispezione costruzione</a>
+        </header><br>
+        <h4>Ispezioni del progetto <?php echo $data["nomeProgetto"]; ?></h4>
      
-        <h4>Costruzione</h4>
 
         <div class="row flex-items-xs-middle flex-items-xs-center">
-            <a href="<?php echo URLROOT; ?>/public/ispezioni/aggiungiIspezioneCostruzione?idProgetto=<?php echo $_GET["idProgetto"]; ?>">Aggiungi ispezione costruzione</a>
-          <?php 
+          <?php
           if($data["ispezioniCostruzione"]){
      ?> 
            <br>
         <?php
           foreach($data["ispezioniCostruzione"] as $ispezione){
         ?>
-            <div class="col-xs-12 col-lg-4 card-anomalia" >
+            <div class="col-xs-12 col-lg-4 shadow p-3 mb-5 bg-white rounded" style="width: 90%; margin: auto">
               <div class="card">
                 <div class="card-header">
                   <h3><span class="period"><?php echo $ispezione->data; ?></span></h3>
