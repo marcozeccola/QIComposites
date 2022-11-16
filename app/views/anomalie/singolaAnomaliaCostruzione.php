@@ -11,7 +11,6 @@
                <h3>Dettagli tecnici anomalia in costruzione</h3> 
           </header>
 
-
           <table class="table">
                <tbody>
                     <tr>
@@ -41,7 +40,7 @@
                }
           ?>
           <div class="col-xs-12 col-lg-4 card-anomalia">
-               <div class="card card-carousel">
+               <div class="card-carousel">
 
                     <?php
                          $dir = PUBLICROOT . "/anomalie/costruzione/".$data["anomalia"]->idAnomaliaCostruzione;
