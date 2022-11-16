@@ -15,27 +15,27 @@
                <input type="hidden" name="idIspezione" value="<?php echo $data["ispezione"]->idIspezioneCostruzione ?>">
                <div class="p-2">
                     <label class="form-label" for="data" style="font-weight: bold">Data inizio dell'ispezione</label>
-                    <input type="date" id="data" name="data" class="form-control" />
+                    <input type="date" id="data" name="data" class="form-control" value="<?php echo $data["ispezione"]->data ?>" />
                </div>
 
                <div class="p-2">
                     <label class="form-label" for="fine" style="font-weight: bold">Data di fine ispezione</label>
-                    <input type="date" id="fine" name="fine" class="form-control" />
+                    <input type="date" id="fine" name="fine" class="form-control" value="<?php echo $data["ispezione"]->fine ?>" />
                </div>
 
                <div class="p-2">
                     <label class="form-label" for="luogo" style="font-weight: bold">Luogo dell'ispezione</label>
-                    <input type="text" id="luogo" name="luogo" class="form-control" />
+                    <input type="text" id="luogo" name="luogo" class="form-control" value="<?php echo $data["ispezione"]->luogo ?>"/>
                </div>
 
                <div class="p-2">
                     <label class="form-label" for="cliente" style="font-weight: bold">Cliente</label>
-                    <input type="text" id="cliente" name="cliente" class="form-control" />
+                    <input type="text" id="cliente" name="cliente" class="form-control" value="<?php echo $data["ispezione"]->cliente ?>" />
                </div>
 
                <div class="p-2">
                     <label class="form-label" for="stato" style="font-weight: bold">Stato di avanzamento</label>
-                    <input type="text" id="stato" name="stato" class="form-control" />
+                    <input type="text" id="stato" name="stato" class="form-control" value="<?php echo $data["ispezione"]->stato ?>" />
                </div>
 
                <!-- input Operatori -->
@@ -54,7 +54,7 @@
                     ?>
                     </select><br>
                     <label for="operatori">Operatore esterno?</label>
-                    <textarea name="operatori" id="operatori" cols="30" rows="1"></textarea>
+                    <textarea name="operatori" id="operatori" cols="30" rows="1"><?php echo $data["ispezione"]->operatori ?></textarea>
                </div>
 
                <!-- input reticoli -->
@@ -72,7 +72,7 @@
                     ?>
                     </select><br>
                     <label for="reticoli">Reticolo particolare?</label>
-                    <textarea name="reticoli" id="reticoli" cols="30" rows="1"></textarea>
+                    <textarea name="reticoli" id="reticoli" cols="30" rows="1"><?php echo $data["ispezione"]->reticoli; ?> </textarea>
                </div>
 
                <!-- input sonde -->
@@ -90,39 +90,68 @@
                     ?>
                     </select><br>
                     <label for="sonde">Sonda particolare?</label>
-                    <textarea name="sonde" id="sonde" cols="30" rows="1"></textarea>
+                    <textarea name="sonde" id="sonde" cols="30" rows="1"><?php echo $data["ispezione"]->sonde; ?></textarea>
                </div>
 
 
                <div class="p-2">
                     <label class="form-label" for="tipo"><b>Macro area</b></label>
                     <select class="form-select" name="macroArea" id="selectMacroArea">
-                         <option disabled selected>Scegli macro area</option>
-                         <?php 
+                          <?php 
                          foreach($data["macroAree"] as $area){
-                    ?>
-                         <option value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
+                              if($area->idAreaRiferimento =  $data["ispezione"]->fk_idAreaRiferimento){
+                         ?>    
+                               <option selected value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
+                         <?php 
+                              }else{
+                         ?>
+                              <option value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
+
+                         <?php
+                              }
+                         ?>
+
                          <?php
                          }
                     ?>
                     </select>
                </div>
 
+               <div class="form-check form-switch">
+                    <label class="form-label" for="tipo"><b>Sotto area</b></label>
+                    <br>
+                    <label class="form-label" for="sottoAreaInput">Nuova sotto area?</label>
+                    <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiArea"
+                         id="aggiungiArea" style="margin-left:50%!important;">
+               </div>
 
+               <br>
 
                <div class="p-2" id="container-aggiungi">
+                    <input type="text" id="sottoAreaInput" name="sottoAreaInput" class="form-control" / /> 
                </div>
 
-               <div class="p-2" id="container-select">
-                    <label class="form-label" for="tipo"><b>Sotto area</b></label>
+               <div class="p-2" id="container-select"> 
                     <select class="form-select" name="sottoArea" id="selectSottoArea">
+                    <?php 
+                         foreach($data["sottoAree"] as $area){
+
+                              if($area->idSottoArea ==  $data["ispezione"]->fk_idSottoArea){
+                         ?>    
+                               <option selected value="<?php echo $area->idSottoArea?>"><?php echo $area->nome?></option>
+                         <?php 
+                              }
+                         ?>
+
+                         <?php
+                         }
+                         ?>
                     </select><br>
-                    <label class="form-label" for="sottoAreaInput">Nuova sotto area?</label>
-                    <textarea id="sottoAreaInput" name="sottoAreaInput" cols="30" rows="1"></textarea>
-               </div>
+               </div> 
+
                <div class="p-2">
                     <label class="form-label" for="nomeArea"><b>Nome proprio area</b></label>
-                    <input type="text" id="nomeArea" name="nomeArea" class="form-control" />
+                    <input type="text" id="nomeArea" name="nomeArea" class="form-control" value=" <?php echo $data["ispezione"]->nomeArea; ?>" />
                </div>
 
                <div class="p-2">

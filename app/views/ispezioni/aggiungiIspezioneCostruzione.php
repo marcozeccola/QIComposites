@@ -91,7 +91,7 @@
                     <label for="sonde">Sonda particolare?</label>
                     <textarea name="sonde" id="sonde" cols="30" rows="1"></textarea>
                </div>
-
+ 
 
                <div class="p-2">
                     <label class="form-label" for="tipo"><b>Macro area</b></label>
@@ -107,18 +107,25 @@
                     </select>
                </div>
 
+               <div class="form-check form-switch">
+                    <label class="form-label" for="tipo"><b>Sotto area</b></label>
+                    <br>
+                    <label class="form-label" for="sottoAreaInput">Nuova sotto area?</label>
+                    <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiArea"
+                         id="aggiungiArea" style="margin-left:50%!important;">
+               </div>
 
+               <br>
 
                <div class="p-2" id="container-aggiungi">
+                    <input type="text" id="sottoAreaInput" name="sottoAreaInput" class="form-control" / /> 
                </div>
 
-               <div class="p-2" id="container-select">
-                    <label class="form-label" for="tipo"><b>Sotto area</b></label>
+               <div class="p-2" id="container-select"> 
                     <select class="form-select" name="sottoArea" id="selectSottoArea">
                     </select><br>
-                    <label class="form-label" for="sottoAreaInput">Nuova sotto area?</label>
-                    <textarea id="sottoAreaInput" name="sottoAreaInput" cols="30" rows="1"></textarea>
                </div>
+
                <div class="p-2">
                     <label class="form-label" for="nomeArea"><b>Nome proprio area</b></label>
                     <input type="text" id="nomeArea" name="nomeArea" class="form-control" />
@@ -137,65 +144,68 @@
 </div>
 
 <script>
-     document.getElementById("selectOpertatori").addEventListener("change", (e) => {
-          let nomeOperatore = e.target.value;
-          let inputOperatori = document.getElementById("operatori");
-          let spazio = inputOperatori.value == "" ? " " : ", ";
-          inputOperatori.value += spazio + nomeOperatore;
-     });
+document.getElementById("selectOpertatori").addEventListener("change", (e) => {
+     let nomeOperatore = e.target.value;
+     let inputOperatori = document.getElementById("operatori");
+     let spazio = inputOperatori.value == "" ? " " : ", ";
+     inputOperatori.value += spazio + nomeOperatore;
+});
 
-     document.getElementById("selectSonde").addEventListener("change", (e) => {
-          let nomeSonda = e.target.value;
-          let textarea = document.getElementById("sonde");
-          let spazio = textarea.value == "" ? " " : ", ";
-          textarea.value += spazio + nomeSonda;
-     });
+document.getElementById("selectSonde").addEventListener("change", (e) => {
+     let nomeSonda = e.target.value;
+     let textarea = document.getElementById("sonde");
+     let spazio = textarea.value == "" ? " " : ", ";
+     textarea.value += spazio + nomeSonda;
+});
 
-     document.getElementById("selectReticoli").addEventListener("change", (e) => {
-          let nomeReticolo = e.target.value;
-          let textarea = document.getElementById("reticoli");
-          let spazio = textarea.value == "" ? " " : ", ";
-          textarea.value += spazio + nomeReticolo;
-     });
+document.getElementById("selectReticoli").addEventListener("change", (e) => {
+     let nomeReticolo = e.target.value;
+     let textarea = document.getElementById("reticoli");
+     let spazio = textarea.value == "" ? " " : ", ";
+     textarea.value += spazio + nomeReticolo;
+});
 
-     document.getElementById("aggiungiArea").addEventListener("change", (e) => {
+document.getElementById("aggiungiArea").addEventListener("change", (e) => {
 
-          let aggiungi = document.getElementById("container-aggiungi");
-          let selectAggiungi = document.getElementById("container-select");
-          if (e.target.checked) {
-               aggiungi.style.display = "block";
-               selectAggiungi.style.display = "none";
-          } else {
-               aggiungi.style.display = "none";
-               selectAggiungi.style.display = "block";
+     let aggiungi = document.getElementById("container-aggiungi");
+     let selectAggiungi = document.getElementById("container-select");
+     if (e.target.checked) {
+          aggiungi.style.display = "block";
+          selectAggiungi.style.display = "none";
+     } else {
+          aggiungi.style.display = "none";
+          selectAggiungi.style.display = "block";
+     }
+});
+
+document.getElementById("selectMacroArea").addEventListener("change", (e) => {
+     console.log("ciao");
+     let select = document.getElementById("selectSottoArea");
+     let lista =   
+               <?php 
+               echo "{";
+                    foreach($data["sottoAree"] as $area){
+                         echo "'$area->nome':['$area->fk_idAreaRiferimento','$area->idSottoArea'],";
+                    }
+                    
+               echo "}";
+               ?> 
+     ;  
+     let idAreaRiferimento =  e.target.value;
+
+     //pulisce la select
+     select.innerHTML= "";
+
+     //inserisce le option con value l'id della sottoarea di riferimento
+     Object.entries(lista).forEach(([key, value]) => { 
+          if(value[0]==idAreaRiferimento){
+               select.add(new Option(key, value[1]))
           }
-     });
-
-     document.getElementById("selectMacroArea").addEventListener("change", (e) => {
-          let select = document.getElementById("selectSottoArea");
-          let lista = <
-               ? php
-          echo "{";
-          foreach($data["sottoAree"] as $area) {
-               echo "'$area->nome':['$area->fk_idAreaRiferimento','$area->idSottoArea'],";
-          }
-
-          echo "}"; ?
-          > ;
-          let idAreaRiferimento = e.target.value;
-
-          //pulisce la select
-          select.innerHTML = "";
-
-          //inserisce le option con value l'id della sottoarea di riferimento
-          Object.entries(lista).forEach(([key, value]) => {
-               if (value[0] == idAreaRiferimento) {
-                    select.add(new Option(key, value[1]))
-               }
-          });
-
-     });
+     });      
+     
+}); 
 </script>
+
 
 <?php
    require APPROOT . '/views/includes/footer.php';
