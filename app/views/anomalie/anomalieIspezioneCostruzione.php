@@ -49,8 +49,28 @@
               <td><?php echo $data["ispezione"]->stato; ?></td> 
             </tr>
             <tr>
-              <th scope="row">Area di Riferimento</th>
-              <td><?php echo $data["ispezione"]->riferimento; ?></td> 
+              <th scope="row">Macroarea di Riferimento</th>
+              <td>
+                <?php  
+                  if($data["macroArea"]){
+                    echo $data["macroArea"]->area; 
+                  }
+                ?>
+              </td> 
+            </tr>
+            <tr>
+              <th scope="row">Sotto area di Riferimento</th>
+              <td>
+                <?php 
+                  if($data["sottoArea"]){
+                    echo $data["sottoArea"]->nome; 
+                  }
+                ?>
+              </td>  
+            </tr>
+            <tr>
+              <th scope="row">Nome area</th>
+              <td><?php echo $data["ispezione"]->nomeArea; ?></td> 
             </tr>
           </tbody>
         </table>
@@ -83,21 +103,22 @@
               } 
             ?>
             </div>
-                                <button class="carousel-control-prev" type="button"
-                                      data-bs-target="#carouselCostruzione<?php echo $ispezione->idIspezioneCostruzione; ?>"
-                                      data-bs-slide="prev">
-                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                      <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                      data-bs-target="#carouselCostruzione<?php echo $ispezione->idIspezioneCostruzione; ?>"
-                                      data-bs-slide="next">
-                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                      <span class="visually-hidden">Next</span>
-                                </button>
+              <button class="carousel-control-prev" type="button"
+                    data-bs-target="#carouselCostruzione<?php echo $ispezione->idIspezioneCostruzione; ?>"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button"
+                    data-bs-target="#carouselCostruzione<?php echo $ispezione->idIspezioneCostruzione; ?>"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+              </button>
             <br>
             </div>
           </div>
+        </div>
         <div class="text-center" style="width: 50%; margin: auto" >
           <a class="btn btn-primary" href="<?php echo URLROOT; ?>/ispezioni/modificaIspezioneCostruzione?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>">Modifica</a>
         </div><br><br>

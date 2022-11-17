@@ -18,8 +18,7 @@ class Ispezioni extends Controller {
     }
 
      /* Mostra tutte le ispezioni di un progetto  */
-     public function index(){
-         $ciao = "ciao";
+     public function index(){ 
            $data=[];
            if(isset($_GET["idProgetto"])){
 
@@ -109,7 +108,7 @@ class Ispezioni extends Controller {
                     'macroAree'=> $this->areeModel->getAreeByIspezioneCostruzione($_GET["idIspezione"]),
                     'sottoAree'=> $this->sottoAreeModel->getSottoAreeByIspezioneCostruzione($_GET["idIspezione"]),
                     'sonde'=>$this->sondeModel->getAllSonde(),
-                    'reticoli'=>$this->reticoliModel->getAllReticoli(),
+                    'reticoli'=>$this->reticoliModel->getAllReticoli(), 
             ];
             
              $this->view('ispezioni/modificaIspezioneCostruzione', $data);
@@ -135,7 +134,11 @@ class Ispezioni extends Controller {
                     'switchAggiungi'=> trim($_POST["aggiungiArea"]),   
                     'sottoAreaInput'=> trim($_POST["sottoAreaInput"]),
                ];
-               var_dump($data);
+               
+               if(isset($_POST["sottoArea"])){
+                    $data["fk_idAreaRiferimento"]=$this->areeModel->getAreaBySottoArea(trim($_POST["sottoArea"]))->idAreaRiferimento;
+               }
+
                if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["sottoAreaInput"])){
                      
                     $idAreaInserita = $this->sottoAreeModel->inserisci($data);

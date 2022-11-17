@@ -19,6 +19,19 @@ class Area {
         }
     }
 
+     public function getAreaById($id){
+          $this->db->query('SELECT area FROM aree_riferimento WHERE idAreaRiferimento = :id;');
+   
+          $this->db->bind(':id', $id);  
+          $result = $this->db->single();
+ 
+          if( $result) {
+               return $result;
+          } else {
+               return false;
+          }
+     }
+
     public function getAreeByProgetto($id){
           $this->db->query('SELECT * FROM aree_riferimento WHERE fk_idProgetto = :id;');
    
@@ -53,6 +66,21 @@ class Area {
    
           $this->db->bind(':id', $id);  
           $result = $this->db->resultSet();
+ 
+          if( $result) {
+               return $result;
+          } else {
+               return false;
+          }
+    }
+
+    public function getAreaBySottoArea($id){
+          $this->db->query('SELECT aree_riferimento.idAreaRiferimento FROM aree_riferimento 
+                            INNER JOIN sotto_aree ON sotto_aree.fk_idAreaRiferimento = aree_riferimento.idAreaRiferimento
+                            WHERE idSottoArea = :id;');
+   
+          $this->db->bind(':id', $id);  
+          $result = $this->db->single();
  
           if( $result) {
                return $result;

@@ -10,6 +10,8 @@ class Anomalie extends Controller {
         $this->anomalieCostruzioneModel = $this->model('AnomaliaCostruzione');
         $this->ispezioniCostruzioneModel = $this->model('IspezioneCostruzione');
         $this->tipiAnomalieModel = $this->model('TipoAnomalia'); 
+        $this->areaModel = $this->model('Area'); 
+        $this->sottoAreaModel = $this->model('SottoArea'); 
     }
 
      /* L'index mostra TUTTE le anomalie di un progetto */
@@ -104,8 +106,10 @@ class Anomalie extends Controller {
                 $ispezione = $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]); 
                
                 $data = [
-                    'anomalieCostruzione'=> $anomalieCostruzione, 
+                    'anomalieCostruzione'=> $anomalieCostruzione,  
                     'ispezione'=>$ispezione,
+                    'macroArea'=>$this->areaModel->getAreaById($ispezione->fk_idAreaRiferimento),
+                    'sottoArea'=>$this->sottoAreaModel->getSottoAreaById($ispezione->fk_idSottoArea),
                 ];
             $this->view('anomalie/anomalieIspezioneCostruzione', $data);
         }else{ 

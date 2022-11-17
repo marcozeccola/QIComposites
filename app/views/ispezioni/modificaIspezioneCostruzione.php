@@ -97,23 +97,14 @@
                <div class="p-2">
                     <label class="form-label" for="tipo"><b>Macro area</b></label>
                     <select class="form-select" name="macroArea" id="selectMacroArea">
+                         <option disabled selected>Scegli macro area</option>
                           <?php 
-                         foreach($data["macroAree"] as $area){
-                              if($area->idAreaRiferimento =  $data["ispezione"]->fk_idAreaRiferimento){
-                         ?>    
-                               <option selected value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
-                         <?php 
-                              }else{
+                              foreach($data["macroAree"] as $area){
                          ?>
-                              <option value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
-
+                                   <option value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
                          <?php
                               }
                          ?>
-
-                         <?php
-                         }
-                    ?>
                     </select>
                </div>
 
@@ -149,6 +140,7 @@
                     </select><br>
                </div> 
 
+
                <div class="p-2">
                     <label class="form-label" for="nomeArea"><b>Nome proprio area</b></label>
                     <input type="text" id="nomeArea" name="nomeArea" class="form-control" value=" <?php echo $data["ispezione"]->nomeArea; ?>" />
@@ -166,35 +158,7 @@
      </form>
 </div>
 
-<script>
-
-        document.getElementById("selectMacroArea").addEventListener("change", (e) => {
-          let select = document.getElementById("selectSottoArea");
-          let lista =   
-                    <?php 
-                    echo "{";
-                             
-                         foreach($data["sottoAree"] as $area){
-                              echo "'$area->nome':['$area->fk_idAreaRiferimento','$area->idSottoArea'],";
-                         }
-                         
-                    echo "}";
-                    ?> 
-          ;  
-          let idAreaRiferimento =  e.target.value;
-
-          //pulisce la select
-          select.innerHTML= "";
-
-          //inserisce le option con value l'id della sottoarea di riferimento
-          Object.entries(lista).forEach(([key, value]) => { 
-               if(value[0]==idAreaRiferimento){
-                    select.add(new Option(key, value[1]))
-               }
-          });      
-          
-     }); 
-
+<script> 
      document.getElementById("selectOpertatori").addEventListener("change", (e)=>{
           let nomeOperatore = e.target.value;
           let inputOperatori = document.getElementById("operatori");
@@ -202,7 +166,6 @@
           inputOperatori.value+= spazio + nomeOperatore;
      });
  
-
      document.getElementById("selectSonde").addEventListener("change", (e) => {
           let nomeSonda = e.target.value;
           let textarea = document.getElementById("sonde");
@@ -230,6 +193,33 @@
           }
      });
 
+     document.getElementById("selectMacroArea").addEventListener("change", (e) => {
+           
+          let select = document.getElementById("selectSottoArea");
+          let lista =   
+                    <?php 
+                    echo "{";
+                         foreach($data["sottoAree"] as $area){
+                              echo "'$area->nome':['$area->fk_idAreaRiferimento','$area->idSottoArea'],";
+                         }
+                         
+                    echo "}";
+                    ?> 
+          ;  
+
+          let idAreaRiferimento =  e.target.value;
+
+          //pulisce la select
+          select.innerHTML= "";
+
+          //inserisce le option con value l'id della sottoarea di riferimento
+          Object.entries(lista).forEach(([key, value]) => { 
+               if(value[0]==idAreaRiferimento){
+                    select.add(new Option(key, value[1]))
+               }
+          });      
+          
+     }); 
   
 </script>
 
