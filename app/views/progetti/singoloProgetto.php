@@ -93,70 +93,22 @@
 
           </div>
 
-
           <div class="row gy-4 text-center">
 
                <div class="col-lg-12">
                     <div class="portfolio-description">
                          <h2>Caratteristiche</h2>
-
-                         <table class="table"> 
+                         <h5>Aree di riferimento</h5>
+                         <a class="btn btn-primary" href="<?php echo URLROOT ?>/aree/aggiungiArea?idProgetto=<?php echo $_GET["id"]; ?>">Aggiungi area</a><br>
+                         <table class="table" style="margin-top: 5%"> 
                               <tbody> 
-
                                    <tr>
-                                        <th scope="row">Aree di riferimento</th>
-                                        <td>
-                                             <a href="<?php echo URLROOT ?>/aree/aggiungiArea?idProgetto=<?php echo $_GET["id"]; ?>"><h6>Aggiungi area di riferimento</h6></a>
-                                        </td>
                                         <?php 
                                              if($data["aree"]){
                                                   foreach($data["aree"] as $area){
                                         ?> 
-                                                   <td><a href="<?php echo URLROOT ?>/aree/singolaMacroArea?idArea=<?php echo $area->idAreaRiferimento ?>"><?php echo $area->area; ?></a></td> 
+                                                   <tr><td><a href="<?php echo URLROOT ?>/aree/singolaMacroArea?idArea=<?php echo $area->idAreaRiferimento ?>"><?php echo $area->area; ?></a></td><tr>
                                         <?php     }
-                                             }
-                                        ?>
-                                   </tr>
-
-                                   <tr>
-                                        <th scope="row">Tipi di anomalie</th>
-                                        <td>
-                                             <a href="<?php echo URLROOT ?>/anomalie/aggiungiTipoAnomalia?idProgetto=<?php echo $_GET["id"]; ?>"><h6>Aggiungi tipi di anomalie</h6></a>
-                                        </td>
-                                        <?php 
-                                             if($data["tipiAnomalie"]){
-                                             foreach($data["tipiAnomalie"] as $tipoAnomalia){
-                                        ?> 
-                                             <td><?php echo $tipoAnomalia->anomalia; ?></td>
-                                       
-                                        <?php     }
-                                              } 
-                                        ?>
-                                   </tr>
-                              
-                                   <tr>
-                                        <th scope="row">Sonde</th>
-                                        <td>
-                                             <a href="<?php echo URLROOT ?>/sonde/aggiungiSonda?idProgetto=<?php echo $_GET["id"]; ?>"><h6>Aggiungi sonda</h6></a>
-                                        </td>
-                                        <?php  
-                                             foreach($data["sonde"] as $sonda){
-                                        ?> 
-                                             <td><?php echo $sonda->sonda; ?></td>
-                                        <?php     
-                                             }
-                                        ?>
-                                   </tr>
-                                   <tr>
-                                        <th scope="row">Reticoli</th>
-                                        <td>
-                                             <a href="<?php echo URLROOT ?>/reticoli/aggiungiReticolo?idProgetto=<?php echo $_GET["id"]; ?>"><h6>Aggiungi reticolo</h6></a>
-                                        </td>
-                                        <?php  
-                                             foreach($data["reticoli"] as $reticolo){
-                                        ?> 
-                                             <td><?php echo $reticolo->nome; ?></td>
-                                        <?php     
                                              }
                                         ?>
                                    </tr>
@@ -168,7 +120,6 @@
 
 
           </div>
-
      </div>
 </section>
 

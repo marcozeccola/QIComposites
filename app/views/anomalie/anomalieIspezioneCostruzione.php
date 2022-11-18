@@ -74,7 +74,6 @@
             </tr>
           </tbody>
         </table>
-
         <div class="col-xs-12 col-lg-4 card-anomalia">
           <div class="card-carousel">
           <?php

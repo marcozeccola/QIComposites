@@ -8,15 +8,12 @@
  <section id="portfolio" class="portfolio section-bg">
       <div class="container" >
 
-        <header class="section-header">
+        <header class="section-header text-center">
           <h3 class="section-title">Progetti</h3>
-          <p><a href="<?php echo URLROOT;?>/progetti/nuovoProgetto">Aggiungi progetto</a></p>
-        </header>
-
-         
-
-        <div class="row portfolio-container"  >
-
+         <a href="<?php echo URLROOT;?>/progetti/nuovoProgetto">Aggiungi progetto</a>
+         <p><a class="btn btn-primary" style="margin-top: 5%" href="<?php echo URLROOT;?>/pages/gestore">Caratteristiche Progetti</a></p>
+         </header>
+            <div class="text-center" style="width: 100%; margin: auto">
             <?php 
                foreach($data["progetti"] as $progetto){ 
                   $cartella = PUBLICROOT . "/progetti-docs/copertine/". $progetto->idProgetto."/";
@@ -24,28 +21,28 @@
                   $pathCopertina = URLROOT . "/public/progetti-docs/copertine/". $progetto->idProgetto."/".$copertina;
  
             ?>
-
-            <div class="col-lg-4 col-md-6 portfolio-item">
-               <div class="portfolio-wrap">
-                  <img src="<?php echo $pathCopertina ?>" class="img-fluid" alt="">
-                  <div class="portfolio-info">
-                     <h4><a href= "<?php echo URLROOT; ?>/progetti/progetto?id=<?php echo $progetto->idProgetto; ?>"><?php echo $progetto->nome; ?></a></h4>
-                     <p><?php echo $progetto->inizio; ?></p>
-                     <p><?php echo $progetto->progettista; ?></p>
+               <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 90%; margin: auto">
+                  <div class="card-header">
+                     <h3><b><?php echo $progetto->nome; ?></b></h3>
                   </div>
-                  
+                  <table class="table"> 
+                     <tbody>
+                        <tr>
+                        <th scope="row">Data di Inizio: </th>
+                        <td><?php echo $progetto->inizio; ?></td>
+                        </tr>
+                        <tr>
+                        <th scope="row">Progettista: </th>   
+                        <td><?php echo $progetto->progettista; ?></td>
+                        </tr>
+                     </tbody>
+               </table><br>
+               <a class="btn btn-primary" href= "<?php echo URLROOT; ?>/progetti/progetto?id=<?php echo $progetto->idProgetto; ?>">APRI</a>
                </div>
-               <div>
-                     <h3><b><a style="colo:black!important;" href= "<?php echo URLROOT; ?>/progetti/progetto?id=<?php echo $progetto->idProgetto; ?>"><?php echo $progetto->nome; ?></a></b></h3>
-                  </div>
-            </div> 
-
-            <?php 
-               }
-            ?>
-
-        </div>
-
+               <?php 
+                  }
+               ?>
+            </div>
       </div>
    </section>
 

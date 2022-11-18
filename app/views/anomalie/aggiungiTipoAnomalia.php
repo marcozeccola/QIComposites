@@ -7,7 +7,7 @@
 <div class="d-flex justify-content-center">
    <div class="row text-center nuovoProgetto ">
       <h3>Inserisci <b>nuovo</b> tipo di <b>anomalia</b></h3>
-      <form action="<?php echo URLROOT ?>/anomalie/aggiungiTipoAnomalia?idProgetto=<?php echo $_GET["idProgetto"]; ?>" method="POST" enctype="multipart/form-data"> 
+      <form action="<?php echo URLROOT ?>/anomalie/aggiungiTipoAnomalia?idProgetto=23>" method="POST" enctype="multipart/form-data"> 
 
          <!-- anomalie input -->
          <div class="form-outline mb-4">
