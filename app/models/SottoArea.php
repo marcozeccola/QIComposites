@@ -19,8 +19,25 @@ class SottoArea {
         }
     }
 
+     public function modifica($data){
+        $this->db->query("UPDATE sotto_aree 
+                        SET nome = :nome
+                        WHERE idSottoArea = :id;");
+
+        $this->db->bind(":nome", $data["sottoArea"]);
+        $this->db->bind(":id", $data["id"]); 
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    } 
+
+
     public function getSottoAreaById($id){
-          $this->db->query('SELECT nome FROM sotto_aree WHERE idSottoArea = :id;');
+          $this->db->query('SELECT * FROM sotto_aree WHERE idSottoArea = :id;');
    
           $this->db->bind(':id', $id);  
           $result = $this->db->single();

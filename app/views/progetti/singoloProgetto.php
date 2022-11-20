@@ -37,7 +37,7 @@
                     <div class="portfolio-description text-center">
                          <h3>Scarica</h3>
                          <p>
-                              <a href="<?php echo URLROOT ?>/pdf/index?idProgetto=<?php echo $data["progetto"]->idProgetto; ?>" class="btn btn-primary">REPORT</a>
+                              
                               <?php   
                                    $dirDisegni = str_replace( ' ', '',PUBLICROOT. "\progetti-docs\disegni\ ". $data["progetto"]->idProgetto." \ ");
                                    $fileDisegno =  is_dir($dirDisegni) ? scandir($dirDisegni)[2] : " ";
@@ -83,10 +83,14 @@
                     <div class="portfolio-description text-center">
                          <h3>Operazioni</h3>
                          <p>
-                              <a href="<?php echo URLROOT ?>/anomalie/index?idProgetto=<?php echo $data["progetto"]->idProgetto; ?>"
-                                   class="btn btn-primary">ANOMALIE PRESENTI</a>
+                              <a href="<?php echo URLROOT; ?>/public/ispezioni/aggiungiIspezioneCostruzione?idProgetto=<?php echo $data["progetto"]->idProgetto; ?>"
+                                   class="btn btn-primary">NUOVA ISPEZIONE</a>
+                                   <br>
+                                   <br>
                               <a href="<?php echo URLROOT ?>/ispezioni/index?idProgetto=<?php echo $data["progetto"]->idProgetto; ?>"
                                    class="btn btn-primary">LISTA ISPEZIONI</a>
+                              <a href="<?php echo URLROOT ?>/anomalie/index?idProgetto=<?php echo $data["progetto"]->idProgetto; ?>"
+                                   class="btn btn-primary">ANOMALIE PRESENTI</a> 
                          </p>
                     </div>
                </div>
@@ -98,7 +102,7 @@
                <div class="col-lg-12">
                     <div class="portfolio-description">
                          <h2>Caratteristiche</h2>
-                         <h5>Aree di riferimento</h5>
+                         <h5 id="aree">Aree di riferimento</h5>
                          <a class="btn btn-primary" href="<?php echo URLROOT ?>/aree/aggiungiArea?idProgetto=<?php echo $_GET["id"]; ?>">Aggiungi area</a><br>
                          <table class="table" style="margin-top: 5%"> 
                               <tbody> 

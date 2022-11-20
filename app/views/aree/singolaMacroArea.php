@@ -19,7 +19,12 @@
       <?php 
          if($data["sottoAree"]){
                foreach($data["sottoAree"] as $sottoArea){
-                     echo "<li class='list-group-item'>" . $sottoArea->nome. "</li>";
+                  ?>
+                     <li class='list-group-item'>
+                        <?php   echo  $sottoArea->nome ; ?> <br>
+                        <a href="<?php echo URLROOT ?>/aree/modificaSottoArea?id=<?php echo  $sottoArea->idSottoArea ; ?>">modifica</a>
+                     </li>
+      <?php
                }
          }
       ?>

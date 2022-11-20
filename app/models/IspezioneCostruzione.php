@@ -65,9 +65,26 @@ class IspezioneCostruzione {
                          INNER JOIN aree_riferimento ON aree_riferimento.idAreaRiferimento = fk_idAreaRiferimento
                          INNER JOIN sotto_aree ON sotto_aree.idSottoArea = fk_idSottoArea
                          WHERE ispezioni_costruzione.fk_idProgetto = :id
-                         ORDER BY data;");
+                         ORDER BY data DESC;");
    
         $this->db->bind(':id', $id);
+
+        $result = $this->db->resultSet();
+ 
+        if( $result) {
+            return $result;
+        } else {
+            return false;
+        } 
+    }
+    
+
+    public function getIspezioniBySonda($sonda){
+        $this->db->query("SELECT count(*) as num
+                         FROM ispezioni_costruzione  
+                         WHERE INSTR(sonde, :sonda)>0 ;");
+    
+        $this->db->bind(':sonda', $sonda); 
 
         $result = $this->db->resultSet();
  

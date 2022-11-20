@@ -57,11 +57,11 @@
                   <input type="file" id="immagini" name="immagini[]" class="form-control" accept="image/*"  multiple="multiple"  />
                </div><br>
      </div>
-     <button type="submit" name="continua" class="btn btn-primary btn-block p-2" style="50%; margin: auto">
+     <button type="submit" name="continua" class="btn btn-primary btn-block p-2" style="  margin: auto">
           Aggiungi altre anomalie
      </button>
      <br>
-     <button type="submit" class="btn btn-primary btn-block p-2" style="50%; margin: auto">
+     <button type="submit" class="btn btn-primary btn-block p-2" style="margin: auto">
           Salva e chiudi
      </button>
           </form>

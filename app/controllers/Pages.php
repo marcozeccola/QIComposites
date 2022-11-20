@@ -13,24 +13,18 @@ class Pages extends Controller {
         $this->usersModel = $this->model('User');
         $this->areeModel = $this->model('Area');
         $this->sondeModel = $this->model('Sonda');
+        $this->reticoliModel = $this->model('Reticolo');
 
     }
 
     public function index() {
         $prova = true;
         $ispezioniCostruzione = $this->ispezioniCostruzioneModel->getIspezioniByOperatore($_SESSION["username"], date("Y-m-d")) ;
-        $ispezioni = false;
-        if($ispezioniCostruzione != false){
-            $ispezioni = array_merge($ispezioniCostruzione);
-        }else if($ispezioniCostruzione != false){
-             $ispezioni = $ispezioniCostruzione;
-        }else{
-            $ispezioni = false;
-        }
+        
  
         $data = [
             'title' => 'Home page',
-            'ispezioni' => $ispezioni ,
+            'ispezioni' => $ispezioniCostruzione ,
             'progetti' => $this->projectModel->getAllProgetti(),
         ];
         
@@ -44,7 +38,11 @@ class Pages extends Controller {
     public function gestore(){
         $data = [
             'title'=>'Gestione dati',
+            'tipiAnomalie'=>$this->tipiAnomalieModel->getAllTipiAnomalie(),
+            'sonde'=>$this->sondeModel->getAllSonde(),
+            'reticoli'=>$this->reticoliModel->getAllReticoli()
         ];
+        
         $this->view('/gestore', $data);
     }
  

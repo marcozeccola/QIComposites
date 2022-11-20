@@ -4,7 +4,7 @@
 <?php
    require APPROOT . '/views/includes/navigation.php'; 
 ?> 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center" style="margin-top: 10%">
    <div class="row text-center nuovoProgetto ">
       <h3>Inserisci <b>nuovo</b> tipo di <b>anomalia</b></h3>
       <form action="<?php echo URLROOT ?>/anomalie/aggiungiTipoAnomalia?idProgetto=23>" method="POST" enctype="multipart/form-data"> 

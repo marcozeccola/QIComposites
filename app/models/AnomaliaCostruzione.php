@@ -57,6 +57,24 @@ class AnomaliaCostruzione {
         } 
     }
 
+    public function getAnomalieByTipo($id){
+        $this->db->query('SELECT count(*) AS num FROM anomalie_costruzione
+                            INNER JOIN tipi_anomalie ON anomalie_costruzione.anomalia = tipi_anomalie.anomalia
+                            WHERE idTipoAnomalia = :id
+                            ;');
+   
+   
+        $this->db->bind(':id', $id);
+
+        $result = $this->db->single();
+ 
+        if( $result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
     public function modificaAnomalia($anomalia){
         $this->db->query("UPDATE anomalie_costruzione 
                         SET localizzazione = :loc, estensione = :est, profondita = :prof

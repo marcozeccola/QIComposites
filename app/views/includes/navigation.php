@@ -7,6 +7,7 @@
     </button>
     <div class="collapse navbar-collapse ml-auto" id="navbarNavAltMarkup">
       <div class="navbar-nav me-auto  "> 
+        <a class="nav-link " href="<?php echo URLROOT; ?>">Home</a>
         <a class="nav-link " href="<?php echo URLROOT; ?>/progetti/">Progetti</a>
         <li class="dropdown"><a href="#"><span><?php echo $_SESSION['username'] ?></span> <i class="bi bi-chevron-down"></i></a>
             <ul>

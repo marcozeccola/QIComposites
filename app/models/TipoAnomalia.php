@@ -29,5 +29,18 @@ class TipoAnomalia {
                return false;
           }
     }
+    
+    
+          
+    public function deleteTipoAnomaliaById($id){
+        $this->db->query("DELETE FROM tipi_anomalie WHERE idTipoAnomalia = :id");
+        $this->db->bind(':id', $id); 
+    
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
  
 }

@@ -17,10 +17,19 @@ class Reticoli extends Controller {
                     'idProgetto'=>$_GET["idProgetto"],
                ];
                $this->reticoloModel->inserisci($data["reticolo"]);
-               header('location: ' . URLROOT . "/progetti/progetto?id=".$_GET["idProgetto"]);
+               header('location: ' . URLROOT . "/pages/gestore#reticoli");
           }else{   
                $this->view('reticoli/aggiungiReticolo', $data);
           }
+     }
+
+     
+ 
+     public function eliminaReticolo(){
+        if(isset($_GET["id"])){  
+               $this->reticoloModel->deleteReticoloById($_GET["id"]);
+               header('location: ' . URLROOT . "/pages/gestore#reticoli"); 
+        }
      }
  
 }

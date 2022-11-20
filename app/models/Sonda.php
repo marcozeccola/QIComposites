@@ -24,4 +24,16 @@
 
                return $result;
           }
+          
+          public function deleteSondaById($id){
+               $this->db->query("DELETE FROM sonde WHERE idSonda = :id");
+               $this->db->bind(':id', $id); 
+          
+               if ($this->db->execute()) {
+                    return true;
+               } else {
+                    return false;
+               }
+          }
+
      }

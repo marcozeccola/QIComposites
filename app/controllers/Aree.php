@@ -21,7 +21,7 @@ class Aree extends Controller {
                     'idProgetto'=>$_GET["idProgetto"],
                ];
                $this->areaModel->inserisci($data);
-               header('location: ' . URLROOT . "/progetti/progetto?id=".$_GET["idProgetto"]);
+               header('location: ' . URLROOT . "/progetti/progetto?id=".$_GET["idProgetto"]."#aree");
           }else{  
                $this->view('aree/aggiungiArea', $data);
           }
@@ -41,6 +41,32 @@ class Aree extends Controller {
                header('location: ' . URLROOT . "/aree/singolaMacroArea?idArea=".$data["fk_idAreaRiferimento"]);
           }else{  
                $this->view('aree/aggiungiSottoArea', $data);
+          }
+     }
+
+     public function modificaSottoArea(){
+           if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+               $data =[
+                    'sottoArea'=>$_POST["sottoAreaInput"],
+                    'id'=>$_POST["idSottoArea"]
+               ];
+               $this->sottoAreaModel->modifica($data);
+              
+               header('location: ' . URLROOT . "/aree/singolaMacroArea?idArea=".$_GET["idMacroArea"]);
+
+          }else{  
+
+               if(isset($_GET["id"])){ 
+                    $data =[
+                         'sottoArea'=>$this->sottoAreaModel->getSottoAreaById($_GET["id"]),
+                    ];
+                    
+                    $this->view('aree/modificaSottoArea', $data);
+               }else{
+                    header('location: ' . URLROOT);
+               }
+               
           }
      }
 

@@ -24,4 +24,15 @@
 
                return $result;
           }
+          
+          public function deleteReticoloById($id){
+               $this->db->query("DELETE FROM reticoli WHERE idReticolo = :id");
+               $this->db->bind(':id', $id); 
+          
+               if ($this->db->execute()) {
+                    return true;
+               } else {
+                    return false;
+               }
+          }
      }

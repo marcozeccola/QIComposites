@@ -139,9 +139,21 @@ class Anomalie extends Controller {
         $data=[];
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $this->tipiAnomalieModel->inserisci($_POST["anomalia"]);
-            header('location: ' . URLROOT . "/progetti/progetto?id=".$_GET["idProgetto"]);
+            header('location: ' . URLROOT . "/pages/gestore#tipi");
         }else{  
             $this->view('anomalie/aggiungiTipoAnomalia', $data);
+        }
+    }
+
+    public function eliminaTipoAnomalia(){
+        if(isset($_GET["id"])){ 
+            $anomalie = $this->anomalieCostruzioneModel->getAnomalieByTipo($_GET["id"])->num;
+            if($anomalie > 0){
+                header('location: ' . URLROOT . "/pages/gestore?errore=tipi");
+            }else{
+                 $this->tipiAnomalieModel->deleteTipoAnomaliaById($_GET["id"]);
+                 header('location: ' . URLROOT . "/pages/gestore#tipi");
+            }
         }
     }
 
