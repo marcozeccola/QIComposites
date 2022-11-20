@@ -27,6 +27,34 @@ class Aree extends Controller {
           }
      }
 
+     public function modificaArea(){
+           if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+               $data =[
+                    'area'=>$_POST["area"],
+                    'idArea'=>$_POST["idArea"]
+               ];
+
+               $this->areaModel->modifica($data); 
+             if(isset($_GET["idProgetto"]) && $_GET["idProgetto"]>0){ 
+                    header('location: ' . URLROOT . "/progetti/progetto?id=".$_GET["idProgetto"]);
+              }else{
+               header('location: ' . URLROOT . "/progetti");
+              } 
+          }else{  
+
+               if(isset($_GET["idArea"])){ 
+                    $data =[
+                         'area'=>$this->areaModel->getAreaById($_GET["idArea"]),
+                    ];
+                    
+                    $this->view('aree/modificaArea', $data);
+               }else{
+                    header('location: ' . URLROOT);
+               }
+               
+          }
+     }
      
      public function aggiungiSottoArea(){
            $data=[];
@@ -66,7 +94,7 @@ class Aree extends Controller {
                }else{
                     header('location: ' . URLROOT);
                }
-               
+
           }
      }
 

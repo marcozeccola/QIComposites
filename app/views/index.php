@@ -7,8 +7,8 @@
 <br><br><br>
 
 
-<select class="form-select" id="ispezioneSelect" style="width:50%!important; margin-left:20%!important;">
-<option disabled selected>Scegli ispezione</option>
+<select class="form-select" id="ispezioneSelect" style="width:50%!important; margin-left:20%!important;" required>
+<option selected value="no">Scegli ispezione</option>
 <?php
 
 foreach($data["ispezioni"] as $ispezione){ 
@@ -31,7 +31,7 @@ foreach($data["ispezioni"] as $ispezione){
 <br><br>
 
 <select class="form-select" id="progettoSelect" style="width:50%!important; margin-left:20%!important;">
-<option disabled selected>Scegli progetto</option>
+<option selected value="no">Scegli progetto</option>
 <?php
 
 foreach($data["progetti"] as $progetto){ 
@@ -54,28 +54,36 @@ foreach($data["progetti"] as $progetto){
 <br><br><br>
 <script>
    document.getElementById("submitIspezione").addEventListener("click", (e)=>{
-      let optionValue = document.getElementById('ispezioneSelect').value;
-      let link = "<?php echo URLROOT; ?>/anomalie/anomalieIspezioneCostruzione?idIspezione=" + optionValue;
-      window.location = link;
+      let idIspezione = document.getElementById('ispezioneSelect').value;
+      let link = "<?php echo URLROOT; ?>/anomalie/anomalieIspezioneCostruzione?idIspezione=" + idIspezione;
+      if(idIspezione!="no"){ 
+         window.location = link;
+      }
    });
    
    document.getElementById("aggiungiAnomalia").addEventListener("click", (e)=>{
       let idIspezione = document.getElementById('ispezioneSelect').value;
       let link = "<?php echo URLROOT; ?>/anomalie/aggiungiAnomaliaCostruzione?idIspezione=" + idIspezione;
-      window.location = link;
+      if(idIspezione!="no"){ 
+         window.location = link;
+      }
    });
 
    document.getElementById("submitProgetto").addEventListener("click", (e)=>{
       let idProgetto = document.getElementById('progettoSelect').value;
       let link = "<?php echo URLROOT; ?>/progetti/progetto?id=" + idProgetto;
-      window.location = link;
+      if(idProgetto!="no"){ 
+         window.location = link;
+      }
    });
     
 
    document.getElementById("creaIspezioneCostruzione").addEventListener("click", (e)=>{
       let idProgetto = document.getElementById('progettoSelect').value;
       let link = "<?php echo URLROOT; ?>/ispezioni/aggiungiIspezioneCostruzione?idProgetto=" + idProgetto;
-      window.location = link;
+      if(idProgetto!="no"){ 
+         window.location = link;
+      }
    });
 </script>
 <?php

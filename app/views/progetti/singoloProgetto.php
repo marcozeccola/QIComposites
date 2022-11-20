@@ -111,7 +111,17 @@
                                              if($data["aree"]){
                                                   foreach($data["aree"] as $area){
                                         ?> 
-                                                   <tr><td><a href="<?php echo URLROOT ?>/aree/singolaMacroArea?idArea=<?php echo $area->idAreaRiferimento ?>"><?php echo $area->area; ?></a></td><tr>
+                                                   <tr>
+                                                       <td>
+                                                            <a href="<?php echo URLROOT ?>/aree/singolaMacroArea?idArea=<?php echo $area->idAreaRiferimento ?>">
+                                                                 <?php echo $area->area; ?>
+                                                            </a>
+                                                            <br> 
+                                                            <a href="<?php echo URLROOT ?>/aree/modificaArea?idArea=<?php echo $area->idAreaRiferimento ?>">
+                                                                 modifica
+                                                            </a>
+                                                       </td>
+                                                  <tr>
                                         <?php     }
                                              }
                                         ?>

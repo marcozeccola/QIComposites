@@ -19,8 +19,25 @@ class Area {
         }
     }
 
+    public function modifica($data){
+        $this->db->query("UPDATE aree_riferimento 
+                        SET area = :area
+                        WHERE idAreaRiferimento = :id;");
+
+        $this->db->bind(":area", $data["area"]);
+        $this->db->bind(":id", $data["idArea"]); 
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    } 
+
+
      public function getAreaById($id){
-          $this->db->query('SELECT area FROM aree_riferimento WHERE idAreaRiferimento = :id;');
+          $this->db->query('SELECT * FROM aree_riferimento WHERE idAreaRiferimento = :id;');
    
           $this->db->bind(':id', $id);  
           $result = $this->db->single();
