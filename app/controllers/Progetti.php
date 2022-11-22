@@ -52,7 +52,7 @@ class Progetti extends Controller {
                     
  
                     if(file_exists($_FILES['copertina']['tmp_name']) || is_uploaded_file($_FILES['copertina']['tmp_name'])) {
-                        $dirCopertina =  str_replace(' ', '',  PUBLICROOT. "\progetti-docs\copertine\ ".$id."\ ");
+                        $dirCopertina =  str_replace(' ', '',  PUBLICROOT. "/progetti-docs/copertine/ ".$id."/ ");
                         mkdir(  $dirCopertina, 0777, true);
                         $caricamentoCopertina = move_uploaded_file($_FILES["copertina"]["tmp_name"],    $dirCopertina.$_FILES["copertina"]["name"]);
                     }else{
@@ -60,7 +60,7 @@ class Progetti extends Controller {
                     }
 
                     if(file_exists($_FILES['disegni']['tmp_name']) || is_uploaded_file($_FILES['disegni']['tmp_name'])) {
-                        $dirDisegno = str_replace(' ', '',PUBLICROOT. "\progetti-docs\disegni\ ".$id."\ " );
+                        $dirDisegno = str_replace(' ', '',PUBLICROOT. "/progetti-docs/disegni/ ".$id."/ " );
                         mkdir(  $dirDisegno, 0777, true);
                         $caricamentoDisegno = move_uploaded_file($_FILES["disegni"]["tmp_name"],  $dirDisegno.$_FILES["disegni"]["name"] );
                     }else{
@@ -68,7 +68,7 @@ class Progetti extends Controller {
                     } 
 
                     if(file_exists($_FILES['ndt']['tmp_name']) || is_uploaded_file($_FILES['ndt']['tmp_name'])) {
-                        $dirProcedura =  str_replace( ' ', '',PUBLICROOT. "\progetti-docs\procedures\ ". $id . "\ ");
+                        $dirProcedura =  str_replace( ' ', '',PUBLICROOT. "/progetti-docs/procedures/ ". $id . "/ ");
                         mkdir(  $dirProcedura, 0777, true);
                         $caricamentoProcedure = move_uploaded_file($_FILES["ndt"]["tmp_name"], $dirProcedura.$_FILES["ndt"]["name"] );   
                     }else{
@@ -107,7 +107,7 @@ class Progetti extends Controller {
             $id = $_GET["idProgetto"]; 
 
             if(file_exists($_FILES['ndt']['tmp_name']) || is_uploaded_file($_FILES['ndt']['tmp_name'])) {
-                $dirProcedura =  str_replace( ' ', '',PUBLICROOT. "\progetti-docs\procedures\ ". $id . "\ ");
+                $dirProcedura =  str_replace( ' ', '',PUBLICROOT. "/progetti-docs/procedures/ ". $id . "/ ");
                 mkdir(  $dirProcedura, 0777, true);
                 $caricamentoProcedure = move_uploaded_file($_FILES["ndt"]["tmp_name"], $dirProcedura.$_FILES["ndt"]["name"] );   
             }else{
@@ -141,7 +141,7 @@ class Progetti extends Controller {
             $id = $_GET["idProgetto"];
 
             if(file_exists($_FILES['disegni']['tmp_name']) || is_uploaded_file($_FILES['disegni']['tmp_name'])) {
-                $dirDisegno = str_replace(' ', '',PUBLICROOT. "\progetti-docs\disegni\ ".$id."\ " );
+                $dirDisegno = str_replace(' ', '',PUBLICROOT. "/progetti-docs/disegni/ ".$id."/ " );
                 mkdir(  $dirDisegno, 0777, true);
                 $caricamentoDisegno = move_uploaded_file($_FILES["disegni"]["tmp_name"],  $dirDisegno.$_FILES["disegni"]["name"] );
             }else{
