@@ -39,7 +39,7 @@
                          <p>
                               
                               <?php   
-                                   $dirDisegni = str_replace( ' ', '',PUBLICROOT. "\progetti-docs\disegni\ ". $data["progetto"]->idProgetto." \ ");
+                                   $dirDisegni = str_replace( ' ', '',PUBLICROOT. "/progetti-docs/disegni/ ". $data["progetto"]->idProgetto." / ");
                                    $fileDisegno =  is_dir($dirDisegni) ? scandir($dirDisegni)[2] : " ";
 
                                    $linkDisegno =  URLROOT. "/public/progetti-docs/disegni/". $data["progetto"]->idProgetto."/".$fileDisegno;
@@ -58,7 +58,7 @@
                               ?>
 
                               <?php   
-                                   $dirProcedure = str_replace( ' ', '',PUBLICROOT. "\progetti-docs\procedures\ ". $data["progetto"]->idProgetto." \ ");
+                                   $dirProcedure = str_replace( ' ', '',PUBLICROOT. "/progetti-docs/procedures/ ". $data["progetto"]->idProgetto."/ ");
                                    $fileProcedura =  is_dir($dirProcedure) ? scandir($dirProcedure)[2] : " ";
 
                                    $linkProcedure =  URLROOT. "/public/progetti-docs/procedures/". $data["progetto"]->idProgetto."/".$fileProcedura;
