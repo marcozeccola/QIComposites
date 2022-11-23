@@ -138,7 +138,7 @@
                </div>
      </div>
      <button type="submit" class="btn btn-primary btn-block" style="width: 50%; margin: auto">
-          Aggiungii
+          Aggiungi
      </button>
      </form>
 </div>

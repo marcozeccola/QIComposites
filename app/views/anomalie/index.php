@@ -47,7 +47,7 @@
                                    <li class="list-group-item">Profondità: <?php echo $anomalia->profondita; ?></li>
                               </ul>
                               <a href="<?php echo URLROOT ?>/anomalie/risoltoCostruzione?idAnomalia=<?php echo $anomalia->idAnomaliaCostruzione; ?>&idProgetto=<?php echo $data["idProgetto"] ;?>"
-                                   class="btn">RISOLTO</a>
+                                   class="btn">SEGNA COME RISOLTA</a>
                               <a href="<?php echo URLROOT ?>/anomalie/singolaAnomaliaCostruzione?idAnomalia=<?php echo $anomalia->idAnomaliaCostruzione; ?>"
                                    class="btn">DETTAGLI</a>
                          </div>

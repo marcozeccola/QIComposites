@@ -6,20 +6,19 @@
 ?>  
 
  <section id="portfolio" class="portfolio section-bg">
-      <div class="container" >
-
+      <div class="container" > 
         <header class="section-header text-center">
           <h3 class="section-title">Progetti</h3>
          <a href="<?php echo URLROOT;?>/progetti/nuovoProgetto">Aggiungi progetto</a>
          <p><a class="btn btn-primary" style="margin-top: 5%" href="<?php echo URLROOT;?>/pages/gestore">Caratteristiche Progetti</a></p>
-         </header>
+         </header> 
             <div class="text-center" style="width: 100%; margin: auto">
-            <?php 
-               foreach($data["progetti"] as $progetto){ 
-                  $cartella = PUBLICROOT . "/progetti-docs/copertine/". $progetto->idProgetto."/";
-                  $copertina = scandir($cartella)[2]; 
-                  $pathCopertina = URLROOT . "/public/progetti-docs/copertine/". $progetto->idProgetto."/".$copertina;
- 
+            <?php  
+               if($data["progetti"]){
+                  foreach($data["progetti"] as $progetto){ 
+                     $cartella = PUBLICROOT . "/progetti-docs/copertine/". $progetto->idProgetto."/";
+                     $copertina = scandir($cartella)[2]; 
+                     $pathCopertina = URLROOT . "/public/progetti-docs/copertine/". $progetto->idProgetto."/".$copertina;
             ?>
                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 90%; margin: auto">
                   <div class="card-header">
@@ -40,6 +39,7 @@
                <a class="btn btn-primary" href= "<?php echo URLROOT; ?>/progetti/progetto?id=<?php echo $progetto->idProgetto; ?>">APRI</a>
                </div>
                <?php 
+                     }
                   }
                ?>
             </div>

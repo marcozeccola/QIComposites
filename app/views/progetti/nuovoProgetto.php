@@ -34,7 +34,7 @@
             <!-- immagine copertina input -->
             <div class="p-2">
                <label class="form-label" for="copertina" style="font-weight: bold">Immagine copertina</label> 
-               <input type="file" id="copertina" name="copertina" class="form-control" accept="image/*" required />
+               <input type="file" id="copertina" name="copertina" class="form-control" accept="image/*" />
             </div>  
             
             <!-- disegni input -->

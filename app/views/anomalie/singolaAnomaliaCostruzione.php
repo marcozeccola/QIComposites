@@ -35,7 +35,7 @@
                if($data["anomalia"]->presente){
           ?>
           <a href="<?php echo URLROOT ?>/anomalie/risoltoCostruzione?idAnomalia=<?php echo $data["anomalia"]->idAnomaliaCostruzione; ?>"
-                                   class="btn">RISOLTO</a>                   
+                                   class="btn">SEGNA COME RISOLTA</a>                   
           <?php
                }
           ?>

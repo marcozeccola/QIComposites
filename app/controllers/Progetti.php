@@ -22,6 +22,33 @@ class Progetti extends Controller {
         
         $this->view('progetti/index', $data);
     }
+    
+    public function compressImage($source, $destination, $quality) { 
+        
+        $imgInfo = getimagesize($source); 
+        $mime = $imgInfo['mime']; 
+         
+        switch($mime){ 
+            case 'image/jpeg': 
+                $image = imagecreatefromjpeg($source); 
+                break; 
+            case 'image/png': 
+                $image = imagecreatefrompng($source); 
+                break; 
+            case 'image/gif': 
+                $image = imagecreatefromgif($source); 
+                break; 
+            default: 
+                $image = imagecreatefromjpeg($source); 
+        } 
+        
+        // Save image 
+        imagejpeg($image, $destination, $quality); 
+        
+        // Return compressed image 
+        return $destination; 
+    }
+
 
     //form e gestione inserimento progetto
     public function nuovoProgetto(){ 
@@ -54,7 +81,8 @@ class Progetti extends Controller {
                     if(file_exists($_FILES['copertina']['tmp_name']) || is_uploaded_file($_FILES['copertina']['tmp_name'])) {
                         $dirCopertina =  str_replace(' ', '',  PUBLICROOT. "/progetti-docs/copertine/ ".$id."/ ");
                         mkdir(  $dirCopertina, 0777, true);
-                        $caricamentoCopertina = move_uploaded_file($_FILES["copertina"]["tmp_name"],    $dirCopertina.$_FILES["copertina"]["name"]);
+                        $caricamentoCopertina = $this->compressImage($_FILES["copertina"]["tmp_name"], $dirCopertina.$_FILES["copertina"]["name"], 70); 
+                       
                     }else{
                         $caricamentoCopertina = true;
                     }
@@ -77,7 +105,7 @@ class Progetti extends Controller {
                     
                     if( $caricamentoCopertina && $caricamentoDisegno &&  $caricamentoProcedure ){ 
                         //Redirect alla pagina di progetti 
-                        header('location: ' . URLROOT . "/progetti/index");
+                        header('location: ' . URLROOT . "/progetti/progetto?id=$id");
                     }
  
                 } else {
