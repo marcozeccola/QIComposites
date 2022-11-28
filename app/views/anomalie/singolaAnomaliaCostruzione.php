@@ -22,6 +22,10 @@
                          <td><?php echo $data["anomalia"]->estensione; ?></td>
                     </tr>
                     <tr>
+                         <th scope="row">Stato</th>
+                         <td><?php echo $data["anomalia"]->stato; ?></td>
+                    </tr>
+                    <tr>
                          <th scope="row">Profondita</th>
                          <td><?php echo $data["anomalia"]->profondita; ?></td>
                     </tr>
@@ -29,6 +33,20 @@
                          <th scope="row">Tipologia anomalia</th>
                          <td><?php echo $data["anomalia"]->anomalia; ?></td>
                     </tr>
+                    <tr>
+                         <th scope="row">Commenti</th>
+                         <td><?php echo $data["anomalia"]->commenti; ?></td>
+                    </tr>
+                    <?php
+                         if(isset($data["anomalia"]->riparazione) && $data["anomalia"]->riparazione != "no"){
+                    ?>
+                              <tr>
+                                   <th scope="row">Commento sulla riparazione</th>
+                                   <td><?php echo $data["anomalia"]->riparazione; ?></td>
+                              </tr>
+                    <?php
+                         }
+                    ?>
                </tbody>
           </table>
           <?php

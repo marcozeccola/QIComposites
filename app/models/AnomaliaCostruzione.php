@@ -6,12 +6,29 @@ class AnomaliaCostruzione {
     }
 
     public function inserisci($data) {
-        $this->db->query('INSERT INTO anomalie_costruzione (localizzazione, estensione ,profondita, presente,  fk_idIspezioneCostruzione, anomalia)
-                             VALUES(:localizzazione, :estensione , :profondita, 1, :ispezione, :tipo )');
+        $this->db->query('INSERT INTO anomalie_costruzione (
+                            localizzazione, 
+                            estensione,
+                            profondita, 
+                            presente,  
+                            commenti,
+                            stato,
+                            fk_idIspezioneCostruzione, 
+                            anomalia)
+                             VALUES(:localizzazione, 
+                             :estensione , 
+                             :profondita, 
+                             1, 
+                             :commenti,
+                             :stato,
+                             :ispezione, 
+                             :tipo )');
  
         $this->db->bind(':localizzazione', $data['localizzazione']);
         $this->db->bind(':estensione', $data['estensione']);
         $this->db->bind(':profondita', $data['profondita']); 
+        $this->db->bind(':commenti', $data['commenti']);
+        $this->db->bind(':stato', $data['stato']); 
         $this->db->bind(':ispezione', $data['ispezione']); 
         $this->db->bind(':tipo', $data['tipo']); 
  
@@ -75,15 +92,23 @@ class AnomaliaCostruzione {
         }
     }
 
-    public function modificaAnomalia($anomalia){
+    public function modificaAnomalia($anomalia){ 
         $this->db->query("UPDATE anomalie_costruzione 
-                        SET localizzazione = :loc, estensione = :est, profondita = :prof
+                        SET localizzazione = :loc, 
+                        estensione = :est, 
+                        profondita = :prof,
+                        commenti = :commenti,
+                        stato = :stato,
+                        riparazione = :riparazione
                         WHERE idAnomaliaCostruzione = :id");
 
         $this->db->bind(":loc", $anomalia["localizzazione"]);
         $this->db->bind(":est", $anomalia["estensione"]);
         $this->db->bind(":prof", $anomalia["profondita"]);
         $this->db->bind(":id", $anomalia["idAnomalia"]);
+        $this->db->bind(":commenti", $anomalia["commenti"]);
+        $this->db->bind(":stato", $anomalia["stato"]);
+        $this->db->bind(":riparazione", $anomalia["riparazione"]);
 
         if ($this->db->execute()) {
             return true;
@@ -95,7 +120,14 @@ class AnomaliaCostruzione {
 
     public function modificaAnomaliaWithTipo($anomalia){
         $this->db->query("UPDATE anomalie_costruzione 
-                        SET localizzazione = :loc, estensione = :est, profondita = :prof, anomalia = :tipo
+                        SET 
+                            localizzazione = :loc, 
+                            estensione = :est, 
+                            profondita = :prof, 
+                            anomalia = :tipo,
+                            commenti = :commenti,
+                            stato = :stato,
+                            riparazione = :riparazione
                         WHERE idAnomaliaCostruzione = :id");
 
         $this->db->bind(":loc", $anomalia["localizzazione"]);
@@ -103,6 +135,7 @@ class AnomaliaCostruzione {
         $this->db->bind(":prof", $anomalia["profondita"]);
         $this->db->bind(":id", $anomalia["idAnomalia"]);
         $this->db->bind(":tipo", $anomalia["tipo"]);
+        $this->db->bind(":riparazione", $anomalia["riparazione"]);
 
         if ($this->db->execute()) {
             return true;
@@ -111,10 +144,14 @@ class AnomaliaCostruzione {
         } 
     }
 
-    public function risolvi($idAnomalia){
-        $this->db->query('UPDATE anomalie_costruzione SET presente = 0 WHERE idAnomaliaCostruzione = :id;');
+    public function risolvi($idAnomalia, $commento){
+        $this->db->query('UPDATE anomalie_costruzione 
+                            SET presente = 0 ,
+                                riparazione = :riparazione
+                            WHERE idAnomaliaCostruzione = :id;');
    
         $this->db->bind(':id', $idAnomalia); 
+        $this->db->bind(':riparazione', $commento); 
  
         if ($this->db->execute()) {
             return true;

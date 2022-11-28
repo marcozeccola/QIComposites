@@ -7,8 +7,8 @@ class IspezioneCostruzione {
 
     public function inserisci($data) {
         $this->db->query('INSERT INTO ispezioni_costruzione (
-                            data,
-                            fine,
+                            data, 
+                            idCustom,
                             luogo, 
                             cliente,
                             fk_idProgetto, 
@@ -20,8 +20,8 @@ class IspezioneCostruzione {
                             reticoli,
                             stato )
                         VALUES(
-                            :data, 
-                            :fine, 
+                            :data,  
+                            :idCustom, 
                             :luogo, 
                             :cliente,  
                             :progetto, 
@@ -34,8 +34,8 @@ class IspezioneCostruzione {
                             :stato )
                 ');
  
-        $this->db->bind(':data', $data['data']);
-        $this->db->bind(':fine', $data['fine']);
+        $this->db->bind(':data', $data['data']); 
+        $this->db->bind(":idCustom", $data["idCustom"]); 
         $this->db->bind(':luogo', $data['luogo']);
         $this->db->bind(':progetto', $data['progetto']);   
         $this->db->bind(':cliente', $data['cliente']); 
@@ -105,8 +105,7 @@ class IspezioneCostruzione {
                          INNER JOIN aree_riferimento ON aree_riferimento.idAreaRiferimento = fk_idAreaRiferimento
                          INNER JOIN sotto_aree ON sotto_aree.idSottoArea = fk_idSottoArea
                          WHERE INSTR(operatori, :operatore)>0
-                         AND inizio< :oggi
-                         AND fine> :oggi;");
+                         AND inizio = :oggi ;");
     
         $this->db->bind(':operatore', $operatore);
         $this->db->bind(':oggi', $oggi);
@@ -123,8 +122,8 @@ class IspezioneCostruzione {
 
     public function modificaIspezione($ispezione){
         $this->db->query("UPDATE ispezioni_costruzione 
-                        SET data = :data,
-                            fine = :fine, 
+                        SET data = :data, 
+                            idCustom = :idCustom,
                             luogo = :luogo, 
                             cliente = :cliente, 
                             operatori = :operatori, 
@@ -136,8 +135,8 @@ class IspezioneCostruzione {
                             stato = :stato
                         WHERE idIspezioneCostruzione = :id");
 
-        $this->db->bind(":data", $ispezione["data"]);
-        $this->db->bind(":fine", $ispezione["fine"]);
+        $this->db->bind(":data", $ispezione["data"]); 
+        $this->db->bind(":idCustom", $ispezione["idCustom"]); 
         $this->db->bind(":luogo", $ispezione["luogo"]);
         $this->db->bind(":cliente", $ispezione["cliente"]);
         $this->db->bind(":operatori", $ispezione["operatori"]);

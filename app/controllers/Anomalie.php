@@ -57,13 +57,21 @@ class Anomalie extends Controller {
             $this->view('anomalie/modificaAnomaliaCostruzione', $data);
         }
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){    
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+            $data = [
+                'localizzazione'=>trim($_POST["localizzazione"]),
+                'estensione'=>trim($_POST["estensione"]),
+                'profondita'=>trim($_POST["profondita"]),
+                'idAnomalia'=>trim($_POST["idAnomalia"]),
+                'stato'=> trim($_POST["stato"]), 
+                'commenti'=> trim($_POST["commenti"]),  
+                'riparazione'=>isset($_POST["riparazione"]) ? trim($_POST["riparazione"]) : "no",
+            ];   
+
             if(isset($_POST["tipo"]) &&  $_POST["tipo"] == "no" &&  !isset($_POST["aggiungiTipo"])){  
-                 
-                $this->anomalieCostruzioneModel->modificaAnomalia($_POST);  
+                $this->anomalieCostruzioneModel->modificaAnomalia($data);  
             }else if(isset($_POST["tipo"]) && $_POST["tipo"] != "no" &&  !isset($_POST["aggiungiTipo"])){
-                 
-                $this->anomalieCostruzioneModel->modificaAnomaliaWithTipo($_POST); 
+                $this->anomalieCostruzioneModel->modificaAnomaliaWithTipo($data); 
             }else if(  isset($_POST["aggiungiTipo"]) && $_POST["aggiungiTipo"]=="yes" && isset($_POST["tipoAnomalieInput"])){
  
                 $data = [
@@ -71,7 +79,10 @@ class Anomalie extends Controller {
                     'estensione'=>trim($_POST["estensione"]),
                     'profondita'=>trim($_POST["profondita"]),
                     'idAnomalia'=>trim($_POST["idAnomalia"]),
+                    'stato'=> trim($_POST["stato"]), 
+                    'commenti'=> trim($_POST["commenti"]), 
                     'tipo'=>trim($_POST["tipoAnomalieInput"]),
+                    'riparazione'=>isset($_POST["riparazione"]) ? trim($_POST["riparazione"]) : "no",
                 ];
                 $this->anomalieCostruzioneModel->modificaAnomaliaWithTipo($data);    
             }
@@ -120,8 +131,9 @@ class Anomalie extends Controller {
 
     //Imposta a false la presenza dell'anomalia
     public function risoltoCostruzione(){
-        if( isset($_GET["idAnomalia"]) ){
-            $this->anomalieCostruzioneModel->risolvi($_GET["idAnomalia"]);
+        if( isset($_POST["idAnomalia"]) ){
+            $this->anomalieCostruzioneModel->risolvi($_POST["idAnomalia"], $_POST["commento"]);
+
             if(isset($_GET["idIspezione"]) && $_GET["idIspezione"]>0){ 
                 header('location: ' . URLROOT . "/anomalie/anomalieIspezioneCostruzione?idIspezione=". $_GET["idIspezione"]);
             }elseif(!isset($_GET["idProgetto"])){
@@ -129,6 +141,10 @@ class Anomalie extends Controller {
             }elseif(isset($_GET["idProgetto"])){  
                 header('location: ' . URLROOT . "/anomalie/index?idProgetto=". $_GET["idProgetto"]);
             }
+
+        }else if(isset($_GET["idAnomalia"])){ 
+            $data = [];
+            $this->view('anomalie/risolviAnomalia', $data);
         }else{ 
             header('location: ' . URLROOT . "/progetti/index");
         }
@@ -170,6 +186,8 @@ class Anomalie extends Controller {
                     'localizzazione'=> trim($_POST["localizzazione"]), 
                     'estensione'=> trim($_POST["estensione"]), 
                     'profondita'=> trim($_POST["profondita"]), 
+                    'stato'=> trim($_POST["stato"]), 
+                    'commenti'=> trim($_POST["commenti"]), 
                     'ispezione'=> trim($_GET["idIspezione"]),  
                     'tipo'=> trim($_POST["tipo"]),    
                     'switchAggiungi'=>trim($_POST["aggiungiTipo"]),

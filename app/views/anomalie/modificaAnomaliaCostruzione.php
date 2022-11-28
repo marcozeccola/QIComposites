@@ -32,6 +32,10 @@
                </div> 
 
                 
+               <div class="form-outline p-2">
+                    <label class="form-label" for="stato"><b>Stato anomalia</b></label>
+                    <input type="text" id="stato" name="stato" class="form-control"  value="<?php echo $data["anomalia"]->stato; ?>" />
+               </div>   
               <label class="form-label" for="aggiungiTipo"><b>Aggiungi ora tipo anomalia</b></label>
                <div class="form-check form-switch"> 
                     <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiTipo" id="aggiungiTipo" style="margin-left:50%!important;">
@@ -60,6 +64,24 @@
                   <label class="form-label" for="immagini"><b>Immagini</b></label>
                   <input type="file" id="immagini" name="immagini[]" class="form-control" accept="image/*"  multiple="multiple"  />
                </div>
+
+               
+               <div class="form-outline p-2">
+                    <label class="form-label" for="commenti"><b>Commenti</b></label>
+                    <textarea name="commenti" id="commenti" class="form-control"  ><?php echo $data["anomalia"]->commenti;?></textarea>
+               </div> 
+
+               <?php
+                    if(isset($data["anomalia"]->riparazione) && $data["anomalia"]->riparazione != "no"){
+               ?>
+               <div class="form-outline p-2">
+                    <label class="form-label" for="riparazione"><b>Commenti sulla risoluzione dell'anomalia</b></label>
+                    <textarea name="riparazione" id="riparazione" class="form-control"  ><?php echo $data["anomalia"]->riparazione;?></textarea>
+               </div> 
+               <?php
+                    }
+               ?>
+
                </div>
                <button type="submit" style="width: 50%; margin: auto" class="btn btn-primary btn-block p-2">
                     Salva e chiudi

@@ -12,15 +12,16 @@
      <div class="text-left" style="padding: 5%">
           <form action="<?php echo URLROOT ?>/ispezioni/aggiungiIspezioneCostruzione?idProgetto=<?php echo $_GET["idProgetto"]; ?>"
                method="POST" enctype="multipart/form-data">
+ 
                <div class="p-2">
-                    <label class="form-label" for="data" style="font-weight: bold">Data inizio dell'ispezione</label>
-                    <input type="date" id="data" name="data" class="form-control" />
+                    <label class="form-label" for="idCustom" style="font-weight: bold">Id Custom</label>
+                    <input type="number" id="idCustom" name="idCustom" class="form-control" />
                </div>
 
                <div class="p-2">
-                    <label class="form-label" for="fine" style="font-weight: bold">Data di fine ispezione</label>
-                    <input type="date" id="fine" name="fine" class="form-control" />
-               </div>
+                    <label class="form-label" for="data" style="font-weight: bold">Data dell'ispezione</label>
+                    <input type="date" id="data" name="data" value="<?php echo date("Y-m-d"); ?>" class="form-control" />
+               </div> 
 
                <div class="p-2">
                     <label class="form-label" for="luogo" style="font-weight: bold">Luogo dell'ispezione</label>
@@ -54,6 +55,44 @@
                     </select><br>
                     <label for="operatori">Operatore esterno?</label>
                     <textarea name="operatori" id="operatori" cols="30" rows="1"></textarea>
+               </div>
+ 
+               <div class="p-2">
+                    <label class="form-label" for="tipo"><b>Macro area</b></label>
+                    <select class="form-select" name="macroArea" id="selectMacroArea">
+                         <option disabled selected>Scegli macro area</option>
+                         <?php 
+                         foreach($data["macroAree"] as $area){
+                    ?>
+                         <option value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
+                         <?php
+                         }
+                    ?>
+                    </select>
+               </div>
+
+               <div class="form-check form-switch">
+                    <label class="form-label" for="tipo"><b>Sotto area</b></label>
+                    <br>
+                    <label class="form-label" for="sottoAreaInput">Nuova sotto area?</label>
+                    <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiArea"
+                         id="aggiungiArea" style="margin-left:50%!important;">
+               </div>
+
+               <br>
+
+               <div class="p-2" id="container-aggiungi">
+                    <input type="text" id="sottoAreaInput" name="sottoAreaInput" class="form-control" / /> 
+               </div>
+
+               <div class="p-2" id="container-select"> 
+                    <select class="form-select" name="sottoArea" id="selectSottoArea">
+                    </select><br>
+               </div>
+
+               <div class="p-2">
+                    <label class="form-label" for="nomeArea"><b>Nome proprio area</b></label>
+                    <input type="text" id="nomeArea" name="nomeArea" class="form-control" />
                </div>
 
                <!-- input reticoli -->
@@ -92,44 +131,6 @@
                     <textarea name="sonde" id="sonde" cols="30" rows="1"></textarea>
                </div>
  
-
-               <div class="p-2">
-                    <label class="form-label" for="tipo"><b>Macro area</b></label>
-                    <select class="form-select" name="macroArea" id="selectMacroArea">
-                         <option disabled selected>Scegli macro area</option>
-                         <?php 
-                         foreach($data["macroAree"] as $area){
-                    ?>
-                         <option value="<?php echo $area->idAreaRiferimento?>"><?php echo $area->area?></option>
-                         <?php
-                         }
-                    ?>
-                    </select>
-               </div>
-
-               <div class="form-check form-switch">
-                    <label class="form-label" for="tipo"><b>Sotto area</b></label>
-                    <br>
-                    <label class="form-label" for="sottoAreaInput">Nuova sotto area?</label>
-                    <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiArea"
-                         id="aggiungiArea" style="margin-left:50%!important;">
-               </div>
-
-               <br>
-
-               <div class="p-2" id="container-aggiungi">
-                    <input type="text" id="sottoAreaInput" name="sottoAreaInput" class="form-control" / /> 
-               </div>
-
-               <div class="p-2" id="container-select"> 
-                    <select class="form-select" name="sottoArea" id="selectSottoArea">
-                    </select><br>
-               </div>
-
-               <div class="p-2">
-                    <label class="form-label" for="nomeArea"><b>Nome proprio area</b></label>
-                    <input type="text" id="nomeArea" name="nomeArea" class="form-control" />
-               </div>
 
                <div class="p-2">
                     <label class="form-label" for="immagini"><b>Aggiungi immagini</b></label>
@@ -184,10 +185,11 @@ document.getElementById("selectMacroArea").addEventListener("change", (e) => {
      let lista =   
                <?php 
                echo "{";
+               if($data["sottoAree"]){
                     foreach($data["sottoAree"] as $area){
                          echo "'$area->nome':['$area->fk_idAreaRiferimento','$area->idSottoArea'],";
                     }
-                    
+               }
                echo "}";
                ?> 
      ;  

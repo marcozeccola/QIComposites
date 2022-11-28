@@ -13,15 +13,16 @@
           <form action="<?php echo URLROOT ?>/ispezioni/modificaIspezioneCostruzione"
                method="POST" enctype="multipart/form-data"> 
                <input type="hidden" name="idIspezione" value="<?php echo $data["ispezione"]->idIspezioneCostruzione ?>">
+               
                <div class="p-2">
-                    <label class="form-label" for="data" style="font-weight: bold">Data inizio dell'ispezione</label>
-                    <input type="date" id="data" name="data" class="form-control" value="<?php echo $data["ispezione"]->data ?>" />
+                    <label class="form-label" for="idCustom" style="font-weight: bold">Id Custom</label>
+                    <input type="number" id="idCustom" name="idCustom" class="form-control" value="<?php echo $data["ispezione"]->idCustom; ?>"/>
                </div>
 
                <div class="p-2">
-                    <label class="form-label" for="fine" style="font-weight: bold">Data di fine ispezione</label>
-                    <input type="date" id="fine" name="fine" class="form-control" value="<?php echo $data["ispezione"]->fine ?>" />
-               </div>
+                    <label class="form-label" for="data" style="font-weight: bold">Data inizio dell'ispezione</label>
+                    <input type="date" id="data" name="data" class="form-control" value="<?php echo $data["ispezione"]->data ?>" />
+               </div> 
 
                <div class="p-2">
                     <label class="form-label" for="luogo" style="font-weight: bold">Luogo dell'ispezione</label>
@@ -57,44 +58,7 @@
                     <textarea name="operatori" id="operatori" cols="30" rows="1"><?php echo $data["ispezione"]->operatori ?></textarea>
                </div>
 
-               <!-- input reticoli -->
-               <div class="p-2">
-                    <label class="form-label" for="area"><b>Reticolo</b></label>
-                    <select class="form-select" id="selectReticoli" name="reticolo">
-
-                         <option disabled selected>Seleziona </option>
-                         <?php 
-                         foreach($data["reticoli"] as $reticolo){
-                    ?>
-                         <option value="<?php echo $reticolo->nome;?>"><?php echo $reticolo->nome;?> </option>
-                         <?php 
-                         }
-                    ?>
-                    </select><br>
-                    <label for="reticoli">Reticolo particolare?</label>
-                    <textarea name="reticoli" id="reticoli" cols="30" rows="1"><?php echo $data["ispezione"]->reticoli; ?> </textarea>
-               </div>
-
-               <!-- input sonde -->
-               <div class="p-2">
-                    <label class="form-label" for="area"><b>Sonda</b></label>
-                    <select class="form-select" id="selectSonde" name="sonda">
-
-                         <option disabled selected>Seleziona </option>
-                         <?php 
-                         foreach($data["sonde"] as $sonda){
-                    ?>
-                         <option value="<?php echo $sonda->sonda;?>"><?php echo $sonda->sonda;?> </option>
-                         <?php 
-                         }
-                    ?>
-                    </select><br>
-                    <label for="sonde">Sonda particolare?</label>
-                    <textarea name="sonde" id="sonde" cols="30" rows="1"><?php echo $data["ispezione"]->sonde; ?></textarea>
-               </div>
-
-
-               <div class="p-2">
+<div class="p-2">
                     <label class="form-label" for="tipo"><b>Macro area</b></label>
                     <select class="form-select" name="macroArea" id="selectMacroArea">
                          <option disabled selected>Scegli macro area</option>
@@ -146,6 +110,45 @@
                     <input type="text" id="nomeArea" name="nomeArea" class="form-control" value=" <?php echo $data["ispezione"]->nomeArea; ?>" />
                </div>
 
+
+               <!-- input reticoli -->
+               <div class="p-2">
+                    <label class="form-label" for="area"><b>Reticolo</b></label>
+                    <select class="form-select" id="selectReticoli" name="reticolo">
+
+                         <option disabled selected>Seleziona </option>
+                         <?php 
+                         foreach($data["reticoli"] as $reticolo){
+                    ?>
+                         <option value="<?php echo $reticolo->nome;?>"><?php echo $reticolo->nome;?> </option>
+                         <?php 
+                         }
+                    ?>
+                    </select><br>
+                    <label for="reticoli">Reticolo particolare?</label>
+                    <textarea name="reticoli" id="reticoli" cols="30" rows="1"><?php echo $data["ispezione"]->reticoli; ?> </textarea>
+               </div>
+
+               <!-- input sonde -->
+               <div class="p-2">
+                    <label class="form-label" for="area"><b>Sonda</b></label>
+                    <select class="form-select" id="selectSonde" name="sonda">
+
+                         <option disabled selected>Seleziona </option>
+                         <?php 
+                         foreach($data["sonde"] as $sonda){
+                    ?>
+                         <option value="<?php echo $sonda->sonda;?>"><?php echo $sonda->sonda;?> </option>
+                         <?php 
+                         }
+                    ?>
+                    </select><br>
+                    <label for="sonde">Sonda particolare?</label>
+                    <textarea name="sonde" id="sonde" cols="30" rows="1"><?php echo $data["ispezione"]->sonde; ?></textarea>
+               </div>
+
+
+               
                <div class="p-2">
                     <label class="form-label" for="immagini"><b>Aggiungi immagini</b></label>
                     <input type="file" id="immagini" name="immagini[]" class="form-control" accept="image/*"

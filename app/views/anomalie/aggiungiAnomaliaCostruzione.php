@@ -26,9 +26,13 @@
                <div class="form-outline p-2">
                     <label class="form-label" for="profondita"><b>Profondità</b></label>
                     <input type="text" id="profondita" name="profondita" class="form-control"  />
-               </div> 
+               </div>  
 
-               
+               <div class="form-outline p-2">
+                    <label class="form-label" for="stato"><b>Stato anomalia</b></label>
+                    <input type="text" id="stato" name="stato" class="form-control"  />
+               </div>  
+
                <label class="form-label" for="aggiungiTipo"><b>Aggiungi ora tipo anomalia</b></label>
                <div class="form-check form-switch"> 
                     <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiTipo" id="aggiungiTipo" style="margin-left:50%!important;">
@@ -55,7 +59,13 @@
                <div class="form-outline p-2">
                   <label class="form-label" for="immagini"><b>Immagini</b></label>
                   <input type="file" id="immagini" name="immagini[]" class="form-control" accept="image/*"  multiple="multiple"  />
-               </div><br>
+               </div> 
+               
+               <div class="form-outline p-2">
+                    <label class="form-label" for="stato"><b>Commenti</b></label>
+                    <textarea name="commenti" id="commenti" class="form-control"  ></textarea>
+               </div>  
+               <br>
      </div>
      <button type="submit" name="continua" class="btn btn-primary btn-block p-2" style="  margin: auto">
           Aggiungi altre anomalie

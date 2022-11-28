@@ -13,13 +13,13 @@
         <table class="table"> 
           <tbody>
             <tr>
+              <th scope="row">idCustom</th>
+              <td><?php echo $data["ispezione"]->idCustom; ?></td> 
+            </tr>  
+            <tr>
               <th scope="row">Data di inizio</th>
               <td><?php echo $data["ispezione"]->data; ?></td> 
-            </tr> 
-            <tr>
-              <th scope="row">Data di fine</th>
-              <td><?php echo $data["ispezione"]->fine; ?></td> 
-            </tr>
+            </tr>  
             <tr>
               <th scope="row">Cliente</th>
               <td><?php echo $data["ispezione"]->cliente; ?></td> 
