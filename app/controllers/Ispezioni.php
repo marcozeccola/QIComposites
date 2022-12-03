@@ -60,6 +60,7 @@ class Ispezioni extends Controller {
                     'fk_idAreaRiferimento'=> trim($_POST["macroArea"]),
                     'fk_idSottoArea'=> trim($_POST["sottoArea"]),
                     'nomeArea'=> trim($_POST["nomeArea"]),
+                    'obiettivo'=> trim($_POST["obiettivo"]),
                     'progetto'=> trim($_GET["idProgetto"]), 
  
 
@@ -129,6 +130,7 @@ class Ispezioni extends Controller {
                     'fk_idSottoArea'=> trim($_POST["sottoArea"]),
                     'nomeArea'=> trim($_POST["nomeArea"]),
                     'idIspezione'=>trim($_POST["idIspezione"]),
+                    'obiettivo'=>trim($_POST["obiettivo"]),
  
 
                     'switchAggiungi'=> trim($_POST["aggiungiArea"]),   

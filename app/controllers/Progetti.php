@@ -81,7 +81,7 @@ class Progetti extends Controller {
                     if(file_exists($_FILES['copertina']['tmp_name']) || is_uploaded_file($_FILES['copertina']['tmp_name'])) {
                         $dirCopertina =  str_replace(' ', '',  PUBLICROOT. "/progetti-docs/copertine/ ".$id."/ ");
                         mkdir(  $dirCopertina, 0777, true);
-                        $caricamentoCopertina = $this->compressImage($_FILES["copertina"]["tmp_name"], $dirCopertina.$_FILES["copertina"]["name"], 70); 
+                        $caricamentoCopertina = move_uploaded_file($_FILES["copertina"]["tmp_name"],  $dirCopertina.$_FILES["copertina"]["name"] );
                        
                     }else{
                         $caricamentoCopertina = true;

@@ -1,4 +1,4 @@
-<?php
+<?php /*
 require(dirname(__FILE__).'/../../../fpdf/fpdf.php');
 
 $pdf = new FPDF();
@@ -14,7 +14,7 @@ $pdf->Cell(40,10,"Inizio: ". $data["progetto"]->inizio);
 $pdf->Ln(5);
 $pdf->Cell(40,10,"Nome del progettista: ". $data["progetto"]->progettista);
 
-$pdf->Ln(10);
+$pdf->Ln(10);*/
 /*
 
 foreach($data["ispezioniCostruzione"] as $ispezione){
@@ -37,8 +37,8 @@ foreach($data["ispezioniCostruzione"] as $ispezione){
                $pdf->Cell(40,10,"Tipo di anomalia : ". $anomalia->anomalia); 
           }
      }
-}/*/
+}/
 
 
-$pdf->Output();
+$pdf->Output();*/
 ?>

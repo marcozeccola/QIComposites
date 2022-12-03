@@ -12,7 +12,8 @@
         <li class="dropdown"><a href="#"><span><?php echo $_SESSION['username'] ?></span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="<?php echo URLROOT;?>/users/logout">LOGOUT</a></li>
-              <li><a href="<?php echo URLROOT;?>/users/changePassword">Cambia password</a></li>  
+              <li><a href="<?php echo URLROOT;?>/users/changePassword">Cambia password</a></li> 
+              <li><a href="<?php echo URLROOT;?>/users/firma">Carica firma</a></li>   
             </ul>
         </li>
         

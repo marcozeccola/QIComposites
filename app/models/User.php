@@ -79,5 +79,36 @@ class User {
             return false;
         }
     }
+
+    public function findIdByUsername($username) { 
+        $this->db->query("SELECT idOperatore 
+                            FROM   operatori
+                            WHERE CONCAT(Nome, ' ', Cognome) = :username");
+ 
+        $this->db->bind(':username', $username); 
+        
+        $row = $this->db->single();
+ 
+        if( $row && $row->idOperatore > 0) {
+            return $row;
+        } else {
+            return false;
+        }
+    }
+
+    public function findUserById($id) { 
+        $this->db->query('SELECT * FROM operatori WHERE idOperatore = :id');
+ 
+        $this->db->bind(':id', $id); 
+        
+        $row = $this->db->single();
+ 
+        if( $row && $row->idOperatore > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
   
 }

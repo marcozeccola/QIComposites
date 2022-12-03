@@ -17,6 +17,10 @@
               <td><?php echo $data["ispezione"]->idCustom; ?></td> 
             </tr>  
             <tr>
+              <th scope="row">Main Goal</th>
+              <td><?php echo $data["ispezione"]->obiettivo; ?></td> 
+            </tr> 
+            <tr>
               <th scope="row">Data di inizio</th>
               <td><?php echo $data["ispezione"]->data; ?></td> 
             </tr>  
@@ -74,6 +78,15 @@
             </tr>
           </tbody>
         </table>
+
+        <!-- Link al report veloce -->
+        <a href="<?php echo URLROOT; ?>/public/pdf/quick?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>"
+                                   class="btn btn-primary">QUICK REPORT</a>
+
+                                   
+        <!-- Link al report completo -->
+        <a href="<?php echo URLROOT; ?>/public/pdf/report?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>"
+                                   class="btn btn-primary">REPORT</a>
         <div class="col-xs-12 col-lg-4 card-anomalia">
           <div class="card-carousel">
           <?php
@@ -143,7 +156,7 @@
             } 
 
          ?>
-               <div class="col-xs-12 col-lg-4 card-anomalia shadow-sm p-3 mb-5 bg-white rounded">
+            <div class="col-xs-12 col-lg-4 card-anomalia shadow-sm p-3 mb-5 bg-white rounded">
  
               <div class="card-block"><br>
                 <h4 class="card-title text-center"><b>
@@ -166,11 +179,11 @@
                 ?>
               </div>
             </div>
-          </div>
+         
          <?php
           }
          ?>
-
+ </div>
 
         </div>
 <br>

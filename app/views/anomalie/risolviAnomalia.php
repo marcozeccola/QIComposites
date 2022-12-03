@@ -8,13 +8,16 @@
    <div class="row text-center nuovoProgetto ">
       <h3>Inserisci commento sulla risoluzione</h3>
       <?php
-          $query;
+          $query="";
           if(isset($_GET["idProgetto"])){
-               $query = "idProgetto=".$_GET["idProgetto"] ;
-          }elseif(isset($_GET["idIspezione"])){
-               $query = "idIspezione=".$_GET["idIspezione"];
-          }else{
-               $query = "idAnomalia=".$_GET["idAnomalia"];
+               $query = "idProgetto=".$_GET["idProgetto"]."&";
+          }
+          if(isset($_GET["idIspezione"])){
+               $query = $query."idIspezione=".$_GET["idIspezione"]."&";
+          }
+          
+          if(!isset($_GET["idProgetto"]) && !isset($_GET["idIspezione"])){
+               $query = $query."idAnomalia=".$_GET["idAnomalia"];
           }
       ?>
       <form action="<?php echo URLROOT ?>/anomalie/risoltoCostruzione?<?php echo  $query; ?>" method="POST" enctype="multipart/form-data"> 

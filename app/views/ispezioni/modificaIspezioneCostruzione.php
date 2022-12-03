@@ -18,7 +18,12 @@
                     <label class="form-label" for="idCustom" style="font-weight: bold">Id Custom</label>
                     <input type="number" id="idCustom" name="idCustom" class="form-control" value="<?php echo $data["ispezione"]->idCustom; ?>"/>
                </div>
-
+               
+               <div class="form-outline p-2">
+                    <label class="form-label" for="obiettivo"><b>Main Goal</b></label>
+                    <textarea name="obiettivo" id="obiettivo" class="form-control" v ><?php echo $data["ispezione"]->obiettivo;  ?></textarea>
+               </div>
+               
                <div class="p-2">
                     <label class="form-label" for="data" style="font-weight: bold">Data inizio dell'ispezione</label>
                     <input type="date" id="data" name="data" class="form-control" value="<?php echo $data["ispezione"]->data ?>" />
@@ -146,9 +151,7 @@
                     <label for="sonde">Sonda particolare?</label>
                     <textarea name="sonde" id="sonde" cols="30" rows="1"><?php echo $data["ispezione"]->sonde; ?></textarea>
                </div>
-
-
-               
+ 
                <div class="p-2">
                     <label class="form-label" for="immagini"><b>Aggiungi immagini</b></label>
                     <input type="file" id="immagini" name="immagini[]" class="form-control" accept="image/*"

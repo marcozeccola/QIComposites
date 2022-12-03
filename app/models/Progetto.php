@@ -46,4 +46,21 @@ class Progetto {
         }
     }
  
+    public function getProgettoByIspezione($id){
+        $this->db->query('SELECT progetti.* FROM ispezioni_costruzione 
+                        INNER JOIN progetti ON progetti.idProgetto = ispezioni_costruzione.fk_idProgetto
+                        WHERE idIspezioneCostruzione = :id;');
+   
+        $this->db->bind(':id', $id);
+
+        $result = $this->db->single();
+ 
+        if( $result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+ 
+
 }

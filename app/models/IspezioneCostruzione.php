@@ -18,7 +18,8 @@ class IspezioneCostruzione {
                             nomeArea,
                             sonde, 
                             reticoli,
-                            stato )
+                            stato,
+                            obiettivo )
                         VALUES(
                             :data,  
                             :idCustom, 
@@ -31,7 +32,8 @@ class IspezioneCostruzione {
                             :nomeArea,
                             :sonde, 
                             :reticoli,
-                            :stato )
+                            :stato,
+                            :obiettivo )
                 ');
  
         $this->db->bind(':data', $data['data']); 
@@ -45,6 +47,7 @@ class IspezioneCostruzione {
         $this->db->bind(':nomeArea', $data['nomeArea']);
         $this->db->bind(':sonde', $data['sonde']); 
         $this->db->bind(':reticoli', $data['reticoli']); 
+        $this->db->bind(':obiettivo', $data['obiettivo']); 
         $this->db->bind(':stato', $data['stato']); 
  
         if ($this->db->execute()) {
@@ -117,8 +120,7 @@ class IspezioneCostruzione {
         } else {
             return false;
         } 
-    }
-
+    } 
 
     public function modificaIspezione($ispezione){
         $this->db->query("UPDATE ispezioni_costruzione 
@@ -132,13 +134,15 @@ class IspezioneCostruzione {
                             fk_idAreaRiferimento = :fk_idAreaRiferimento,
                             fk_idSottoArea = :fk_idSottoArea,
                             nomeArea = :nomeArea,
-                            stato = :stato
+                            stato = :stato,
+                            obiettivo = :obiettivo
                         WHERE idIspezioneCostruzione = :id");
 
         $this->db->bind(":data", $ispezione["data"]); 
         $this->db->bind(":idCustom", $ispezione["idCustom"]); 
         $this->db->bind(":luogo", $ispezione["luogo"]);
         $this->db->bind(":cliente", $ispezione["cliente"]);
+        $this->db->bind(":obiettivo", $ispezione["obiettivo"]);
         $this->db->bind(":operatori", $ispezione["operatori"]);
         $this->db->bind(":sonde", $ispezione["sonde"]);
         $this->db->bind(":reticoli", $ispezione["reticoli"]);
@@ -158,9 +162,13 @@ class IspezioneCostruzione {
 
     public function getIspezioneById($id){
         $this->db->query('SELECT ispezioni_costruzione.*,  
-                              progetti.nome AS nomeProgetto
+                              progetti.nome AS nomeProgetto,
+                              aree_riferimento.area AS macroArea, 
+                              sotto_aree.nome AS sottoArea
                          FROM ispezioni_costruzione  
-                         INNER JOIN progetti ON ispezioni_costruzione.fk_idProgetto = idProgetto
+                         INNER JOIN aree_riferimento ON aree_riferimento.idAreaRiferimento = fk_idAreaRiferimento
+                         INNER JOIN sotto_aree ON sotto_aree.idSottoArea = fk_idSottoArea
+                        INNER JOIN progetti ON ispezioni_costruzione.fk_idProgetto = idProgetto
                           WHERE idIspezioneCostruzione = :id;');
    
         $this->db->bind(':id', $id);

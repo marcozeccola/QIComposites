@@ -18,6 +18,11 @@
                     <input type="number" id="idCustom" name="idCustom" class="form-control" />
                </div>
 
+               <div class="form-outline p-2">
+                    <label class="form-label" for="obiettivo"><b>Main Goal</b></label>
+                    <textarea name="obiettivo" id="obiettivo" class="form-control"  ></textarea>
+               </div>
+
                <div class="p-2">
                     <label class="form-label" for="data" style="font-weight: bold">Data dell'ispezione</label>
                     <input type="date" id="data" name="data" value="<?php echo date("Y-m-d"); ?>" class="form-control" />

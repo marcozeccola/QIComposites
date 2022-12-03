@@ -177,7 +177,48 @@ class Users extends Controller {
         }
         $this->view('users/login', $data);
     }
+ 
+    public function firma(){
+        
+        $data = [
+            'title' => 'Aggiungi firma'
+        ]; 
+          
+        
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+             
+            $id = $_SESSION['user_id'];
 
+            if(file_exists($_FILES['firma']['tmp_name']) || is_uploaded_file($_FILES['firma']['tmp_name'])) {
+                $dirFirma = str_replace(' ', '',PUBLICROOT. "/firme/ ".$id."/ " );
+                
+                //se c'è già una firma inserita la elimina
+                if(is_dir($dirFirma)){
+                    /*Elimina il file contenuto della directory */
+                    $files = array_diff(scandir($dirFirma), array('.', '..')); 
+                    foreach ($files as $file) { 
+                        unlink("$dirFirma/$file"); 
+                    }
+                    /* Elimina e poi ricrea la cartella */
+                    rmdir($dirFirma);
+                }
+
+                mkdir(  $dirFirma, 0777, true); 
+
+                $caricamentoFirma = move_uploaded_file($_FILES["firma"]["tmp_name"],  $dirFirma.$_FILES["firma"]["name"] );
+            }else{
+                $caricamentoFirma = true;
+            } 
+ 
+            
+            if(  $caricamentoFirma ){  
+                header('location: ' . URLROOT . "/progetti/");
+            }
+            
+        }else{ 
+            $this->view('users/firma', $data);
+        }
+    }
 
     public function changePassword(){
         if(!isLoggedIn()){
