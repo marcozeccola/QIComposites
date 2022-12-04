@@ -8,19 +8,12 @@ class Pdf extends Controller {
     }
 
     public function index() {
-
-          if(isset($_GET["idProgetto"])){
+ 
                $idProgetto = $_GET["idProgetto"];
 
                $data = [
-                    'progetto'=>$this->projectModel->getProgettoById($idProgetto),
-                    'ispezioniCostruzione'=>$this->ispezioniCostruzioneModel->getIspezioniByProgetto($idProgetto), 
-                    'anomalieCostruzione'=>$this->anomaliaCostruzioneModel->getAnomaliaByProgetto($idProgetto), 
                ];
                $this->view('pdf/index', $data);
-          }else{ 
-               header("location:".URLROOT."/progetti");
-          } 
     }
 
     public function quick() {
@@ -36,6 +29,7 @@ class Pdf extends Controller {
                     'ispezione'=>$ispezione, 
                     'anomalie'=>$this->anomaliaCostruzioneModel->getAnomaliaByIspezione($idIspezione), 
                ];
+
                  $this->view('pdf/quick', $data);
           }else{ 
                header("location:".URLROOT."/progetti");

@@ -43,6 +43,17 @@
                     <label class="form-label" for="stato" style="font-weight: bold">Stato di avanzamento</label>
                     <input type="text" id="stato" name="stato" class="form-control" value="<?php echo $data["ispezione"]->stato ?>" />
                </div>
+               
+               <div class="p-2">
+                    <label class="form-label" for="stato" style="font-weight: bold">Revisionato</label>
+                    <select class="form-select" id="revisionato" name="revisionato">
+                          
+                         <option disabled selected>Seleziona</option>
+                         <option value="true">Sì</option>
+                         <option value="false">No</option>
+                         
+                    </select>
+               </div>
 
                <!-- input Operatori -->
                <div class="p-2">
@@ -62,8 +73,7 @@
                     <label for="operatori">Operatore esterno?</label>
                     <textarea name="operatori" id="operatori" cols="30" rows="1"><?php echo $data["ispezione"]->operatori ?></textarea>
                </div>
-
-<div class="p-2">
+               <div class="p-2">
                     <label class="form-label" for="tipo"><b>Macro area</b></label>
                     <select class="form-select" name="macroArea" id="selectMacroArea">
                          <option disabled selected>Scegli macro area</option>

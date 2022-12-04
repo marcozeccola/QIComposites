@@ -61,6 +61,7 @@ class Ispezioni extends Controller {
                     'fk_idSottoArea'=> trim($_POST["sottoArea"]),
                     'nomeArea'=> trim($_POST["nomeArea"]),
                     'obiettivo'=> trim($_POST["obiettivo"]),
+                    'revisionato'=> trim($_POST["revisionato"]) == "true" ? 1 : 0,
                     'progetto'=> trim($_GET["idProgetto"]), 
  
 
@@ -125,26 +126,39 @@ class Ispezioni extends Controller {
                     'stato'=> trim($_POST["stato"]),  
                     'operatori'=> trim($_POST["operatori"]), 
                     'sonde'=> trim($_POST["sonde"]),  
-                    'reticoli'=> trim($_POST["reticoli"]),  
-                    'fk_idAreaRiferimento'=> trim($_POST["macroArea"]),
-                    'fk_idSottoArea'=> trim($_POST["sottoArea"]),
+                    'reticoli'=> trim($_POST["reticoli"]),    
                     'nomeArea'=> trim($_POST["nomeArea"]),
                     'idIspezione'=>trim($_POST["idIspezione"]),
-                    'obiettivo'=>trim($_POST["obiettivo"]),
+                    'obiettivo'=>trim($_POST["obiettivo"]), 
  
-
-                    'switchAggiungi'=> trim($_POST["aggiungiArea"]),   
                     'sottoAreaInput'=> trim($_POST["sottoAreaInput"]),
                ];
                
-               if(isset($_POST["sottoArea"])){
-                    $data["fk_idAreaRiferimento"]=$this->areeModel->getAreaBySottoArea(trim($_POST["sottoArea"]))->idAreaRiferimento;
+               /* Se non viene inserita una macro area rimane quella precedente nel database */
+               if(isset($_POST["macroArea"])){
+                    $data["fk_idAreaRiferimento"]=$_POST["macroArea"];
+                     
+                    if(isset($_POST["aggiungiArea"]) && $_POST["aggiungiArea"]=="yes" && isset($data["sottoAreaInput"])){
+                         
+                         $idAreaInserita = $this->sottoAreeModel->inserisci($data);
+                         $data["fk_idSottoArea"]= $idAreaInserita; 
+                    } 
+               }else{
+                    $data["fk_idAreaRiferimento"]=$this->ispezioniCostruzioneModel->getIspezioneById($data["idIspezione"])->fk_idAreaRiferimento;
                }
 
-               if(isset($data["switchAggiungi"]) && $data["switchAggiungi"]=="yes" && isset($data["sottoAreaInput"])){
-                     
-                    $idAreaInserita = $this->sottoAreeModel->inserisci($data);
-                    $data["fk_idSottoArea"]= $idAreaInserita; 
+               /* Se non viene inserita il revisionato  rimane quello precedente nel database */
+               if(isset($_POST["revisionato"])){
+                    $data["revisionato"]== "true" ? 1 : 0;
+               }else{
+                    $data["revisionato"]=$this->ispezioniCostruzioneModel->getIspezioneById($data["idIspezione"])->revisionato;
+               }
+
+               
+               /* Se viene cambiata sottoarea si ricontrolla la macroarea di riferimetno e si imposta quella associata alla sottoarea */
+               if(isset($_POST["sottoArea"])){
+                    $data["fk_idAreaRiferimento"]=$this->areeModel->getAreaBySottoArea(trim($_POST["sottoArea"]))->idAreaRiferimento;
+                    $data["fk_idSottoArea"]=$_POST["sottoArea"];
                }
              
                 

@@ -20,7 +20,7 @@ class Pages extends Controller {
     public function index() {
         $prova = true;
         $ispezioniCostruzione = $this->ispezioniCostruzioneModel->getIspezioniByOperatore($_SESSION["username"], date("Y-m-d")) ;
-        
+
  
         $data = [
             'title' => 'Home page',

@@ -42,6 +42,17 @@
                     <label class="form-label" for="stato" style="font-weight: bold">Stato di avanzamento</label>
                     <input type="text" id="stato" name="stato" class="form-control" />
                </div>
+               
+               <div class="p-2">
+                    <label class="form-label" for="stato" style="font-weight: bold">Revisionato</label>
+                    <select class="form-select" id="revisionato" name="revisionato">
+                          
+                         <option value="true">Sì</option>
+                         <option value="false">No</option>
+                         
+                    </select>
+               </div>
+
 
                <!-- input Operatori -->
                <div class="p-2">
@@ -50,11 +61,13 @@
                          <option disabled selected>Seleziona</option>
                          <?php 
                          foreach($data["operatori"] as $operatore){
+                              if($operatore->Nome . " " . $operatore->Cognome != "Marco Zeccola"){
                               $nomeCompletoOperatore =  $operatore->Nome . " " . $operatore->Cognome;
-                    ?>
-                         <option value="<?php echo $nomeCompletoOperatore;?>"><?php echo $nomeCompletoOperatore; ?>
-                         </option>
+                         ?>
+                              <option value="<?php echo $nomeCompletoOperatore;?>"><?php echo $nomeCompletoOperatore; ?>
+                              </option>
                          <?php 
+                              }
                          }
                     ?>
                     </select><br>

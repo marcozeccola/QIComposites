@@ -1,20 +1,20 @@
-<?php /*
+<?php
 require(dirname(__FILE__).'/../../../fpdf/fpdf.php');
 
 $pdf = new FPDF();
 $pdf->AddPage();  
 $pdf->SetFont('Arial','',24);
 
-$pdf->Cell(40,10,$data["progetto"]->nome);
+$pdf->Cell(40,10,"Gino");
 
 $pdf->Ln(10);
 $pdf->SetFont('Arial','',14);
-$pdf->Cell(40,10,"Inizio: ". $data["progetto"]->inizio);
+$pdf->Cell(40,10,"Inizio: "."Gino");
 
 $pdf->Ln(5);
-$pdf->Cell(40,10,"Nome del progettista: ". $data["progetto"]->progettista);
+$pdf->Cell(40,10,"Nome del progettista: ". "Gino");
 
-$pdf->Ln(10);*/
+$pdf->Ln(10);
 /*
 
 foreach($data["ispezioniCostruzione"] as $ispezione){
@@ -37,8 +37,8 @@ foreach($data["ispezioniCostruzione"] as $ispezione){
                $pdf->Cell(40,10,"Tipo di anomalia : ". $anomalia->anomalia); 
           }
      }
-}/
+}/*/
 
 
-$pdf->Output();*/
+$pdf->Output();
 ?>

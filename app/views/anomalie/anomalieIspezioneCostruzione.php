@@ -53,6 +53,10 @@
               <td><?php echo $data["ispezione"]->stato; ?></td> 
             </tr>
             <tr>
+              <th scope="row">Revisionato</th>
+              <td><?php echo $data["ispezione"]->revisionato == 1 ? "Sì": "No"; ?></td> 
+            </tr>
+            <tr>
               <th scope="row">Macroarea di Riferimento</th>
               <td>
                 <?php  
@@ -80,12 +84,12 @@
         </table>
 
         <!-- Link al report veloce -->
-        <a href="<?php echo URLROOT; ?>/public/pdf/quick?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>"
+        <a href="<?php echo URLROOT; ?>/pdf/quick?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>"
                                    class="btn btn-primary">QUICK REPORT</a>
 
                                    
         <!-- Link al report completo -->
-        <a href="<?php echo URLROOT; ?>/public/pdf/report?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>"
+        <a href="<?php echo URLROOT; ?>/pdf/report?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>"
                                    class="btn btn-primary">REPORT</a>
         <div class="col-xs-12 col-lg-4 card-anomalia">
           <div class="card-carousel">

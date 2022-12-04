@@ -27,6 +27,10 @@ foreach($data["ispezioni"] as $ispezione){
 <button type="button" class="btn btn-primary" id="submitIspezione" style=" margin-left:20%!important;" >APRI</button>
 <br>
 <button type="button" class="btn btn-primary" id="aggiungiAnomalia" style=" margin-left:20%!important; margin-top:5px!important;" >AGGIUNGI ANOMALIA</button>
+<br>
+<button type="button" class="btn btn-primary" id="quick" style=" margin-left:20%!important; margin-top:5px!important;" >QUICK REPORT</button>
+<br>
+<button type="button" class="btn btn-primary" id="report" style=" margin-left:20%!important; margin-top:5px!important;" >REPORT COMPLETO</button>
 
 <br><br>
 
@@ -64,6 +68,22 @@ foreach($data["progetti"] as $progetto){
    document.getElementById("aggiungiAnomalia").addEventListener("click", (e)=>{
       let idIspezione = document.getElementById('ispezioneSelect').value;
       let link = "<?php echo URLROOT; ?>/anomalie/aggiungiAnomaliaCostruzione?idIspezione=" + idIspezione;
+      if(idIspezione!="no"){ 
+         window.location = link;
+      }
+   });
+   
+   document.getElementById("quick").addEventListener("click", (e)=>{
+      let idIspezione = document.getElementById('ispezioneSelect').value;
+      let link = "<?php echo URLROOT; ?>/pdf/quick?idIspezione=" + idIspezione;
+      if(idIspezione!="no"){ 
+         window.location = link;
+      }
+   });
+   
+   document.getElementById("report").addEventListener("click", (e)=>{
+      let idIspezione = document.getElementById('ispezioneSelect').value;
+      let link = "<?php echo URLROOT; ?>/pdf/report?idIspezione=" + idIspezione;
       if(idIspezione!="no"){ 
          window.location = link;
       }

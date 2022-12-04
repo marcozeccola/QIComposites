@@ -94,6 +94,7 @@ class quickPDF extends FPDF
                $imgs = array();
                $dirIspezione = PUBLICROOT."/ispezioni/costruzione/".$this->ispezione->idIspezioneCostruzione;
  
+               $files = array();
                if(is_dir($dirIspezione)){
                     $files = array_diff(scandir($dirIspezione), array('.', '..')); 
                }
@@ -218,20 +219,22 @@ class quickPDF extends FPDF
 
 $pdf = new quickPDF($data["ispezione"]);
  
- 
+ $separatoreArea = $data["ispezione"]->nomeArea != ""?",": "";
 $DatiIspezione = array('Date of analysis', $data["ispezione"]->data,
                  'Operators',  $data["ispezione"]->operatori,
                  'Purchaser',  $data["ispezione"]->cliente,
                 'Place of analysis',  $data["ispezione"]->luogo,
                 'Instrument used',  $data["ispezione"]->sonde." - ". $data["ispezione"]->reticoli,
-                'Area of the boat',   $data["ispezione"]->macroArea." - ". $data["ispezione"]->sottoArea,
+                'Area of the boat',   $data["ispezione"]->macroArea." - ". $data["ispezione"]->sottoArea. "$separatoreArea ". $data["ispezione"]->nomeArea,
                 'Main goal',  $data["ispezione"]->obiettivo,
+                'Status',  $data["ispezione"]->stato,
+                'Revisioned',  $data["ispezione"]->obiettivo == 1 ?"Yes" : "No",
                 'Imgs');
 
 $lorem = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?';
 
 $pdf->SetFont('Arial','',14);
-$pdf->AddPage();
+$pdf->AddPage(); 
 $pdf->Apertura();
 $pdf->PrimaTabella($DatiIspezione);
 $pdf->SetY(200);
@@ -248,9 +251,10 @@ if($data["anomalie"]){
           $pAnomalia = array('Localization', $anomalia->localizzazione,
                               'Extension', $anomalia->estensione,
                               'Depth', $anomalia->profondita,
-                              'State', $anomalia->stato);
+                              'Type', $anomalia->anomalia);
 
-          $sAnomalia = array('Type', $anomalia->anomalia,
+          $sAnomalia = array(
+                              'State', $anomalia->stato,
                               'Comments', $anomalia->commenti,
                                'Imgs');
           if( isset($anomalia->riparazione) && $anomalia->riparazione != "no" && $anomalia->riparazione != ""  ){
