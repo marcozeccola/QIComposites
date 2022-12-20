@@ -1,8 +1,7 @@
 <?php
-   require APPROOT . '/views/includes/head.php';
-?>
-<?php
-   require APPROOT . '/views/includes/navigation.php';  
+   require APPROOT . '/views/includes/head.php'; 
+   
+   require APPROOT . '/views/includes/navigation.php';   
 ?>  
 <section id="pricing" class="pricing section-bg ">
       <div class="container text-left" style="width: 95%; margin: auto">
@@ -13,7 +12,7 @@
         <table class="table"> 
           <tbody>
             <tr>
-              <th scope="row">idCustom</th>
+              <th scope="row">id Report</th>
               <td><?php echo $data["ispezione"]->idCustom; ?></td> 
             </tr>  
             <tr>
@@ -41,17 +40,17 @@
               <td><?php echo $data["ispezione"]->operatori; ?></td> 
             </tr> 
             <tr>
-              <th scope="row">Retiolo</th>
+              <th scope="row">Reticolo</th>
               <td><?php echo $data["ispezione"]->reticoli; ?></td> 
             </tr> 
             <tr>
               <th scope="row">Sonda</th>
               <td><?php echo $data["ispezione"]->sonde; ?></td> 
-            </tr> 
+            </tr>  
             <tr>
-              <th scope="row">Stato di avanzamento</th>
-              <td><?php echo $data["ispezione"]->stato; ?></td> 
-            </tr>
+              <th scope="row">Strumento</th>
+              <td><?php echo $data["ispezione"]->strumenti; ?></td> 
+            </tr> 
             <tr>
               <th scope="row">Revisionato</th>
               <td><?php echo $data["ispezione"]->revisionato == 1 ? "Sì": "No"; ?></td> 

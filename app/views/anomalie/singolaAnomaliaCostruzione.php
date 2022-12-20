@@ -20,11 +20,7 @@
                     <tr>
                          <th scope="row">Estensione</th>
                          <td><?php echo $data["anomalia"]->estensione; ?></td>
-                    </tr>
-                    <tr>
-                         <th scope="row">Stato</th>
-                         <td><?php echo $data["anomalia"]->stato; ?></td>
-                    </tr>
+                    </tr> 
                     <tr>
                          <th scope="row">Profondita</th>
                          <td><?php echo $data["anomalia"]->profondita; ?></td>

@@ -15,8 +15,8 @@
                <input type="hidden" name="idIspezione" value="<?php echo $data["ispezione"]->idIspezioneCostruzione ?>">
                
                <div class="p-2">
-                    <label class="form-label" for="idCustom" style="font-weight: bold">Id Custom</label>
-                    <input type="number" id="idCustom" name="idCustom" class="form-control" value="<?php echo $data["ispezione"]->idCustom; ?>"/>
+                    <label class="form-label" for="idCustom" style="font-weight: bold">Id Report</label>
+                    <input type="text" id="idCustom" name="idCustom" class="form-control" value="<?php echo $data["ispezione"]->idCustom; ?>"/>
                </div>
                
                <div class="form-outline p-2">
@@ -161,6 +161,24 @@
                     <label for="sonde">Sonda particolare?</label>
                     <textarea name="sonde" id="sonde" cols="30" rows="1"><?php echo $data["ispezione"]->sonde; ?></textarea>
                </div>
+
+               <div class="p-2">
+                    <label class="form-label" for="strumenti"><b>Strumenti</b></label>
+                    <select class="form-select" id="selectStrumenti" name="strumento">
+
+                         <option disabled selected>Seleziona </option>
+                         <?php 
+                         foreach($data["strumenti"] as $strumento){
+                    ?>
+                         <option value="<?php echo $strumento->strumento;?>"><?php echo $strumento->strumento;?> </option>
+                         <?php 
+                         }
+                    ?>
+                    </select><br>
+                    <label for="strumenti">Strumento particolare?</label>
+                    <textarea name="strumenti" id="strumenti" cols="30" rows="1"><?php echo $data["ispezione"]->strumenti; ?></textarea>
+               </div>
+
  
                <div class="p-2">
                     <label class="form-label" for="immagini"><b>Aggiungi immagini</b></label>
@@ -194,6 +212,13 @@
           let textarea = document.getElementById("reticoli");
           let spazio = textarea.value == "" ? " " : ", ";
           textarea.value += spazio + nomeReticolo;
+     });
+ 
+     document.getElementById("selectStrumenti").addEventListener("change", (e) => {
+          let nomeStrumento = e.target.value;
+          let textarea = document.getElementById("strumenti");
+          let spazio = textarea.value == "" ? " " : ", ";
+          textarea.value += spazio + nomeStrumento;
      });
 
      document.getElementById("aggiungiArea").addEventListener("change", (e) => {

@@ -46,7 +46,7 @@ class completePDF extends FPDF
           $this->SetFont('Arial', 'I', 10);
          
           // Print centered page number
-          $this->Cell(0, 10, "Report N ".$this->ispezione->idCustom, 0, 0, 'L');
+          $this->Cell(0, 10, "Report id: ".$this->ispezione->idCustom, 0, 0, 'L');
           $this->Cell(0, 10, $this->PageNo(), 0, 0, 'R');
           $this->Image(PUBLICROOT.'/assets/img/pdf/favicon.png', 180, 275, 20);
     }
@@ -302,20 +302,16 @@ class completePDF extends FPDF
 
     //Pagina finale
     function Chiusura($operatore){
-          $this->SetFont('Arial', '', 13);  
-          $this->Cell(150, 15, 'firma'  , 0, 0, 'R');
-          $this->Ln();
-          $this->SetFont('Arial', 'B', 17); 
 
-          /* Se c'è un operatore valido lo setta altrimente mette l'id di Beltrando */
+           /* Se c'è un operatore valido lo setta altrimente mette l'id di Beltrando */
           if($operatore){
+               $this->SetFont('Arial', '', 13);  
+               $this->Cell(150, 15, 'firma'  , 0, 0, 'R');
+               $this->Ln();
+               $this->SetFont('Arial', 'B', 17); 
                $idOp = $operatore->idOperatore;
-          }else{
-               $idOp = $this->idOperatoreCapo;
-          }
-          
-          $this->stampaFirma($idOp);
-          
+               $this->stampaFirma($idOp);
+          } 
 
           $this->Ln(15);
           $this->SetFont('Arial', '', 15);
@@ -337,13 +333,19 @@ class completePDF extends FPDF
 $pdf = new completePDF($data["ispezione"]);
  
 $grandezza = array(45, 145);
+$macroarea = isset($data["ispezione"]->macroArea) ? $data["ispezione"]->macroArea : ""; 
+
+$sottoarea = isset($data["ispezione"]->sottoArea) ? $data["ispezione"]->sottoArea : "";
+$sottoarea = $sottoarea != "" ? " - ". $sottoarea : "";
+$sottoarea =  $sottoarea." ";
+$area =  $macroarea . $sottoarea . " ". $data["ispezione"]->nomeArea;
 //Contenuto del resto della prima tabella
 $seconda = array('Date of analysis', $data["ispezione"]->data,
                  'Operators',  $data["ispezione"]->operatori,
                  'Purchaser',  $data["ispezione"]->cliente,
                 'Place of analysis',  $data["ispezione"]->luogo,
                 'Instrument used',  $data["ispezione"]->sonde." - ". $data["ispezione"]->reticoli,
-                'Area of the boat',   $data["ispezione"]->macroArea." - ". $data["ispezione"]->sottoArea . " ". $data["ispezione"]->nomeArea,
+                'Area of the boat', $area   ,
                 'Main goal',  $data["ispezione"]->obiettivo,
                 'Status',  $data["ispezione"]->stato,
                 'Revisioned',  $data["ispezione"]->obiettivo == 1 ?"Yes" : "No",
@@ -373,8 +375,7 @@ if($data["anomalie"]){
                               'Depth', $anomalia->profondita,
                               'Type', $anomalia->anomalia);
 
-          $sAnomalia = array(
-                              'State', $anomalia->stato,
+          $sAnomalia = array( 
                               'Comments', $anomalia->commenti,
                                'Imgs');
           if( isset($anomalia->riparazione) && $anomalia->riparazione != "no" && $anomalia->riparazione != ""  ){

@@ -20,7 +20,15 @@ class Pdf extends Controller {
 
           if(isset($_GET["idIspezione"])){
                $idIspezione = $_GET["idIspezione"];
-               $ispezione= $this->ispezioniCostruzioneModel->getIspezioneById($idIspezione);
+               
+               if( $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]) != false){ 
+                    $ispezione = $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]); 
+                     
+               }elseif( $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaSottoArea($_GET["idIspezione"]) != false){
+                    $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaSottoArea($_GET["idIspezione"]);
+               }else{
+                    $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaArea($_GET["idIspezione"]);
+               }
                $primoOperatore=explode(",", $ispezione->operatori)[0];
               
                $data = [
@@ -41,7 +49,15 @@ class Pdf extends Controller {
 
           if(isset($_GET["idIspezione"])){
                $idIspezione = $_GET["idIspezione"];
-               $ispezione= $this->ispezioniCostruzioneModel->getIspezioneById($idIspezione);
+               
+               if( $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]) != false){ 
+                    $ispezione = $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]); 
+                     
+               }elseif( $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaSottoArea($_GET["idIspezione"]) != false){
+                    $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaSottoArea($_GET["idIspezione"]);
+               }else{
+                    $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaArea($_GET["idIspezione"]);
+               }
                $primoOperatore=explode(",", $ispezione->operatori)[0];
               
                $data = [

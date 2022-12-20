@@ -27,11 +27,7 @@
                     <label class="form-label" for="profondita"><b>Profondità</b></label>
                     <input type="text" id="profondita" name="profondita" class="form-control"  />
                </div>  
-
-               <div class="form-outline p-2">
-                    <label class="form-label" for="stato"><b>Stato anomalia</b></label>
-                    <input type="text" id="stato" name="stato" class="form-control"  />
-               </div>  
+ 
 
                <label class="form-label" for="aggiungiTipo"><b>Aggiungi ora tipo anomalia</b></label>
                <div class="form-check form-switch"> 
@@ -62,7 +58,7 @@
                </div> 
                
                <div class="form-outline p-2">
-                    <label class="form-label" for="stato"><b>Commenti</b></label>
+                    <label class="form-label" for="commenti"><b>Commenti</b></label>
                     <textarea name="commenti" id="commenti" class="form-control"  ></textarea>
                </div>  
                <br>

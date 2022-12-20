@@ -12,6 +12,7 @@ class Anomalie extends Controller {
         $this->tipiAnomalieModel = $this->model('TipoAnomalia'); 
         $this->areaModel = $this->model('Area'); 
         $this->sottoAreaModel = $this->model('SottoArea'); 
+        $this->strumentiModel = $this->model('Strumento');
     }
 
      /* L'index mostra TUTTE le anomalie di un progetto */
@@ -62,8 +63,7 @@ class Anomalie extends Controller {
                 'localizzazione'=>trim($_POST["localizzazione"]),
                 'estensione'=>trim($_POST["estensione"]),
                 'profondita'=>trim($_POST["profondita"]),
-                'idAnomalia'=>trim($_POST["idAnomalia"]),
-                'stato'=> trim($_POST["stato"]), 
+                'idAnomalia'=>trim($_POST["idAnomalia"]), 
                 'commenti'=> trim($_POST["commenti"]),  
                 'riparazione'=>isset($_POST["riparazione"]) ? trim($_POST["riparazione"]) : "no",
             ];   
@@ -78,8 +78,7 @@ class Anomalie extends Controller {
                     'localizzazione'=>trim($_POST["localizzazione"]),
                     'estensione'=>trim($_POST["estensione"]),
                     'profondita'=>trim($_POST["profondita"]),
-                    'idAnomalia'=>trim($_POST["idAnomalia"]),
-                    'stato'=> trim($_POST["stato"]), 
+                    'idAnomalia'=>trim($_POST["idAnomalia"]), 
                     'commenti'=> trim($_POST["commenti"]), 
                     'tipo'=>trim($_POST["tipoAnomalieInput"]),
                     'riparazione'=>isset($_POST["riparazione"]) ? trim($_POST["riparazione"]) : "no",
@@ -114,7 +113,16 @@ class Anomalie extends Controller {
         if( isset($_GET["idIspezione"])){
 
                 $anomalieCostruzione = $this->anomalieCostruzioneModel->getAnomaliaByIspezione($_GET["idIspezione"]); 
-                $ispezione = $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]); 
+                
+                if( $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]) != false){ 
+                        $ispezione = $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]); 
+                        
+                }elseif( $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaSottoArea($_GET["idIspezione"]) != false){
+                        $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaSottoArea($_GET["idIspezione"]);
+                }else{
+                        $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaArea($_GET["idIspezione"]);
+                }
+ 
                
                 $data = [
                     'anomalieCostruzione'=> $anomalieCostruzione,  
@@ -185,8 +193,7 @@ class Anomalie extends Controller {
                $data =[
                     'localizzazione'=> trim($_POST["localizzazione"]), 
                     'estensione'=> trim($_POST["estensione"]), 
-                    'profondita'=> trim($_POST["profondita"]), 
-                    'stato'=> trim($_POST["stato"]), 
+                    'profondita'=> trim($_POST["profondita"]),  
                     'commenti'=> trim($_POST["commenti"]), 
                     'ispezione'=> trim($_GET["idIspezione"]),  
                     'tipo'=> trim($_POST["tipo"]),    

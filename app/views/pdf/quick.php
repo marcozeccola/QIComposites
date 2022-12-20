@@ -58,9 +58,9 @@ class quickPDF extends FPDF
           $this->SetFont('Arial', 'I', 10);
          
           // Print centered page number
-          $this->Cell(0, 10, "Report N ".$this->ispezione->idCustom, 0, 0, 'L');
+          $this->Cell(0, 10, "Report id:  ".$this->ispezione->idCustom, 0, 0, 'L');
           $this->Cell(0, 10, $this->PageNo(), 0, 0, 'R');
-          $this->Image(PUBLICROOT.'/assets/img/pdf/favicon.png', 180, 275, 20);
+          $this->Image(PUBLICROOT.'/assets/img/pdf/favicon.png', 184, 279, 12);
     }
 
     //Footer della prima pagina
@@ -78,16 +78,22 @@ class quickPDF extends FPDF
 
     //Tabella della prima pagina
     function PrimaTabella( $dati){
-        $this->SetFont('Arial','',15);
-        $this->Ln(5);
+        $this->SetFont('Arial','',12); 
 
         $grandezza = array(45, 145);
  
-        $this->Ln(15);
+        $this->Ln(5);
         
         for($x = 0; $x < count($dati); $x++){
             if($dati[$x] != 'Imgs'){
-                $this->Cell(($x % 2 == 0)? $grandezza[0] : $grandezza[1], 15, $dati[$x], 1, 0, 'D');
+
+               //se è nella prima colonna lo mette in grassetto
+               if($x%2 == 0){ 
+                    $this->SetFont('Arial','B',12);
+               }else{ 
+                    $this->SetFont('Arial','',12);
+               }
+                $this->Cell(($x % 2 == 0)? $grandezza[0] : $grandezza[1], 10, $dati[$x], 1, 0, 'D');
             }else{ 
 
 
@@ -99,8 +105,8 @@ class quickPDF extends FPDF
                     $files = array_diff(scandir($dirIspezione), array('.', '..')); 
                }
                if(count($files)>0){
-                    $this->Cell(190, 15, 'Pics', 0, 0, 'C');
-                    $this->Ln();
+
+                    $this->Ln(3); 
                     foreach ($files as $file) {  
                          array_push($imgs, $dirIspezione."/".$file);   
                     } 
@@ -114,29 +120,41 @@ class quickPDF extends FPDF
         
     }
 
-    function TabellaAnomalie($prima, $seconda, $anomalia){
-          $this->SetFont('Arial','',15);
-          $this->Ln(5);
+    function TabellaAnomalie($prima, $seconda, $anomalia, $nAnomalia){
+          $this->SetFont('Arial','B',14);
+          $this->Cell(190, 15, $nAnomalia.".", 0, 0, 'L');
+          $this->Ln(15);
+          $this->SetFont('Arial','',12); 
 
           $distanzaDaSx = 10;
           $grandezza = array(45, 145);
 
           for($x = 0; $x < count($prima); $x++){
-               $this->Cell(($x % 2 == 0)? 45 : 50, 15,$prima[$x],1,0,'D');
+               //se è il titolo dell'elemento lo mette in grassetto
+               if($x<4){ 
+                    $this->SetFont('Arial','B',12);
+               }else{ 
+                    $this->SetFont('Arial','',12);
+               }
+               $this->Cell(($x % 2 == 0)? 45 : 50, 8,$prima[$x],1,0,'D');
                if($x == 3) 
                     $this->Ln();
           }
      
-          $this->Ln(15); 
-
+          $this->Ln(8); 
+ 
           for($i = 0; $i < count($seconda); $i++){
                if($seconda[$i] != 'Imgs'){
-                    $this->SetXY(($i % 2 == 0)? $distanzaDaSx : $grandezza[0]+$distanzaDaSx,
-                                   ($i % 2 == 0)? $this->GetY() : $this->GetY()-15 );
-                    $this->MultiCell(($i % 2 == 0)? $grandezza[0] : $grandezza[1], 15, $seconda[$i], 1, 'l');
+                    
+                    $this->SetFont('Arial','B',12);
+                    $this->SetXY( $distanzaDaSx ,  $this->GetY()   );
+                    $this->Cell(190, 8,'Comments',1,0,'D');
+                    
+                    $this->SetFont('Arial','',12);
+                    $this->SetXY(  $distanzaDaSx,  $this->GetY() + 8);
+                    $this->MultiCell(190, 8, $seconda[$i], 1, 'l');
                }else{ 
-
-                    $this->Cell(190, 15, 'Pics', 0, 0, 'C');
+ 
                     $this->Ln();
 
                     $imgs = array();
@@ -160,7 +178,7 @@ class quickPDF extends FPDF
     function tabellaImmagini ($immagini){ 
         for($x = 0; $x < count($immagini); $x++){ 
             $this->Image($immagini[$x],50, null,  100);
-            $this->Ln();
+            $this->Ln(1);
         }
     }  
 
@@ -185,19 +203,17 @@ class quickPDF extends FPDF
 
     //Pagina finale
     function Chiusura($operatore){
-          $this->SetFont('Arial', '', 13);  
-          $this->Cell(150, 15, 'firma'  , 0, 0, 'R');
-          $this->Ln();
-          $this->SetFont('Arial', 'B', 17); 
 
           /* Se c'è un operatore valido lo setta altrimente mette l'id di Beltrando */
           if($operatore){
+               $this->SetFont('Arial', '', 13);  
+               $this->Cell(150, 15, 'firma'  , 0, 0, 'R');
+               $this->Ln();
+               $this->SetFont('Arial', 'B', 17); 
                $idOp = $operatore->idOperatore;
-          }else{
-               $idOp = $this->idOperatoreCapo;
+               $this->stampaFirma($idOp);
           }
           
-          $this->stampaFirma($idOp);
           
 
           $this->Ln(15);
@@ -220,15 +236,26 @@ class quickPDF extends FPDF
 $pdf = new quickPDF($data["ispezione"]);
  
  $separatoreArea = $data["ispezione"]->nomeArea != ""?",": "";
-$DatiIspezione = array('Date of analysis', $data["ispezione"]->data,
-                 'Operators',  $data["ispezione"]->operatori,
-                 'Purchaser',  $data["ispezione"]->cliente,
+
+ 
+$grandezza = array(45, 145);
+$macroarea = isset($data["ispezione"]->macroArea) ? $data["ispezione"]->macroArea : ""; 
+
+$sottoarea = isset($data["ispezione"]->sottoArea) ? $data["ispezione"]->sottoArea : "";
+$sottoarea = $sottoarea != "" ? " - ". $sottoarea : "";
+$sottoarea =  $sottoarea." ";
+
+$area =  $macroarea . $sottoarea . " ". $data["ispezione"]->nomeArea;
+$DatiIspezione = array('date of analysis', $data["ispezione"]->data,
+               'ID report', $data["ispezione"]->idCustom,
+                 'operators',  $data["ispezione"]->operatori,
+                 'purchaser',  $data["ispezione"]->cliente,
                 'Place of analysis',  $data["ispezione"]->luogo,
-                'Instrument used',  $data["ispezione"]->sonde." - ". $data["ispezione"]->reticoli,
-                'Area of the boat',   $data["ispezione"]->macroArea." - ". $data["ispezione"]->sottoArea. "$separatoreArea ". $data["ispezione"]->nomeArea,
-                'Main goal',  $data["ispezione"]->obiettivo,
+                'Scope of work',  $data["ispezione"]->obiettivo,
+                'Inspected area',   $area,
                 'Status',  $data["ispezione"]->stato,
                 'Revisioned',  $data["ispezione"]->obiettivo == 1 ?"Yes" : "No",
+                'Instrument used',  $data["ispezione"]->sonde." - ". $data["ispezione"]->reticoli." - ". $data["ispezione"]->strumenti,
                 'Imgs');
 
 $lorem = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?';
@@ -246,21 +273,22 @@ if($data["anomalie"]){
      $pdf->SetFont('Arial', 'B', 20);
      $pdf->Cell(190, 15, 'Anomalies Observed', 0, 0, 'C');
      $pdf->Ln();
+     $contAnomalie = 1;
      foreach($data["anomalie"] as $anomalia){
 
-          $pAnomalia = array('Localization', $anomalia->localizzazione,
-                              'Extension', $anomalia->estensione,
-                              'Depth', $anomalia->profondita,
-                              'Type', $anomalia->anomalia);
+          $pAnomalia = array('Type', 'LocalizationExtension',  'Depth',  '',
+                               $anomalia->localizzazione,
+                               $anomalia->estensione,
+                               $anomalia->profondita,
+                                $anomalia->anomalia);
 
-          $sAnomalia = array(
-                              'State', $anomalia->stato,
-                              'Comments', $anomalia->commenti,
+          $sAnomalia = array( $anomalia->commenti,
                                'Imgs');
           if( isset($anomalia->riparazione) && $anomalia->riparazione != "no" && $anomalia->riparazione != ""  ){
                array_unshift($sAnomalia, "Reparation", $anomalia->riparazione);
           }
-          $pdf->TabellaAnomalie($pAnomalia, $sAnomalia, $anomalia);
+          $pdf->TabellaAnomalie($pAnomalia, $sAnomalia, $anomalia, $contAnomalie);
+          $contAnomalie++;
      }
 }
 $pdf->AddPage();  

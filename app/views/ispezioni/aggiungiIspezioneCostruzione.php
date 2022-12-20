@@ -14,8 +14,8 @@
                method="POST" enctype="multipart/form-data">
  
                <div class="p-2">
-                    <label class="form-label" for="idCustom" style="font-weight: bold">Id Custom</label>
-                    <input type="number" id="idCustom" name="idCustom" class="form-control" />
+                    <label class="form-label" for="idCustom" style="font-weight: bold">Id report</label>
+                    <input type="text" id="idCustom" name="idCustom" class="form-control" />
                </div>
 
                <div class="form-outline p-2">
@@ -148,6 +148,25 @@
                     <label for="sonde">Sonda particolare?</label>
                     <textarea name="sonde" id="sonde" cols="30" rows="1"></textarea>
                </div>
+
+               
+               <!-- input strumenti -->
+               <div class="p-2">
+                    <label class="form-label" for="strumenti"><b>Strumenti</b></label>
+                    <select class="form-select" id="selectStrumenti" name="strumento">
+
+                         <option disabled selected>Seleziona </option>
+                         <?php 
+                         foreach($data["strumenti"] as $strumento){
+                    ?>
+                         <option value="<?php echo $strumento->strumento;?>"><?php echo $strumento->strumento;?> </option>
+                         <?php 
+                         }
+                    ?>
+                    </select><br>
+                    <label for="strumenti">Strumento particolare?</label>
+                    <textarea name="strumenti" id="strumenti" cols="30" rows="1"></textarea>
+               </div>
  
 
                <div class="p-2">
@@ -184,6 +203,13 @@ document.getElementById("selectReticoli").addEventListener("change", (e) => {
      textarea.value += spazio + nomeReticolo;
 });
 
+
+document.getElementById("selectStrumenti").addEventListener("change", (e) => {
+     let nomeStrumento = e.target.value;
+     let textarea = document.getElementById("strumenti");
+     let spazio = textarea.value == "" ? " " : ", ";
+     textarea.value += spazio + nomeStrumento;
+});
 document.getElementById("aggiungiArea").addEventListener("change", (e) => {
 
      let aggiungi = document.getElementById("container-aggiungi");

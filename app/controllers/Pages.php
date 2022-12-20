@@ -14,6 +14,7 @@ class Pages extends Controller {
         $this->areeModel = $this->model('Area');
         $this->sondeModel = $this->model('Sonda');
         $this->reticoliModel = $this->model('Reticolo');
+        $this->strumentiModel = $this->model('Strumento');
 
     }
 
@@ -40,7 +41,8 @@ class Pages extends Controller {
             'title'=>'Gestione dati',
             'tipiAnomalie'=>$this->tipiAnomalieModel->getAllTipiAnomalie(),
             'sonde'=>$this->sondeModel->getAllSonde(),
-            'reticoli'=>$this->reticoliModel->getAllReticoli()
+            'reticoli'=>$this->reticoliModel->getAllReticoli(),
+            'strumenti'=>$this->strumentiModel->getAllStrumenti()
         ];
         
         $this->view('/gestore', $data);

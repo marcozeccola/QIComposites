@@ -31,11 +31,7 @@
                     <input type="text" id="profondita" name="profondita" class="form-control" value="<?php echo $data["anomalia"]->profondita; ?>" />
                </div> 
 
-                
-               <div class="form-outline p-2">
-                    <label class="form-label" for="stato"><b>Stato anomalia</b></label>
-                    <input type="text" id="stato" name="stato" class="form-control"  value="<?php echo $data["anomalia"]->stato; ?>" />
-               </div>   
+                    
               <label class="form-label" for="aggiungiTipo"><b>Aggiungi ora tipo anomalia</b></label>
                <div class="form-check form-switch"> 
                     <input class="form-check-input" type="checkbox" value="yes" role="switch" name="aggiungiTipo" id="aggiungiTipo" style="margin-left:50%!important;">

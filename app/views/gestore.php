@@ -12,6 +12,7 @@
          <p>Caratteristiche generali dei progetti</p>
          </header>
          <div class="text-center">
+
                <h4 id="tipi">Tipi di Anomalie</h4>
                <p><a class="btn btn-primary" href="<?php echo URLROOT ?>/anomalie/aggiungiTipoAnomalia?idProgetto=23">AGGIUNGI</a></p>
                <table class="table"> 
@@ -32,7 +33,9 @@
                      ?>
                      </tbody>
                </table>
+
                <br>
+
                <h4 id="sonde">Sonde</h4>
                <p><a class="btn btn-primary" href="<?php echo URLROOT ?>/sonde/aggiungiSonda?idProgetto=23">AGGIUNGI</a></p>
                <table class="table"> 
@@ -53,7 +56,9 @@
                      ?>
                      </tbody>
                </table>
+
                <br>
+
                <h4 id="reticoli">Reticoli</h4>
                <p><a class="btn btn-primary" href="<?php echo URLROOT ?>/reticoli/aggiungiReticolo?idProgetto=23">AGGIUNGI</a></p>
                <table class="table"> 
@@ -74,7 +79,32 @@
                      ?>
                      </tbody>
                </table>
+
+               <br> 
+               
+               <h4 id="strumenti">Strumenti</h4>
+               <p><a class="btn btn-primary" href="<?php echo URLROOT ?>/strumenti/aggiungiStrumento">AGGIUNGI</a></p>
+               <table class="table"> 
+                  <tbody>
+                     <?php
+                        foreach($data["strumenti"] as $strumento){
+                     ?>
+                        <tr>
+                           <td> 
+                              <?php echo $strumento->strumento;?>        
+                           </td>
+                           <td> 
+                              <a href="<?php echo URLROOT ?>/strumenti/eliminaStrumento?id=<?php echo $strumento->idStrumento;?>">elimina</a>      
+                           </td>
+                        </tr>
+                     <?php
+                        }
+                     ?>
+                     </tbody>
+               </table>
+
                <br>
+
                </div>
             </div>
          </div>

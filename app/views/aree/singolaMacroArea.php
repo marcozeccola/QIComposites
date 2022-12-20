@@ -9,7 +9,8 @@
 <section id="pricing" class="pricing section-bg text-center">
    <div class="container">
       <header class="section-header">
-         <h3>SottoAree</h3>
+         <h3><?php echo $data["area"]->area?></h3>
+         <h4>SottoAree</h4>
          <p>Lista delle sottoaree</p>
       </header>
       <a href="<?php echo URLROOT ?>/aree/aggiungiSottoArea?idArea=<?php echo $_GET["idArea"]; ?>"

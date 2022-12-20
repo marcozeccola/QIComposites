@@ -15,6 +15,7 @@ class Ispezioni extends Controller {
         $this->sottoAreeModel = $this->model('SottoArea');
         $this->sondeModel = $this->model('Sonda');
         $this->reticoliModel = $this->model('Reticolo');
+        $this->strumentiModel = $this->model('Strumento');
     }
 
      /* Mostra tutte le ispezioni di un progetto  */
@@ -43,6 +44,7 @@ class Ispezioni extends Controller {
                     'sottoAree'=> $this->sottoAreeModel->getSottoAreeByProgetto($_GET["idProgetto"]),
                     'sonde'=>$this->sondeModel->getAllSonde(),
                     'reticoli'=>$this->reticoliModel->getAllReticoli(),
+                    'strumenti'=>$this->strumentiModel->getAllStrumenti(),
                     'idProgetto'=>$_GET["idProgetto"] 
                ];
           }
@@ -57,6 +59,7 @@ class Ispezioni extends Controller {
                     'operatori'=> trim($_POST["operatori"]), 
                     'sonde'=> trim($_POST["sonde"]),  
                     'reticoli'=> trim($_POST["reticoli"]),  
+                    'strumenti'=> trim($_POST["strumenti"]),  
                     'fk_idAreaRiferimento'=> trim($_POST["macroArea"]),
                     'fk_idSottoArea'=> trim($_POST["sottoArea"]),
                     'nomeArea'=> trim($_POST["nomeArea"]),
@@ -104,12 +107,22 @@ class Ispezioni extends Controller {
 
      public function modificaIspezioneCostruzione(){
         if(isset($_GET["idIspezione"])){
+          
+               if( $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]) != false){ 
+                    $ispezione = $this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]); 
+                     
+               }elseif( $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaSottoArea($_GET["idIspezione"]) != false){
+                    $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaSottoArea($_GET["idIspezione"]);
+               }else{
+                    $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaArea($_GET["idIspezione"]);
+               }
             $data = [
-                    "ispezione"=>$this->ispezioniCostruzioneModel->getIspezioneById($_GET["idIspezione"]),
+                    "ispezione"=>$ispezione,
                     'operatori'=>$this->usersModel->getAll(), 
                     'macroAree'=> $this->areeModel->getAreeByIspezioneCostruzione($_GET["idIspezione"]),
                     'sottoAree'=> $this->sottoAreeModel->getSottoAreeByIspezioneCostruzione($_GET["idIspezione"]),
                     'sonde'=>$this->sondeModel->getAllSonde(),
+                    'strumenti'=>$this->strumentiModel->getAllStrumenti(),
                     'reticoli'=>$this->reticoliModel->getAllReticoli(), 
             ];
             
@@ -126,7 +139,8 @@ class Ispezioni extends Controller {
                     'stato'=> trim($_POST["stato"]),  
                     'operatori'=> trim($_POST["operatori"]), 
                     'sonde'=> trim($_POST["sonde"]),  
-                    'reticoli'=> trim($_POST["reticoli"]),    
+                    'reticoli'=> trim($_POST["reticoli"]),  
+                    'strumenti'=> trim($_POST["strumenti"]),    
                     'nomeArea'=> trim($_POST["nomeArea"]),
                     'idIspezione'=>trim($_POST["idIspezione"]),
                     'obiettivo'=>trim($_POST["obiettivo"]), 

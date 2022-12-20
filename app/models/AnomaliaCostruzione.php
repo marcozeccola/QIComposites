@@ -11,24 +11,21 @@ class AnomaliaCostruzione {
                             estensione,
                             profondita, 
                             presente,  
-                            commenti,
-                            stato,
+                            commenti, 
                             fk_idIspezioneCostruzione, 
                             anomalia)
                              VALUES(:localizzazione, 
                              :estensione , 
                              :profondita, 
                              1, 
-                             :commenti,
-                             :stato,
+                             :commenti, 
                              :ispezione, 
                              :tipo )');
  
         $this->db->bind(':localizzazione', $data['localizzazione']);
         $this->db->bind(':estensione', $data['estensione']);
         $this->db->bind(':profondita', $data['profondita']); 
-        $this->db->bind(':commenti', $data['commenti']);
-        $this->db->bind(':stato', $data['stato']); 
+        $this->db->bind(':commenti', $data['commenti']); 
         $this->db->bind(':ispezione', $data['ispezione']); 
         $this->db->bind(':tipo', $data['tipo']); 
  
@@ -97,8 +94,7 @@ class AnomaliaCostruzione {
                         SET localizzazione = :loc, 
                         estensione = :est, 
                         profondita = :prof,
-                        commenti = :commenti,
-                        stato = :stato,
+                        commenti = :commenti, 
                         riparazione = :riparazione
                         WHERE idAnomaliaCostruzione = :id");
 
@@ -106,8 +102,7 @@ class AnomaliaCostruzione {
         $this->db->bind(":est", $anomalia["estensione"]);
         $this->db->bind(":prof", $anomalia["profondita"]);
         $this->db->bind(":id", $anomalia["idAnomalia"]);
-        $this->db->bind(":commenti", $anomalia["commenti"]);
-        $this->db->bind(":stato", $anomalia["stato"]);
+        $this->db->bind(":commenti", $anomalia["commenti"]); 
         $this->db->bind(":riparazione", $anomalia["riparazione"]);
 
         if ($this->db->execute()) {
@@ -125,8 +120,7 @@ class AnomaliaCostruzione {
                             estensione = :est, 
                             profondita = :prof, 
                             anomalia = :tipo,
-                            commenti = :commenti,
-                            stato = :stato,
+                            commenti = :commenti, 
                             riparazione = :riparazione
                         WHERE idAnomaliaCostruzione = :id");
 
