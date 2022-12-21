@@ -33,7 +33,7 @@ class Anomalie extends Controller {
         }else{ 
             header('location: ' . URLROOT . "/progetti/index");
         }
-    }
+    }   
  
     public function singolaAnomaliaCostruzione(){
         

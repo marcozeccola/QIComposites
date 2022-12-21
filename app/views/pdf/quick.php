@@ -120,34 +120,77 @@ class quickPDF extends FPDF
         
     }
 
+    function calcolaRighe($stringa){
+          $nRighe=0;
+          $lStringa = strlen($stringa);
+          $nRighe = round($lStringa/23);
+          if($nRighe == 0){
+               $nRighe = 1;
+          }
+          return $nRighe;
+    }
+
     function TabellaAnomalie($prima, $seconda, $anomalia, $nAnomalia){
           $this->SetFont('Arial','B',14);
           $this->Cell(190, 15, $nAnomalia.".", 0, 0, 'L');
-          $this->Ln(15);
+          $this->Ln(20);
           $this->SetFont('Arial','',12); 
 
           $distanzaDaSx = 10;
           $grandezza = array(45, 145);
 
-          for($x = 0; $x < count($prima); $x++){
-               //se è il titolo dell'elemento lo mette in grassetto
-               if($x<4){ 
-                    $this->SetFont('Arial','B',12);
-               }else{ 
-                    $this->SetFont('Arial','',12);
+
+          //inizio riga
+          $this->SetXY( $distanzaDaSx ,  $this->GetY()-8 );
+          $this->SetFont('Arial','B',12);
+
+          $this->MultiCell( 45, 8,$prima[0],1,'l');
+
+
+                    
+          $this->SetXY( $distanzaDaSx + 45 ,  $this->GetY()-8*$this->calcolaRighe($prima[0]) );
+          $this->MultiCell( 50, 8,$prima[1],1,'l');
+
+          $this->SetXY( $distanzaDaSx +  95 ,  $this->GetY()-8*$this->calcolaRighe($prima[1]) );
+          $this->MultiCell( 45, 8,$prima[2],1,'l');
+
+          $this->SetXY( $distanzaDaSx +  140 ,  $this->GetY()-8*$this->calcolaRighe($prima[2])  );
+          $this->MultiCell( 50, 8,$prima[3],1,'l');
+          $this->Ln();
+
+
+          //inizio riga
+          $maxRows = 0;
+          for($x=4;$x<8;$x++){
+               $righe = $this->calcolaRighe($prima[$x]);
+               if( $righe> $maxRows ){
+                    $maxRows = $righe;
                }
-               $this->Cell(($x % 2 == 0)? 45 : 50, 8,$prima[$x],1,0,'D');
-               if($x == 3) 
-                    $this->Ln();
           }
-     
-          $this->Ln(8); 
+  
+          $this->SetXY( $distanzaDaSx ,  $this->GetY()-8 );
+          $this->SetFont('Arial','',12);
+
+          $this->MultiCell( 45, 8,$prima[4],1,'l');
+
+          
+          $this->SetXY( $distanzaDaSx + 45 ,  $this->GetY()-8*$this->calcolaRighe($prima[4])  );
+          $this->MultiCell( 50, 8,$prima[5],1,'l');
+
+          $this->SetXY( $distanzaDaSx +  95 ,  $this->GetY()-8*$this->calcolaRighe($prima[5])  ) ;
+          $this->MultiCell( 45, 8,$prima[6],1,'l');
+
+          $this->SetXY( $distanzaDaSx +  140 ,  $this->GetY()-8*$this->calcolaRighe($prima[6]));
+          $this->MultiCell( 50, 8,$prima[7],1,'l');
+ 
+               
+          $this->Ln(8*$maxRows); 
  
           for($i = 0; $i < count($seconda); $i++){
                if($seconda[$i] != 'Imgs'){
                     
                     $this->SetFont('Arial','B',12);
-                    $this->SetXY( $distanzaDaSx ,  $this->GetY()   );
+                    $this->SetXY( $distanzaDaSx ,  $this->GetY()-8   );
                     $this->Cell(190, 8,'Comments',1,0,'D');
                     
                     $this->SetFont('Arial','',12);
@@ -276,11 +319,11 @@ if($data["anomalie"]){
      $contAnomalie = 1;
      foreach($data["anomalie"] as $anomalia){
 
-          $pAnomalia = array('Type', 'LocalizationExtension',  'Depth',  '',
+          $pAnomalia = array('Type', 'Localization',  'Dimensions (mm)',  'Depth (mm)', 
+                                $anomalia->anomalia,
                                $anomalia->localizzazione,
                                $anomalia->estensione,
-                               $anomalia->profondita,
-                                $anomalia->anomalia);
+                               $anomalia->profondita,);
 
           $sAnomalia = array( $anomalia->commenti,
                                'Imgs');

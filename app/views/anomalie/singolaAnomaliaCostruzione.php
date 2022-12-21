@@ -6,6 +6,19 @@
 ?>
 
 <section id="pricing" class="pricing section-bg ">
+
+     <div style="margin-left: 20px!important;">
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" >
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/progetti/">Progetti</a></li>
+          <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/progetti/progetto?id=<?php echo $data["anomalia"]->idProgetto; ?>"><?php echo $data["anomalia"]->nomeProgetto; ?></a></li>
+          <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/ispezioni/index?idProgetto=<?php echo $data["anomalia"]->idProgetto; ?>">Lista Ispezioni</a></li>
+          <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/anomalie/anomalieIspezioneCostruzione?idIspezione=<?php echo $data["anomalia"]->idIspezione; ?>">Singola ispezione</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Singola anomalia</li>
+        </ol>
+      </nav>
+    </div>
+
      <div class="container" >
           <header class="section-header">
                <h3>Dettagli tecnici anomalia in costruzione</h3> 

@@ -104,6 +104,7 @@ class Aree extends Controller {
                $data = [
                     'area'=>$this->areaModel->getAreaById($_GET["idArea"]),
                     'sottoAree'=>$this->sottoAreaModel->getSottoAreeByArea($_GET["idArea"]),
+                    'progetto'=>$this->projectModel->getProgettoById($this->areaModel->getIdProgettoByIdArea($_GET["idArea"])->fk_idProgetto)
                ];
                $this->view('aree/singolaMacroArea', $data);
           }else{

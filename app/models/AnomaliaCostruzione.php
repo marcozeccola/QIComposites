@@ -54,7 +54,10 @@ class AnomaliaCostruzione {
     }
 
     public function getAnomaliaById($id){
-        $this->db->query('SELECT anomalie_costruzione.*,  progetti.idProgetto AS idProgetto
+        $this->db->query('SELECT anomalie_costruzione.*, 
+                                 progetti.idProgetto AS idProgetto, 
+                                 progetti.nome AS nomeProgetto, 
+                                 ispezioni_costruzione.idIspezioneCostruzione  AS idIspezione
                             FROM anomalie_costruzione
                             INNER JOIN ispezioni_costruzione ON idIspezioneCostruzione = fk_idIspezioneCostruzione
                             INNER JOIN progetti ON progetti.idProgetto = ispezioni_costruzione.fk_idProgetto

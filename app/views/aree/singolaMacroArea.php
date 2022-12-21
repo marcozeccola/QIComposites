@@ -7,9 +7,20 @@
 
 
 <section id="pricing" class="pricing section-bg text-center">
+   <div style="margin-left: 20px!important;">
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" >
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/progetti/">Progetti</a></li>
+            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/progetti/progetto?id=<?php echo $data["progetto"]->idProgetto; ?>"><?php echo $data["progetto"]->nome; ?></a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo $data["area"]->area?></li>
+        </ol>
+      </nav>
+    </div>
+
    <div class="container">
       <header class="section-header">
          <h3><?php echo $data["area"]->area?></h3>
+         
          <h4>SottoAree</h4>
          <p>Lista delle sottoaree</p>
       </header>
