@@ -118,6 +118,34 @@ class Progetti extends Controller {
 
 
     }
+
+    public function modificaProgetto(){
+           if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+               $data =[
+                    'nome'=>$_POST["nome"],
+                    'inizio'=>$_POST["inizio"],
+                    'progettista'=>$_POST["progettista"],
+                    'id'=>$_POST["idProgetto"]
+               ];
+               $this->projectModel->modifica($data); 
+             
+               header('location: ' . URLROOT . "/progetti/progetto?id=".$data["id"]);
+              
+          }else{  
+
+               if(isset($_GET["idProgetto"])){ 
+                    $data =[
+                         'progetto'=>$this->projectModel->getProgettoById($_GET["idProgetto"]),
+                    ];
+                    
+                    $this->view('progetti/modificaProgetto', $data);
+               }else{
+                    header('location: ' . URLROOT. "/progetti");
+               }
+               
+          }
+     }
     
     public function modificaCopertina(){
         

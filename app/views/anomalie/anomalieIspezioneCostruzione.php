@@ -6,22 +6,26 @@
 
 <section id="pricing" class="pricing section-bg ">
 
-    <div style="margin-left: 20px!important;">
-      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" >
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/progetti/">Progetti</a></li>
-          <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/progetti/progetto?id=<?php echo $data["ispezione"]->fk_idProgetto; ?>"><?php echo $data["ispezione"]->nomeProgetto; ?></a></li>
-          <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/ispezioni/index?idProgetto=<?php echo $data["ispezione"]->fk_idProgetto; ?>">Lista Ispezioni</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Singola ispezione</li>
-        </ol>
-      </nav>
-    </div>
+     <div style="margin-left: 20px!important;">
+          <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/progetti/">Progetti</a></li>
+                    <li class="breadcrumb-item"><a
+                              href="<?php echo URLROOT; ?>/progetti/progetto?id=<?php echo $data["ispezione"]->fk_idProgetto; ?>"><?php echo $data["ispezione"]->nomeProgetto; ?></a>
+                    </li>
+                    <li class="breadcrumb-item"><a
+                              href="<?php echo URLROOT; ?>/ispezioni/index?idProgetto=<?php echo $data["ispezione"]->fk_idProgetto; ?>">Lista
+                              Ispezioni</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Singola ispezione</li>
+               </ol>
+          </nav>
+     </div>
 
      <div class="container text-left" style="width: 95%; margin: auto">
           <header class="section-header">
                <h3>Dettagli tecnici ispezione in costruzione</h3>
           </header>
-          <br> 
+          <br>
 
           <table class="table">
                <tbody>
@@ -100,7 +104,7 @@
                </tbody>
           </table>
 
-         
+
 
           <?php
               $dir = PUBLICROOT . "/ispezioni/costruzione/".$data["ispezione"]->idIspezioneCostruzione;
@@ -113,22 +117,27 @@
 
               if(!empty($files) && !is_null($files)){
           ?>
+
           <div class="col-xs-12 col-lg-4 card-anomalia">
                <div class="card-carousel">
                     <div id="carouselCostruzione<?php echo $ispezione->idIspezioneCostruzione; ?>"
                          class="carousel slide" data-bs-ride="carousel">
                          <div class="carousel-inner">
                               <?php 
-                foreach($files as $file){
-          ?>
-                              <div class="carousel-item active">
+                                   $cont =0;
+                                   foreach($files as $file){
+                              ?>
+                              
+                              <div class="carousel-item <?php echo $cont == 0? "active":""; ?>">
                                    <img src="<?php echo URLROOT ;?>/public/ispezioni/costruzione/<?php echo $ispezione->idIspezioneCostruzione; ;?>/<?php echo $file;?>"
                                         class="d-block w-100">
                               </div>
+
                               <?php 
-                }
-                ?>
-                      </div>
+                                   $cont++;
+                                   }
+                              ?>
+                         </div>
                          <button class="carousel-control-prev" type="button"
                               data-bs-target="#carouselCostruzione<?php echo $ispezione->idIspezioneCostruzione; ?>"
                               data-bs-slide="prev">
@@ -144,15 +153,19 @@
                          <br>
                     </div>
                </div>
-            <?php
-              } 
-            ?>
-                         
           </div>
+               
+          <?php
+              } 
+          ?>
+ 
           <div class="text-center" style="width: 50%; margin: auto">
                <a class="btn btn-primary"
-                    href="<?php echo URLROOT; ?>/ispezioni/modificaIspezioneCostruzione?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>">Modifica</a>
-          </div><br><br>
+                    href="<?php echo URLROOT; ?>/ispezioni/modificaIspezioneCostruzione?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>">
+                    Modifica
+               </a>
+          </div>
+          <br><br>
           <header class="section-header">
                <h3>Anomalie</h3>
                <p>
@@ -214,16 +227,15 @@
      <?php 
           }
      ?>
-          <!-- Link al report quick -->
-          <?php 
+     <!-- Link al report quick -->
+     <?php 
                if($data["ispezione"]->riassunto==""){
                     $link = URLROOT."/ispezioni/modificaIspezioneCostruzione?idIspezione=". $data["ispezione"]->idIspezioneCostruzione."#riassunto";
                }else{
                     $link = URLROOT."/pdf/quick?idIspezione=".$data["ispezione"]->idIspezioneCostruzione;
                }
           ?>
-          <a href="<?php echo $link ; ?> "
-               class="btn btn-primary" style="margin-left:100px!important">QUICK REPORT</a>
+     <a href="<?php echo $link ; ?> " class="btn btn-primary" style="margin-left:100px!important">QUICK REPORT</a>
 
 
 </section>

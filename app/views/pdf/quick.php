@@ -193,13 +193,25 @@ class quickPDF extends FPDF
           for($i = 0; $i < count($seconda); $i++){
                if($seconda[$i] != 'Imgs'){
                     
-                    $this->SetFont('Arial','B',12);
-                    $this->SetXY( $distanzaDaSx ,  $this->GetY()-8   );
-                    $this->Cell(190, 8,'Comments',1,0,'D');
-                    
-                    $this->SetFont('Arial','',12);
-                    $this->SetXY(  $distanzaDaSx,  $this->GetY() + 8);
-                    $this->MultiCell(190, 8, $seconda[$i], 1, 'l');
+                    if($seconda[$i]=='Reparation'){ 
+                         $this->SetFont('Arial','B',12);
+                         $this->SetXY( $distanzaDaSx ,  $this->GetY()-8   );
+                         $this->Cell(190, 8,'Reparation comments',1,0,'D');
+                         
+                         $this->SetFont('Arial','',12);
+                         $this->SetXY(  $distanzaDaSx,  $this->GetY() + 8);
+                         $this->MultiCell(190, 8, $seconda[$i], 1, 'l');
+                         $i++;
+                    }else{ 
+                         $this->SetFont('Arial','B',12);
+                         $this->SetXY( $distanzaDaSx ,  $this->GetY()    );
+                         $this->Cell(190, 8,'Comments',1,0,'D');
+                         
+                         $this->SetFont('Arial','',12);
+                         $this->SetXY(  $distanzaDaSx,  $this->GetY() + 8);
+                         $this->MultiCell(190, 8, $seconda[$i], 1, 'l');
+                         $i++;
+                    }
                }else{ 
  
                     $this->Ln();
@@ -330,7 +342,7 @@ if($data["anomalie"]){
                                $anomalia->estensione,
                                $anomalia->profondita,);
 
-          $sAnomalia = array( $anomalia->commenti,
+          $sAnomalia = array('Comments', $anomalia->commenti,
                                'Imgs');
           if( isset($anomalia->riparazione) && $anomalia->riparazione != "no" && $anomalia->riparazione != ""  ){
                array_unshift($sAnomalia, "Reparation", $anomalia->riparazione);

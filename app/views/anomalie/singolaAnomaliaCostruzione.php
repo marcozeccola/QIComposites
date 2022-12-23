@@ -84,13 +84,15 @@
                          data-bs-ride="carousel">
                          <div class="carousel-inner">
                               <?php 
+                                   $cont =0;
                                    foreach($files as $file){
                               ?>
-                              <div class="carousel-item active">
+                              <div class="carousel-item <?php echo $cont == 0? "active":""; ?>">
                                    <img src="<?php echo URLROOT ;?>/public/anomalie/costruzione/<?php echo $anomalia->idAnomaliaCostruzione; ;?>/<?php echo $file;?>"
                                         class="d-block w-100">
                               </div>
                               <?php 
+                                   $cont++;
                                    }
                               ?>
                          </div>

@@ -33,6 +33,10 @@
                               <li><strong>Inizio</strong>: <?php echo $data["progetto"]->inizio; ?></li>
                               <li><strong>Nome del progettista</strong>: <?php echo $data["progetto"]->progettista; ?></li>
                          </ul>
+                         <a class="btn btn-primary" 
+                         style="width: 70%; margin: auto" 
+                         href="<?php echo URLROOT;?>/progetti/modificaProgetto?idProgetto=<?php echo $_GET["id"];?>">Modifica dati progetto</a>
+
                     </div>
                     <div class="portfolio-description text-center">
                          <h3>Scarica</h3>

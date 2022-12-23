@@ -20,6 +20,27 @@ class Progetto {
         }
     }
 
+    public function modifica($data){
+        $this->db->query("UPDATE progetti 
+                        SET nome = :nome,
+                            inizio = :inizio,
+                            progettista = :progettista
+                        WHERE idProgetto = :id;");
+
+        $this->db->bind(':nome', $data['nome']);
+        $this->db->bind(':inizio', $data['inizio']);
+        $this->db->bind(':progettista', $data['progettista']); 
+        $this->db->bind(':id', $data['id']); 
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    } 
+
+
     public function getAllProgetti(){
           $this->db->query('SELECT * FROM progetti;');
    
