@@ -46,8 +46,8 @@
                                    $daCercare = $dirDisegni.$fileDisegno;
                                    if(file_exists($daCercare)){
                               ?>
-                                   <a href="<?php echo $linkDisegno; ?>"
-                                   download class="btn btn-primary">DISEGNI</a>
+                                   <a href="<?php echo URLROOT;?>/progetti/disegni?idProgetto=<?php echo $_GET["id"];?>"
+                                    class="btn btn-primary">DISEGNI</a>
                               <?php     
                                    }else{
                               ?>    
@@ -66,8 +66,8 @@
  
                                    if(file_exists($daCercare)){
                               ?>
-                                   <a href="<?php echo $linkProcedure; ?>"
-                                    download class="btn btn-primary">NDT PROCEDURES</a>
+                                   <a href="<?php echo URLROOT;?>/progetti/ndt?idProgetto=<?php echo $_GET["id"];?>"
+                                    class="btn btn-primary">NDT PROCEDURES</a>
                               <?php     
                                    }else{
                               ?>    
@@ -77,7 +77,9 @@
                                    }
                               ?>
                               
-                              
+                              <br> <br>
+                              <a href="<?php echo URLROOT;?>/progetti/modificaCopertina?idProgetto=<?php echo $_GET["id"];?>"
+                                   class="btn btn-primary">MODIFICA COPERTINA PROGETTO</a>
                          </p>
                     </div>
                     <div class="portfolio-description text-center">

@@ -58,13 +58,14 @@ class Ispezioni extends Controller {
                     'stato'=> trim($_POST["stato"]),  
                     'operatori'=> trim($_POST["operatori"]), 
                     'sonde'=> trim($_POST["sonde"]),  
+                    'riassunto'=> trim($_POST["riassunto"]),  
                     'reticoli'=> trim($_POST["reticoli"]),  
                     'strumenti'=> trim($_POST["strumenti"]),  
                     'fk_idAreaRiferimento'=> trim($_POST["macroArea"]),
                     'fk_idSottoArea'=> trim($_POST["sottoArea"]),
                     'nomeArea'=> trim($_POST["nomeArea"]),
                     'obiettivo'=> trim($_POST["obiettivo"]),
-                    'revisionato'=> trim($_POST["revisionato"]) == "true" ? 1 : 0,
+                    'revisionato'=> trim($_POST["revisionato"]),
                     'progetto'=> trim($_GET["idProgetto"]), 
  
 
@@ -138,12 +139,14 @@ class Ispezioni extends Controller {
                     'cliente'=> trim($_POST["cliente"]), 
                     'stato'=> trim($_POST["stato"]),  
                     'operatori'=> trim($_POST["operatori"]), 
+                    'riassunto'=> trim($_POST["riassunto"]),  
                     'sonde'=> trim($_POST["sonde"]),  
                     'reticoli'=> trim($_POST["reticoli"]),  
                     'strumenti'=> trim($_POST["strumenti"]),    
                     'nomeArea'=> trim($_POST["nomeArea"]),
                     'idIspezione'=>trim($_POST["idIspezione"]),
                     'obiettivo'=>trim($_POST["obiettivo"]), 
+                    'revisionato'=>trim($_POST["revisionato"]), 
  
                     'sottoAreaInput'=> trim($_POST["sottoAreaInput"]),
                ];
@@ -163,12 +166,12 @@ class Ispezioni extends Controller {
 
                /* Se non viene inserita il revisionato  rimane quello precedente nel database */
                if(isset($_POST["revisionato"])){
-                    $data["revisionato"]== "true" ? 1 : 0;
+                    
+                    $data["revisionato"]== $_POST["revisionato"];
                }else{
                     $data["revisionato"]=$this->ispezioniCostruzioneModel->getIspezioneById($data["idIspezione"])->revisionato;
                }
-
-               
+ 
                /* Se viene cambiata sottoarea si ricontrolla la macroarea di riferimetno e si imposta quella associata alla sottoarea */
                if(isset($_POST["sottoArea"])){
                     $data["fk_idAreaRiferimento"]=$this->areeModel->getAreaBySottoArea(trim($_POST["sottoArea"]))->idAreaRiferimento;
@@ -197,7 +200,7 @@ class Ispezioni extends Controller {
                }
                     
 
-               header('location: ' . URLROOT . "/anomalie/anomalieIspezioneCostruzione?idIspezione=". $_POST["idIspezione"]);
+                header('location: ' . URLROOT . "/anomalie/anomalieIspezioneCostruzione?idIspezione=". $_POST["idIspezione"]);
         }
 
     }

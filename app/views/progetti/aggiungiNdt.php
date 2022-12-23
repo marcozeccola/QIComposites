@@ -12,7 +12,7 @@
          <!-- Procedure input -->
          <div class="form-outline mb-4">
             <label class="form-label" for="sonda"><b>NDT Procedure</b></label>
-            <input type="file" id="procedure" name="ndt" class="form-control"  accept="application/pdf"  required/>
+            <input type="file" id="procedure" name="ndt" class="form-control"   required/>
          </div>
 
          <!-- Submit button -->

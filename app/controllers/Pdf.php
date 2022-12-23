@@ -29,6 +29,7 @@ class Pdf extends Controller {
                }else{
                     $ispezione = $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaArea($_GET["idIspezione"]);
                }
+               
                $primoOperatore=explode(",", $ispezione->operatori)[0];
               
                $data = [

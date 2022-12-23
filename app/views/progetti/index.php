@@ -10,7 +10,7 @@
         <header class="section-header text-center">
           <h3 class="section-title">Progetti</h3>
          <a href="<?php echo URLROOT;?>/progetti/nuovoProgetto">Aggiungi progetto</a>
-         <p><a class="btn btn-primary" style="margin-top: 5%" href="<?php echo URLROOT;?>/pages/gestore">Caratteristiche Progetti</a></p>
+         <p><a class="btn btn-primary" style="margin-top: 5%" href="<?php echo URLROOT;?>/pages/gestore">Data Base impostazioni</a></p>
          </header> 
             <div class="text-center" style="width: 100%; margin: auto">
             <?php  

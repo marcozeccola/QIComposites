@@ -21,6 +21,7 @@ class IspezioneCostruzione {
                             strumenti,
                             reticoli, 
                             obiettivo,
+                            riassunto,
                             revisionato )
                         VALUES(
                             :data,  
@@ -37,6 +38,7 @@ class IspezioneCostruzione {
                             :strumenti,
                             :reticoli, 
                             :obiettivo,
+                            :riassunto,
                             :revisionato )
                 ');
  
@@ -54,6 +56,7 @@ class IspezioneCostruzione {
         $this->db->bind(':obiettivo', $data['obiettivo']); 
         $this->db->bind(':strumenti', $data['strumenti']); 
         $this->db->bind(':revisionato', $data['revisionato']); 
+        $this->db->bind(':riassunto', $data['riassunto']); 
         $this->db->bind(':stato', $data['stato']); 
  
         if ($this->db->execute()) {
@@ -143,6 +146,7 @@ class IspezioneCostruzione {
                             stato = :stato,
                             obiettivo = :obiettivo,
                             revisionato = :revisionato,
+                            riassunto = :riassunto,
                             strumenti = :strumenti
                         WHERE idIspezioneCostruzione = :id");
 
@@ -159,6 +163,7 @@ class IspezioneCostruzione {
         $this->db->bind(":nomeArea", $ispezione["nomeArea"]);
         $this->db->bind(":stato", $ispezione["stato"]);
         $this->db->bind(":revisionato", $ispezione["revisionato"]);
+        $this->db->bind(":riassunto", $ispezione["riassunto"]);
         $this->db->bind(":strumenti", $ispezione["strumenti"]);
         $this->db->bind(":id", $ispezione["idIspezione"]);
 

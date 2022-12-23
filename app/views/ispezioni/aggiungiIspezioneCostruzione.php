@@ -46,9 +46,10 @@
                <div class="p-2">
                     <label class="form-label" for="stato" style="font-weight: bold">Revisionato</label>
                     <select class="form-select" id="revisionato" name="revisionato">
-                          
-                         <option value="true">Sì</option>
-                         <option value="false">No</option>
+                           
+                         <option value="No">No</option>
+                         <option value="Stefano Beltrando">Stefano Beltrando</option>
+                         <option value="Miriam Cerutti">Miriam Cerutti</option>
                          
                     </select>
                </div>
@@ -172,7 +173,7 @@
                <div class="p-2">
                     <label class="form-label" for="immagini"><b>Aggiungi immagini</b></label>
                     <input type="file" id="immagini" name="immagini[]" class="form-control" accept="image/*"
-                         multiple="multiple" />
+                         multiple="multiple" multiple/>
                </div>
      </div>
      <button type="submit" class="btn btn-primary btn-block" style="width: 50%; margin: auto">

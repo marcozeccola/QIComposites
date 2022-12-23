@@ -90,10 +90,14 @@ class quickPDF extends FPDF
                //se è nella prima colonna lo mette in grassetto
                if($x%2 == 0){ 
                     $this->SetFont('Arial','B',12);
+                    $this->Cell(($x % 2 == 0)? $grandezza[0] : $grandezza[1], 8, $dati[$x], 1, 0, 'D');
                }else{ 
-                    $this->SetFont('Arial','',12);
+                    $this->SetFont('Arial','',12); 
+                    $this->MultiCell(  $grandezza[1], 8, $dati[$x],1,'l');
                }
-                $this->Cell(($x % 2 == 0)? $grandezza[0] : $grandezza[1], 10, $dati[$x], 1, 0, 'D');
+               
+                
+
             }else{ 
 
 
@@ -115,7 +119,7 @@ class quickPDF extends FPDF
                }
             }
 
-            if($x % 2 == 1) $this->Ln();
+            if($x % 2 == 1) $this->Ln(0);
         } 
         
     }
@@ -220,7 +224,7 @@ class quickPDF extends FPDF
 
     function tabellaImmagini ($immagini){ 
         for($x = 0; $x < count($immagini); $x++){ 
-            $this->Image($immagini[$x],50, null,  100);
+            $this->Image($immagini[$x],50, null, null  , 60);
             $this->Ln(1);
         }
     }  
@@ -299,6 +303,7 @@ $DatiIspezione = array('date of analysis', $data["ispezione"]->data,
                 'Status',  $data["ispezione"]->stato,
                 'Revisioned',  $data["ispezione"]->obiettivo == 1 ?"Yes" : "No",
                 'Instrument used',  $data["ispezione"]->sonde." - ". $data["ispezione"]->reticoli." - ". $data["ispezione"]->strumenti,
+                'In brief', $data["ispezione"]->riassunto,
                 'Imgs');
 
 $lorem = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, mollitia non porro aspernatur dignissimos suscipit ullam nulla alias, quisquam at quis esse quod? Deleniti, quia quasi minus eligendi esse tempora?';

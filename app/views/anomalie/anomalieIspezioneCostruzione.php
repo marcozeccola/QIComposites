@@ -67,7 +67,7 @@
                     </tr>
                     <tr>
                          <th scope="row">Revisionato</th>
-                         <td><?php echo $data["ispezione"]->revisionato == 1 ? "Sì": "No"; ?></td>
+                         <td><?php echo $data["ispezione"]->revisionato; ?></td>
                     </tr>
                     <tr>
                          <th scope="row">Macroarea di Riferimento</th>
@@ -93,17 +93,14 @@
                          <th scope="row">Nome area</th>
                          <td><?php echo $data["ispezione"]->nomeArea; ?></td>
                     </tr>
+                    <tr>
+                         <th scope="row">In breve</th>
+                         <td><?php echo $data["ispezione"]->riassunto; ?></td>
+                    </tr>
                </tbody>
           </table>
 
-          <!-- Link al report veloce -->
-          <a href="<?php echo URLROOT; ?>/pdf/quick?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>"
-               class="btn btn-primary">QUICK REPORT</a>
-
-
-          <!-- Link al report completo -->
-          <a href="<?php echo URLROOT; ?>/pdf/report?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>"
-               class="btn btn-primary">REPORT</a>
+         
 
           <?php
               $dir = PUBLICROOT . "/ispezioni/costruzione/".$data["ispezione"]->idIspezioneCostruzione;
@@ -217,6 +214,17 @@
      <?php 
           }
      ?>
+          <!-- Link al report quick -->
+          <?php 
+               if($data["ispezione"]->riassunto==""){
+                    $link = URLROOT."/ispezioni/modificaIspezioneCostruzione?idIspezione=". $data["ispezione"]->idIspezioneCostruzione."#riassunto";
+               }else{
+                    $link = URLROOT."/pdf/quick?idIspezione=".$data["ispezione"]->idIspezioneCostruzione;
+               }
+          ?>
+          <a href="<?php echo $link ; ?> "
+               class="btn btn-primary" style="margin-left:100px!important">QUICK REPORT</a>
+
 
 </section>
 <?php

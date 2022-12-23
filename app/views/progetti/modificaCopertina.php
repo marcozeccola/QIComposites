@@ -6,13 +6,13 @@
 ?> 
 <div class="d-flex justify-content-center">
    <div class="row text-center nuovoProgetto ">
-      <h3>Inserisci <b>nuovo Disegno</b></h3>
-      <form action="<?php echo URLROOT ?>/progetti/aggiungiDisegno?idProgetto=<?php echo $_GET["idProgetto"]; ?>" method="POST" enctype="multipart/form-data"> 
+      <h3>Inserisci <b>nuova</b> copertina del progetto</h3>
+      <form action="<?php echo URLROOT ?>/progetti/modificaCopertina?idProgetto=<?php echo $_GET["idProgetto"]; ?>" method="POST" enctype="multipart/form-data"> 
 
-         <!-- disegno input -->
+         <!-- Copertina input -->
          <div class="form-outline mb-4">
-            <label class="form-label" for="sonda"><b>Disegno</b></label>
-            <input type="file" id="disegno" name="disegni" class="form-control"   required/>
+            <label class="form-label" for="copertina"><b>Copertina</b></label>
+            <input type="file" id="copertina" name="copertina" class="form-control"  accept="image/*"  required/>
          </div>
 
          <!-- Submit button -->

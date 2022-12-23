@@ -49,9 +49,10 @@
                     <select class="form-select" id="revisionato" name="revisionato">
                           
                          <option disabled selected>Seleziona</option>
-                         <option value="true">Sì</option>
-                         <option value="false">No</option>
-                         
+                         <option value="No">No</option>
+                         <option value="Stefano Beltrando">Stefano Beltrando</option>
+                         <option value="Miriam Cerutti">Miriam Cerutti</option>
+                          
                     </select>
                </div>
 
@@ -184,6 +185,11 @@
                     <label class="form-label" for="immagini"><b>Aggiungi immagini</b></label>
                     <input type="file" id="immagini" name="immagini[]" class="form-control" accept="image/*"
                          multiple="multiple" />
+               </div> 
+               
+               <div class="form-outline p-2">
+                    <label class="form-label" for="riassunto"><b>In breve</b></label>
+                    <textarea name="riassunto" id="riassunto" class="form-control" v ><?php echo $data["ispezione"]->riassunto;  ?></textarea>
                </div>
      </div>
      <button type="submit" class="btn btn-primary" style="width: 50%; margin: auto">

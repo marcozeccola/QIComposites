@@ -118,7 +118,79 @@ class Progetti extends Controller {
 
 
     }
+    
+    public function modificaCopertina(){
+        
+        $data = [
+            'title' => 'Form copertina',
+            'progetti'=>$this->projectModel->getAllProgetti(),  
+        ]; 
+          
+        
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            
+            // Sanitize POST data
+            $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+            $id = $_GET["idProgetto"]; 
+
+            if(file_exists($_FILES['copertina']['tmp_name']) || is_uploaded_file($_FILES['copertina']['tmp_name'])) {
+
+                $dirCopertina =  str_replace( ' ', '',PUBLICROOT. "/progetti-docs/copertine/ ". $id . "/ ");
+                 
+                $files = array_diff(scandir($dirCopertina), array('.', '..')); 
+
+                foreach ($files as $file) { 
+                    unlink("$dirCopertina/$file"); 
+                }
+
+                rmdir($dirCopertina); 
+
+                mkdir(  $dirCopertina, 0777, true);
+                $caricamentoProcedure = move_uploaded_file($_FILES["copertina"]["tmp_name"], $dirCopertina.$_FILES["copertina"]["name"] );   
+            }else{
+                    $caricamentoProcedure = true;
+            }
+            
+            if( $caricamentoProcedure ){ 
+                //Redirect alla pagina del progetto
+                 header('location: ' . URLROOT . "/progetti/progetto?id=".$id);
+            }
+            
+        }else{ 
+            $this->view('progetti/modificaCopertina', $data);
+        }
+    }
+
+    public function disegni(){ 
+        if(isset($_GET["idProgetto"])){
+            $data = [
+                'title' => 'Form Disegni',
+                'progetto'=>$this->projectModel->getProgettoById($_GET["idProgetto"]),  
+            ]; 
+
+            
+            $this->view('progetti/disegni', $data);
+
+        }else{
+            header('location: ' . URLROOT . "/progetti");
+        }
+    }
+
+    public function ndt(){ 
+        if(isset($_GET["idProgetto"])){
+            $data = [
+                'title' => 'Form Disegni',
+                'progetto'=>$this->projectModel->getProgettoById($_GET["idProgetto"]),  
+            ]; 
+
+            
+            $this->view('progetti/ndt', $data);
+
+        }else{
+            header('location: ' . URLROOT . "/progetti");
+        }
+    }
     public function aggiungiNdt(){
         
         $data = [
@@ -186,6 +258,7 @@ class Progetti extends Controller {
             $this->view('progetti/aggiungiDisegno', $data);
         }
     }
+    
     //pagina singolo progetto
     public function progetto(){
         if( isset($_GET["id"])){
