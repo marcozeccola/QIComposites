@@ -204,5 +204,48 @@ class Ispezioni extends Controller {
         }
 
     }
+    public function aggiungiImmagineIspezioneCostruzione(){
+        
+        $data = [
+            'title' => 'Form Aggiungi anomalia'
+        ]; 
+          
+        
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+
+          if ( $_FILES["immagini"]["tmp_name"]!="" ){
+                    $files = array_filter($_FILES['immagini']['name']);                         
+                    $total_count = count($_FILES['immagini']['name']);
+
+                    $cartella = str_replace(' ', '',  PUBLICROOT. "/ispezioni/costruzione/ ".$_POST["idIspezione"]."/ ");
+               
+                    if(!is_dir($cartella)){
+                         mkdir( $cartella, 0777, true);
+                    }
+
+                    for( $i=0 ; $i < $total_count ; $i++ ) {  
+                         $tmpFilePath = $_FILES['immagini']['tmp_name'][$i];
+                         $newFilePath = $cartella. $_FILES['immagini']['name'][$i]; 
+                         move_uploaded_file($tmpFilePath, $newFilePath);
+                    } 
+          }
+
+         header('location: ' . URLROOT . "/anomalie/anomalieIspezioneCostruzione?idIspezione=". $_POST["idIspezione"]);
+
+            
+        }else if(isset($_GET["idIspezione"])){
+            $data = [
+                "ispezione"=> $this->ispezioniCostruzioneModel->getIspezioneByIdSenzaArea($_GET["idIspezione"]),
+                'tipiAnomalie'=>$this->tipiAnomalieModel->getAllTipiAnomalie()
+            ];
+            
+            $this->view('ispezioni/aggiungiImmagineIspezioneCostruzione', $data);
+             
+        } else{ 
+            header('location: ' . URLROOT . "/progetti/");
+        }
+
+        
+    }
  
 }

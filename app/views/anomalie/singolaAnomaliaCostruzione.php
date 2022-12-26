@@ -116,7 +116,9 @@
           </div>
      </div>
 </section>
-<div class="text-center">
+<div class="text-center"> 
+     <a class="btn btn-primary" style="width: 40%; margin: auto"href="<?php echo URLROOT; ?>/anomalie/aggiungiImmagineAnomaliaCostruzione?idAnomalia=<?php echo $data["anomalia"]->idAnomaliaCostruzione; ?>">Aggiungi immagine</a>
+ <br> <br>
      <a class="btn btn-primary" style="width: 40%; margin: auto"href="<?php echo URLROOT; ?>/anomalie/modificaAnomaliaCostruzione?idAnomalia=<?php echo $data["anomalia"]->idAnomaliaCostruzione; ?>">modifica</a>
 </div>
 

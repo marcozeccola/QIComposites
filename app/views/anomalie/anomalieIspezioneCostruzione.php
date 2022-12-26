@@ -161,6 +161,10 @@
  
           <div class="text-center" style="width: 50%; margin: auto">
                <a class="btn btn-primary"
+                    href="<?php echo URLROOT; ?>/ispezioni/aggiungiImmagineIspezioneCostruzione?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>">
+                    Aggiungi immagine
+               </a> <br> <br>
+               <a class="btn btn-primary"
                     href="<?php echo URLROOT; ?>/ispezioni/modificaIspezioneCostruzione?idIspezione=<?php echo $data["ispezione"]->idIspezioneCostruzione; ?>">
                     Modifica
                </a>
